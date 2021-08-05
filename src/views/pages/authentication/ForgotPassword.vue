@@ -4,7 +4,7 @@
       <!-- Brand logo-->
       <b-link class="brand-logo d-none d-lg-flex">
         <img :src="logo" />
-        <h2 class="brand-text text-primary ml-1">INTRA</h2>
+        <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
       </b-link>
       <!-- /Brand logo-->
 
@@ -31,7 +31,7 @@
             "
           >
             <img :src="logo" />
-            <h2 class="brand-text text-primary ml-1">INTRA</h2>
+            <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
           </div>
 
           <!-- form -->
@@ -221,7 +221,7 @@ export default {
       password: "",
       passwordConfirmed: "",
       sideImg: require("@/assets/images/pages/login-v2.svg"),
-      logo: require("@/assets/images/logo/C4LL_logo.png"),
+      logo: require("@/assets/images/home/LogoMobile.png"),
       loading: false,
       required,
       email,

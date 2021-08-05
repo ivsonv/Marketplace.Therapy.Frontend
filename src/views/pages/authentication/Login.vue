@@ -5,7 +5,7 @@
       <!-- Brand logo-->
       <b-link class="brand-logo d-none d-lg-flex">
         <img :src="logo" />
-        <h2 class="brand-text text-primary ml-1">INTRA</h2>
+        <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
       </b-link>
       <!-- /Brand logo-->
 
@@ -31,8 +31,8 @@
               flex-direction: column;
             "
           >
-            <img :src="logo" />
-            <h2 class="brand-text text-primary ml-1">INTRA</h2>
+            <img :src="logo" class="mb-2" />
+            <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
           </div>
 
           <!-- form -->
@@ -97,15 +97,18 @@
               </b-form-group>
 
               <!-- submit buttons -->
-              <b-button
-                type="submit"
-                variant="primary"
-                block
-                :disabled="invalid"
-              >
-                <b-spinner type="grow" v-if="loading" />
-                {{ loading ? "" : "ACESSAR" }}
-              </b-button>
+              <div class="d-flex justify-content-center">
+                <b-button
+                  type="submit"
+                  variant="primary"
+                  block
+                  :disabled="invalid"
+                  v-if="!loading"
+                >
+                  ACESSAR
+                </b-button>
+                <spinner--c v-else />
+              </div>
             </b-form>
           </validation-observer>
         </b-col>
@@ -166,7 +169,7 @@ export default {
       password: "",
       userEmail: "",
       sideImg: require("@/assets/images/pages/login-v2.svg"),
-      logo: require("@/assets/images/logo/C4LL_logo.png"),
+      logo: require("@/assets/images/home/LogoMobile.png"),
       loading: false,
       required,
       email,
@@ -358,10 +361,6 @@ export default {
                     }
                   }
                 });
-                if (!_route) {
-                  _route = "pedagogic-calendar";
-                }
-
                 this.$router.push({ name: _route });
               }
             })
