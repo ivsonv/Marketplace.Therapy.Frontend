@@ -2,16 +2,19 @@ import HttpService from './HttpService'
 
 const _http = new HttpService()
 export default {
-  login: (payload) => {
-    return _http.post('/api/auth', payload)
+  loginAdmin: (payload) => {
+    return _http.post('/api/auth/admin', payload)
   },
-  userResetPassword: (payload) => {
-    return _http.post('/api/auth/reset', payload)
-  },
-  updatePassword: (payload) => {
-    return _http.put('/api/auth/update-password', payload)
-  },
-  validateToken: (payload) => {
-    return _http.post('/api/auth/valid-token', payload)
-  },
+  // login: (payload) => {
+  //   return _http.post('/api/auth', payload)
+  // },
+  // userResetPassword: (payload) => {
+  //   return _http.post('/api/auth/reset', payload)
+  // },
+  // updatePassword: (payload) => {
+  //   return _http.put('/api/auth/update-password', payload)
+  // },
+  // validateToken: (payload) => {
+  //   return _http.post('/api/auth/valid-token', payload)
+  // },
 }

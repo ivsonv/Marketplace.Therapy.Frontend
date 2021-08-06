@@ -6,25 +6,19 @@ export default [{
       title: 'Grupo de acessos',
       route: 'registrations-group-list',
       icon: 'ShieldIcon',
-      roles: ['permission.permissiongroup.view']
+      roles: ['group.permission.view']
     },
     {
       title: 'Usuários',
       route: 'registrations-users-list',
       icon: 'UsersIcon',
-      roles: ['permission.user.view']
+      roles: ['user.view']
     },
     {
-      title: 'Empresas',
-      route: 'registrations-companies-list',
-      icon: 'HomeIcon',
-      roles: ['permission.company.view']
-    },
-    {
-      title: 'Notificações',
-      route: 'registrations-notifications-list',
-      icon: 'MailIcon',
-      roles: ['permission.notification.view']
+      title: 'Temas',
+      route: 'registrations-topics-list',
+      icon: 'GitBranchIcon',
+      roles: ['topic.view']
     }
   ]
 }]

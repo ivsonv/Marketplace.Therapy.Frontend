@@ -1,6 +1,6 @@
 <template>
-  <viewcard--c title="Grupo de acesso" :btnew="btnew">
-    <!-- <b-row class="mb-1 d-flex justify-content-end">
+  <viewcard--c title="Listagem de Temas" :btnew="btnew">
+    <b-row class="mb-1 d-flex justify-content-end">
       <b-col md="5">
         <b-input-group>
           <b-form-input
@@ -15,8 +15,8 @@
           </b-input-group-append>
         </b-input-group>
       </b-col>
-    </b-row> -->
-    <view--c permission="group.permission.view" :busy="isloading">
+    </b-row>
+    <view--c permission="topic.view" :busy="isloading">
       <b-table
         :busy="isloading"
         :fields="fields"
@@ -28,22 +28,16 @@
         <template #cell(actions)="data">
           <div class="text-nowrap">
             <feather-icon
-              :id="`details-studiogroup-row-${data.item.id}`"
-              icon="TrelloIcon"
+              icon="EditIcon"
               size="22"
               class="mx-1"
               @click="onClickSelected(data.item)"
-            />
-            <b-tooltip
-              v-if="data.index > 0"
-              title="Detalhes"
-              :target="`details-studiogroup-row-${data.item.id}`"
             />
           </div>
         </template>
       </b-table>
       <div class="d-flex justify-content-center">
-        <b-button @click="getLoadMore" variant="warning" v-if="more" pill>
+        <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
           Carregar mais
         </b-button>
       </div>
@@ -52,20 +46,19 @@
 </template>
 
 <script>
-import _groupService from "@/services/group-permissions";
+import _topicService from "@/services/topics-service";
 export default {
   data() {
     return {
       btnew: {
-        permission: "group.permission.create",
-        to: "/registrations/group-permission/0",
+        permission: "topic.create",
+        to: "/registrations/topic/0",
       },
       isloading: false,
       currentePage: 1,
       search: null,
       more: false,
-      size: 12,
-      rows: 20,
+      size: 20,
       fields: [
         { key: "name", label: "Nome" },
         { key: "actions", label: "Ações" },
@@ -79,7 +72,7 @@ export default {
   methods: {
     getRecords(_page) {
       this.isloading = true;
-      _groupService
+      _topicService
         .show(_page, this.search)
         .then((res) => {
           if (res.content) {
@@ -101,12 +94,7 @@ export default {
     },
     onClickSelected(record, _) {
       this.$router.push({
-        path: `/registrations/group-permission/${record.id}`,
-      });
-    },
-    onClickUsers(record) {
-      this.$router.push({
-        path: `/registrations/group-permission/${record.id}/users`,
+        path: `/registrations/topic/${record.id}`,
       });
     },
   },

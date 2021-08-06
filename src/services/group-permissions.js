@@ -7,24 +7,24 @@ export default {
     if (search) {
       _parans += `&search=${search}`;
     }
-    return _http.get(`/api/permission-group${_parans}`)
+    return _http.get(`/api/group-permission${_parans}`)
   },
   showAll: () => {
-    return _http.get(`/api/permission-group/all`)
+    return _http.get(`/api/group-permission?size=9999`)
   },
   showPermissions: () => {
-    return _http.get(`/api/permission-group/permissions`)
+    return _http.get(`/api/group-permission/permissions`)
   },
   find: (id) => {
-    return _http.get(`/api/permission-group/${id}`)
+    return _http.get(`/api/group-permission/${id}`)
   },
   create: (payload) => {
-    return _http.post('/api/permission-group', payload)
+    return _http.post('/api/group-permission', payload)
   },
   update: (payload) => {
-    return _http.put('/api/permission-group', payload)
+    return _http.put('/api/group-permission', payload)
   },
   delete: (id) => {
-    return _http.delete(`/api/permission-group/${id}`)
+    return _http.delete(`/api/group-permission/${id}`)
   }
 }

@@ -59,13 +59,13 @@
 
             <!-- draggable -->
             <draggable
-              :list="record.permissions"
+              :list="record.permissionsAttached"
               tag="ul"
               group="people"
               class="list-group list-group-flush cursor-move"
             >
               <b-list-group-item
-                v-for="(listItem, index) in record.permissions"
+                v-for="(listItem, index) in record.permissionsAttached"
                 :key="index"
                 tag="li"
                 class="my-25"
@@ -81,7 +81,10 @@
             </draggable>
             <p
               class="text-center pt-1"
-              v-if="!record.permissions || record.permissions.length <= 0"
+              v-if="
+                !record.permissionsAttached ||
+                record.permissionsAttached.length <= 0
+              "
             >
               Nenhuma Permissão no grupo
             </p>
@@ -152,9 +155,9 @@ export default {
   },
   data() {
     return {
-      btedit: { permission: `permission.permissiongroup.edit` },
-      btcreate: { permission: `permission.permissiongroup.create` },
-      btdelete: { permission: `permission.permissiongroup.delete` },
+      btedit: { permission: `group.permission.edit` },
+      btcreate: { permission: `group.permission.create` },
+      btdelete: { permission: `group.permission.delete` },
       loading: false,
       permissions: [],
       permissionsAux: [],
@@ -163,7 +166,7 @@ export default {
       record: {
         id: 0,
         name: "",
-        permissions: [],
+        permissionsAttached: [],
         permissionsAux: [],
       },
     };
@@ -190,18 +193,21 @@ export default {
           .find(this.$route.params.id)
           .then((res) => {
             this.record = res.content;
-            this.record.permissions = this.record.permissions.map((m) => {
-              return {
-                label: this.dsPermission(m.name),
-                value: m.name,
-              };
-            });
+            this.record.permissionsAttached =
+              this.record.permissionsAttached.map((m) => {
+                return {
+                  label: this.dsPermission(m.name),
+                  value: m.name,
+                };
+              });
 
             // limpar outras
             let permissionAUX = [];
             this.permissions.forEach((_ele) => {
               if (
-                !this.record.permissions.some((s) => s.value === _ele.value)
+                !this.record.permissionsAttached.some(
+                  (s) => s.value === _ele.value
+                )
               ) {
                 permissionAUX.push(_ele);
               }
@@ -210,7 +216,9 @@ export default {
 
             // não usar o mesmo endereço de memoria
             this.permissionsAux = this.permissions.map((m) => m);
-            this.record.permissionsAux = this.record.permissions.map((m) => m);
+            this.record.permissionsAux = this.record.permissionsAttached.map(
+              (m) => m
+            );
           })
           .catch((error) => this.$utils.toastError("Notificação", error))
           .finally(() => (this.loading = false));
@@ -241,11 +249,13 @@ export default {
         return;
       }
 
-      this.record.permissions = this.record.permissions.map((m) => {
-        return {
-          name: m.value,
-        };
-      });
+      this.record.permissionsAttached = this.record.permissionsAttached.map(
+        (m) => {
+          return {
+            name: m.value,
+          };
+        }
+      );
 
       const payload = { data: { ...this.record } };
       const _createOrUpdate =

@@ -33,7 +33,8 @@
                 <b-img :src="appLogoImage" alt="logo" />
               </span>
               <span class="brand-logo" v-else>
-                {{ appName }}
+                <b-img :src="appLogoImage" alt="logo" />
+                <!-- {{ appName }} -->
               </span>
             </b-link>
           </li>

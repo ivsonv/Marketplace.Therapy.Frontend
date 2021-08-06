@@ -104,8 +104,6 @@ export default {
     },
   },
   beforeCreate() {
-    debugger;
-
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       navMenuItems.forEach((menu) => {
@@ -117,13 +115,6 @@ export default {
               menu.active = userData.roles.some((s) => s === roleMenu);
             }
           });
-        }
-        if (menu.active) {
-          if (menu.hangfire) {
-            menu.href = `${
-              process.env.VUE_APP_API_HANGFIRE
-            }/hangfire?access_token=${localStorage.getItem("accessToken")}`;
-          }
         }
       });
     }

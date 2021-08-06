@@ -12,6 +12,14 @@ export default {
     getRoles() {
         return JSON.parse(localStorage.getItem("userData")).roles;
     },
+    populardrp(_list, _texto, _valor) {
+        return _list.map((m) => {
+            return {
+                label: m[_texto],
+                value: m[_valor],
+            };
+        })
+    },
     populardropdown(_list, _texto, _valor, btodos, bnenhum) {
         const retorno = [];
         if (btodos) {

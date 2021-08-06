@@ -1,8 +1,8 @@
 <template>
   <p class="clearfix mb-0">
     <span class="float-md-left d-block d-md-inline-block mt-25">
-      C4ALL © {{ new Date().getFullYear() }}
-      <span class="d-none d-sm-inline-block"> Criado por AtentoTI</span>
+      C.T © {{ new Date().getFullYear() }}
+      <span class="d-none d-sm-inline-block"> Criado por Clique Terapia</span>
     </span>
   </p>
 </template>

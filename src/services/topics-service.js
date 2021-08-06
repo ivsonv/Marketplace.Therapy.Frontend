@@ -1,4 +1,5 @@
 import HttpService from './HttpService'
+
 const _http = new HttpService()
 export default {
   show: (page, search = null) => {
@@ -6,18 +7,18 @@ export default {
     if (search) {
       _parans += `&search=${search}`;
     }
-    return _http.get(`/api/pabx/agents${_parans}`)
+    return _http.get(`/api/topics${_parans}`)
   },
   find: (id) => {
-    return _http.get(`/api/pabx/agents/${id}`)
+    return _http.get(`/api/topics/${id}`)
   },
   create: (payload) => {
-    return _http.post('/api/pabx/agents', payload)
+    return _http.post('/api/topics', payload)
   },
   update: (payload) => {
-    return _http.put('/api/pabx/agents', payload)
+    return _http.put('/api/topics', payload)
   },
   delete: (id) => {
-    return _http.delete(`/api/pabx/agents/${id}`)
+    return _http.delete(`/api/topics/${id}`)
   }
 }

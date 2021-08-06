@@ -300,14 +300,6 @@ export default {
             }
           });
         }
-
-        if (menu.active) {
-          if (menu.hangfire) {
-            menu.href = `${
-              process.env.VUE_APP_API_HANGFIRE
-            }/hangfire?access_token=${localStorage.getItem("accessToken")}`;
-          }
-        }
       });
       return _rrotas;
     },
@@ -315,12 +307,14 @@ export default {
       this.$refs.loginForm.validate().then((success) => {
         if (success) {
           const payload = {
-            email: this.userEmail,
+            login: this.userEmail,
             password: this.password,
           };
+
+          // enviar
           this.loading = true;
           _authService
-            .login(payload)
+            .loginAdmin(payload)
             .then((res) => {
               this.loading = false;
               useJwt.setToken(res.content.accessToken);
@@ -329,6 +323,7 @@ export default {
 
               // menus do usuário
               res.content.data.navMenus = _navMenus;
+              debugger;
 
               // dados usuario
               localStorage.setItem(
@@ -364,10 +359,10 @@ export default {
                 this.$router.push({ name: _route });
               }
             })
-            .catch((error) => {
-              this.loading = false;
-              this.$refs.loginForm.setErrors({ password: error });
-            });
+            .catch((error) =>
+              this.$refs.loginForm.setErrors({ password: error })
+            )
+            .finally(() => (this.loading = false));
         }
       });
     },

@@ -1,6 +1,6 @@
 <template>
   <viewcard--c title="Usuários" :btnew="btnew">
-    <b-row class="mb-1 d-flex justify-content-end">
+    <!-- <b-row class="mb-1 d-flex justify-content-end">
       <b-col md="5">
         <b-input-group>
           <b-form-input
@@ -15,8 +15,8 @@
           </b-input-group-append>
         </b-input-group>
       </b-col>
-    </b-row>
-    <view--c permission="permission.user.view" :busy="isloading">
+    </b-row> -->
+    <view--c permission="user.view" :busy="isloading">
       <b-table
         :items="!isloading ? list[currentePage].itens : []"
         @row-clicked="onClickSelected"
@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       btnew: {
-        permission: "permission.user.create",
+        permission: "user.create",
         to: "/registrations/user/0",
       },
       isloading: false,
