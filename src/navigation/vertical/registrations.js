@@ -19,6 +19,12 @@ export default [{
       route: 'registrations-topics-list',
       icon: 'GitBranchIcon',
       roles: ['topic.view']
+    },
+    {
+      title: 'Psicólogos',
+      route: 'registrations-providers-list',
+      icon: 'UserCheckIcon',
+      roles: ['topic.view']
     }
   ]
 }]

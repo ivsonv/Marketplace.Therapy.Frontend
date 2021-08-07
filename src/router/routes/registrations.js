@@ -28,4 +28,14 @@ export default [
     path: '/registrations/topic/:id',
     name: 'registrations-topic-salvar',
     component: () => import('@/views/apps/registrations/topics/topic.vue'),
+  },
+  {
+    path: '/registrations/providers',
+    name: 'registrations-providers-list',
+    component: () => import('@/views/apps/registrations/providers/index.vue'),
+  },
+  {
+    path: '/registrations/provider/:id',
+    name: 'registrations-providers-salvar',
+    component: () => import('@/views/apps/registrations/providers/provider.vue'),
   }]
