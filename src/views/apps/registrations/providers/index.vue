@@ -36,7 +36,23 @@
         striped
         hover
       >
+        <template #cell(fantasy_name)="data">
+          {{ `${data.item.fantasy_name} ${data.item.company_name}` }}
+        </template>
         <template #cell(cnpj)="data">
+          <div class="text-nowrap">
+            <b-form-input
+              v-model="data.item.cnpj"
+              v-mask="$utils.masked.cnpj"
+              class="d-none"
+            />
+            <b-form-input
+              v-model="data.item.cpf"
+              v-mask="$utils.masked.cpf"
+              class="d-none"
+            />
+          </div>
+
           <div class="text-nowrap">
             {{
               data.item.cnpj
@@ -106,9 +122,13 @@ export default {
   },
   methods: {
     getRecords(_page) {
+      const _search = `${this.search}|${
+        this.situationSelected ? this.situationSelected.value : "-1"
+      }`;
+
       this.isloading = true;
       _providerService
-        .show(_page, this.search)
+        .show(_page, _search)
         .then((res) => {
           if (res.content) {
             this.more = res.content.provider.length >= this.size;

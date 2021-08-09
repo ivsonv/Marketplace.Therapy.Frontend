@@ -3,7 +3,7 @@ import HttpService from './HttpService'
 const _http = new HttpService()
 export default {
   show: (page, search = null) => {
-    let _parans = `?page=${page - 1}&asc`;
+    let _parans = `?page=${page - 1}`;
     if (search) {
       _parans += `&search=${search}`;
     }

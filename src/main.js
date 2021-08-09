@@ -96,6 +96,9 @@ Vue.component('button--c', button);
 import spinner from "@/components/spinner.vue";
 Vue.component('spinner--c', spinner);
 
+import select from "@/components/select.vue";
+Vue.component('select--c', select);
+
 // * Shall remove it if not using font-icons of feather-icons - For form-wizard
 require('@core/assets/fonts/feather/iconfont.css') // For form-wizard
 
