@@ -1,6 +1,6 @@
 <template>
   <viewcard--c
-    :title="$route.params.id > 0 ? 'Atualizar Usuário' : 'Cadastrar Usuário'"
+    :title="$route.params.id > 0 ? 'Atualizar Banco' : 'Cadastrar Banco'"
     :btsave="$route.params.id > 0 ? btedit : btcreate"
     :btdelete="$route.params.id > 0 ? btdelete : null"
     :btback="{}"
@@ -10,11 +10,20 @@
   >
     <hr class="p-0 m-0 mb-1" />
     <b-row>
-      <b-col md="4">
+      <b-col md="6">
         <b-form-group label="Nome *">
           <b-form-input
             v-model="record.name"
-            placeholder="Nome do Usuário"
+            placeholder="Nome do banco"
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label="Codigo do Banco *">
+          <b-form-input
+            v-model="record.code"
+            placeholder="Codigo do banco"
             autocomplete="off"
           />
         </b-form-group>
@@ -39,19 +48,18 @@
   </viewcard--c>
 </template>
 <script>
-import _topicService from "@/services/topics-service";
+import _bankService from "@/services/bank-service";
 export default {
   data() {
     return {
-      btedit: { permission: `topic.edit` },
-      btcreate: { permission: `topic.create` },
-      btdelete: { permission: `topic.delete` },
+      btedit: { permission: `bank.edit` },
+      btcreate: { permission: `bank.create` },
+      btdelete: { permission: `bank.delete` },
       loading: false,
-      groups: [],
-      groupsSelected: [],
       record: {
         id: 0,
         name: "",
+        code: "",
         active: true,
       },
     };
@@ -63,7 +71,7 @@ export default {
     getRecord() {
       if (this.$route.params.id > 0) {
         this.loading = true;
-        _topicService
+        _bankService
           .find(this.$route.params.id)
           .then((res) => {
             this.record = res.content;
@@ -78,13 +86,13 @@ export default {
       //promisse
       const _createOrUpdate =
         this.record.id <= 0
-          ? _topicService.create(payload)
-          : _topicService.update(payload);
+          ? _bankService.create(payload)
+          : _bankService.update(payload);
 
       this.loading = true;
       _createOrUpdate
         .then(() => {
-          this.$utils.toast("Notificação", "Tema salvo com sucesso.");
+          this.$utils.toast("Notificação", "Salvo com sucesso.");
           this.$router.go(-1);
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
@@ -92,7 +100,7 @@ export default {
     },
     onDelete() {
       this.loading = true;
-      _topicService
+      _bankService
         .delete(this.record.id)
         .then(() => {
           this.$utils.toast("Notificação", "Excluido com sucesso.");

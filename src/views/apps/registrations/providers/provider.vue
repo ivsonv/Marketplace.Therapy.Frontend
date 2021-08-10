@@ -6,7 +6,7 @@
     :btback="{}"
     :busy="loading"
     @clicked-save="save"
-    @clicked-delete="confirmDelete"
+    @clicked-delete="onDelete"
   >
     <hr class="p-0 m-0 mb-1" />
     <b-row>
@@ -222,6 +222,74 @@
         </b-form-group>
       </b-col>
     </b-row>
+
+    <h1 class="py-1">Dados Bancários</h1>
+    <hr class="p-0 m-0 mb-1" />
+    <b-row v-for="(item, index) in record.bankAccounts" :key="index">
+      <b-col md="6">
+        <b-form-group label="Banco">
+          <v-select
+            v-model="item.optionsUfSelected"
+            :options="optionsUf"
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="6">
+        <b-form-group label="Tipo de Conta">
+          <v-select
+            v-model="item.optionsUfSelected"
+            :options="optionsUf"
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label="Agencia *">
+          <b-form-input
+            v-model="item.city"
+            placeholder="cidade..."
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="2">
+        <b-form-group label="Dig.Agencia *">
+          <b-form-input
+            v-model="item.neighborhood"
+            placeholder="bairro..."
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label="N° da Conta">
+          <b-form-input
+            v-model="item.address"
+            placeholder="número da conta..."
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="2">
+        <b-form-group label="Dig. Conta *">
+          <b-form-input
+            v-model="item.complement"
+            placeholder="Digito da conta..."
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="6">
+        <b-form-group label="Operação">
+          <b-form-input
+            v-model="item.number"
+            placeholder="Número..."
+            autocomplete="off"
+          />
+        </b-form-group>
+      </b-col>
+    </b-row>
   </viewcard--c>
 </template>
 <script>
@@ -336,25 +404,6 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
-    confirmDelete() {
-      this.$swal({
-        title: "Tem certeza?",
-        text: "Isso não pode ser revertido!",
-        icon: "error",
-        showCancelButton: true,
-        confirmButtonText: "Sim, quero excluir!",
-        cancelButtonText: "Cancelar",
-        customClass: {
-          confirmButton: "btn btn-info",
-          cancelButton: "btn btn-outline-danger ml-1",
-        },
-        buttonsStyling: false,
-      }).then((result) => {
-        if (result.value) {
-          this.excluir();
-        }
-      });
-    },
     getAddress(zipcode, item) {
       this.loading = true;
       _locationsService
@@ -378,7 +427,7 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
-    excluir() {
+    onDelete() {
       this.loading = true;
       _providerService
         .delete(this.record.id)

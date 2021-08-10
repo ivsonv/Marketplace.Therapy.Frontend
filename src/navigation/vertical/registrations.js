@@ -15,15 +15,21 @@ export default [{
       roles: ['user.view']
     },
     {
-      title: 'Temas',
-      route: 'registrations-topics-list',
-      icon: 'GitBranchIcon',
-      roles: ['topic.view']
-    },
-    {
       title: 'Psicólogos',
       route: 'registrations-providers-list',
       icon: 'UserCheckIcon',
+      roles: ['provider.view']
+    },
+    {
+      title: 'Bancos',
+      route: 'registrations-banks-list',
+      icon: 'BoxIcon',
+      roles: ['bank.view']
+    },
+    {
+      title: 'Temas',
+      route: 'registrations-topics-list',
+      icon: 'GitBranchIcon',
       roles: ['topic.view']
     }
   ]

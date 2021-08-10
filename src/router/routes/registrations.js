@@ -38,4 +38,14 @@ export default [
     path: '/registrations/provider/:id',
     name: 'registrations-providers-salvar',
     component: () => import('@/views/apps/registrations/providers/provider.vue'),
+  },
+  {
+    path: '/registrations/banks',
+    name: 'registrations-banks-list',
+    component: () => import('@/views/apps/registrations/banks/index.vue'),
+  },
+  {
+    path: '/registrations/bank/:id',
+    name: 'registrations-banks-salvar',
+    component: () => import('@/views/apps/registrations/banks/bank.vue'),
   }]

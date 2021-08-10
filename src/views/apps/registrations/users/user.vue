@@ -6,7 +6,7 @@
     :btback="{}"
     :busy="loading"
     @clicked-save="validationForm"
-    @clicked-delete="confirmDelete"
+    @clicked-delete="onDelete"
   >
     <hr class="p-0 m-0 mb-1" />
     <validation-observer ref="userRules">
@@ -180,26 +180,7 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
-    confirmDelete() {
-      this.$swal({
-        title: "Tem certeza?",
-        text: "Isso não pode ser revertido!",
-        icon: "error",
-        showCancelButton: true,
-        confirmButtonText: "Sim, quero excluir!",
-        cancelButtonText: "Cancelar",
-        customClass: {
-          confirmButton: "btn btn-info",
-          cancelButton: "btn btn-outline-danger ml-1",
-        },
-        buttonsStyling: false,
-      }).then((result) => {
-        if (result.value) {
-          this.excluir();
-        }
-      });
-    },
-    excluir() {
+    onDelete() {
       this.loading = true;
       _usersService
         .delete(this.record.id)

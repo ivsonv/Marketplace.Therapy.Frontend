@@ -114,7 +114,23 @@ export default {
       this.$emit("clicked-save");
     },
     onclickdelete() {
-      this.$emit("clicked-delete");
+      this.$swal({
+        title: "Tem certeza?",
+        text: "Isso não pode ser revertido!",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "Sim, quero excluir!",
+        cancelButtonText: "Cancelar",
+        customClass: {
+          confirmButton: "btn btn-info",
+          cancelButton: "btn btn-outline-danger ml-1",
+        },
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.value) {
+          this.$emit("clicked-delete");
+        }
+      });
     },
     onclickGo() {
       this.$emit("clicked-go");
