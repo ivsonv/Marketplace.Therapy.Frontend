@@ -138,7 +138,7 @@
 
     <h1 class="py-1">Endereço</h1>
     <hr class="p-0 m-0 mb-1" />
-    <b-row v-for="(item, index) in record.address" :key="index">
+    <b-row v-for="(item, index) in record.address" :key="`address-${index}`">
       <b-col md="3">
         <b-form-group label="CEP *">
           <!-- -->
@@ -225,21 +225,35 @@
 
     <h1 class="py-1">Dados Bancários</h1>
     <hr class="p-0 m-0 mb-1" />
-    <b-row v-for="(item, index) in record.bankAccounts" :key="index">
+    <b-row v-for="(bcc, index) in record.bankAccounts" :key="`acc-${index}`">
       <b-col md="6">
         <b-form-group label="Banco">
           <v-select
-            v-model="item.optionsUfSelected"
-            :options="optionsUf"
-            autocomplete="off"
-          />
+            v-model="optionsBankSelected"
+            :loading="isLoadingBank"
+            :options="bcc.options"
+            searchable
+            @search="
+              (_rs) => {
+                fetchBanks(bcc, _rs);
+              }
+            "
+          >
+            <template v-slot:no-options="{ search, searching }">
+              <template v-if="searching">
+                Pesquisando ... <em>{{ search }}</em
+                >.
+              </template>
+              <em style="opacity: 0.5" v-else>nome do banco...</em>
+            </template>
+          </v-select>
         </b-form-group>
       </b-col>
       <b-col md="6">
         <b-form-group label="Tipo de Conta">
           <v-select
-            v-model="item.optionsUfSelected"
-            :options="optionsUf"
+            v-model="optionsTypeAccountSelected"
+            :options="optionsAccountTypes"
             autocomplete="off"
           />
         </b-form-group>
@@ -247,43 +261,52 @@
       <b-col md="4">
         <b-form-group label="Agencia *">
           <b-form-input
-            v-model="item.city"
-            placeholder="cidade..."
+            v-model="bcc.agency_number"
+            placeholder="agencia..."
             autocomplete="off"
+            type="number"
           />
         </b-form-group>
       </b-col>
       <b-col md="2">
         <b-form-group label="Dig.Agencia *">
           <b-form-input
-            v-model="item.neighborhood"
-            placeholder="bairro..."
+            v-model="bcc.agency_digit"
+            placeholder="digito agencia..."
             autocomplete="off"
+            maxlength="2"
           />
         </b-form-group>
       </b-col>
       <b-col md="4">
         <b-form-group label="N° da Conta">
           <b-form-input
-            v-model="item.address"
+            v-model="bcc.account_number"
             placeholder="número da conta..."
             autocomplete="off"
+            type="number"
           />
         </b-form-group>
       </b-col>
       <b-col md="2">
         <b-form-group label="Dig. Conta *">
           <b-form-input
-            v-model="item.complement"
+            v-model="bcc.account_digit"
             placeholder="Digito da conta..."
             autocomplete="off"
+            maxlength="2"
           />
         </b-form-group>
       </b-col>
-      <b-col md="6">
+      <b-col
+        md="6"
+        v-if="
+          bcc.optionsBankSelected && bcc.optionsBankSelected.value === '104'
+        "
+      >
         <b-form-group label="Operação">
           <b-form-input
-            v-model="item.number"
+            v-model="bcc.operation"
             placeholder="Número..."
             autocomplete="off"
           />
@@ -295,6 +318,7 @@
 <script>
 import _providerService from "@/services/providers-service";
 import _locationsService from "@/services/locations-service";
+import _bankService from "@/services/bank-service";
 
 export default {
   data() {
@@ -303,10 +327,15 @@ export default {
       btcreate: { permission: `provider.create` },
       btdelete: { permission: `provider.delete` },
       loading: false,
+      isLoadingBank: false,
       optionsUf: [],
       optionsUfSelected: null,
       optionsSituarion: [],
       optionsSituarionUfSelected: null,
+      optionsBanks: [],
+      optionsBankSelected: null,
+      optionsAccountTypes: [],
+      optionsTypeAccountSelected: null,
       record: {
         id: 0,
         nickname: "",
@@ -339,6 +368,7 @@ export default {
   created() {
     this.optionsUf = this.$utils.getStates();
     this.getSituations();
+    this.getAccountTypes();
   },
   mounted() {
     this.getRecord();
@@ -349,6 +379,14 @@ export default {
         .showSituations()
         .then((res) => {
           this.optionsSituarion = res;
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error));
+    },
+    getAccountTypes() {
+      _bankService
+        .showAccountTypes()
+        .then((res) => {
+          this.optionsAccountTypes = res;
         })
         .catch((error) => this.$utils.toastError("Notificação", error));
     },
@@ -381,15 +419,58 @@ export default {
                 )[0];
               });
             }
+
+            // dados da conta.
+            if (
+              !this.record.bankAccounts ||
+              this.record.bankAccounts.length <= 0
+            ) {
+              this.record.bankAccounts = [];
+              this.record.bankAccounts.push({
+                fetching: false,
+                options: [],
+                provider_id: this.record.id,
+                agency_number: "",
+                agency_digit: "",
+                account_digit: "",
+                account_number: "",
+                bank_code: "",
+                account_bank_type: 0,
+              });
+            } else {
+              this.record.bankAccounts.forEach((_bank) => {
+                // banco
+                this.optionsBankSelected = {
+                  label: `${_bank.bank_code} - ${_bank.ds_bank}`,
+                  value: _bank.bank_code,
+                };
+
+                this.optionsTypeAccountSelected =
+                  this.optionsAccountTypes.filter(
+                    (f) => f.value === _bank.account_bank_type.toString()
+                  )[0];
+              });
+            }
           })
           .catch((error) => this.$utils.toastError("Notificação", error))
           .finally(() => (this.loading = false));
       }
     },
     save() {
+      if (this.optionsSituarionUfSelected) {
+        this.record.situation = this.optionsSituarionUfSelected.value;
+      }
+
+      this.record.bankAccounts.forEach((_bank) => {
+        if (this.optionsTypeAccountSelected)
+          _bank.account_bank_type = this.optionsTypeAccountSelected.value;
+
+        if (this.optionsBankSelected)
+          _bank.bank_code = this.optionsBankSelected.value;
+      });
+
       const payload = { data: { ...this.record } };
 
-      //promisse
       const _createOrUpdate =
         this.record.id <= 0
           ? _providerService.create(payload)
@@ -398,7 +479,7 @@ export default {
       this.loading = true;
       _createOrUpdate
         .then(() => {
-          this.$utils.toast("Notificação", "Tema salvo com sucesso.");
+          this.$utils.toast("Notificação", "Salvo com sucesso.");
           this.$router.go(-1);
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
@@ -437,6 +518,26 @@ export default {
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
+    },
+    fetchBanks(item, _search) {
+      if (_search && _search.length >= 3) {
+        setTimeout(() => {
+          if (!this.isLoadingBank) {
+            this.isLoadingBank = true;
+            _bankService
+              .show(1, _search)
+              .then((res) => {
+                item.options = this.$utils.populardrp(
+                  res.content,
+                  "name_format",
+                  "code"
+                );
+              })
+              .catch((error) => this.$utils.toastError("Notificação", error))
+              .finally(() => (this.isLoadingBank = false));
+          }
+        }, 500);
+      }
     },
   },
 };

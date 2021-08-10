@@ -83,7 +83,6 @@ export default {
     save() {
       const payload = { data: { ...this.record } };
 
-      //promisse
       const _createOrUpdate =
         this.record.id <= 0
           ? _bankService.create(payload)

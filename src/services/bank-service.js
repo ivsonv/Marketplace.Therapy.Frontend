@@ -9,6 +9,9 @@ export default {
     }
     return _http.get(`/api/banks${_parans}`)
   },
+  showAccountTypes: () => {
+    return _http.get(`/api/banks/account-types`)
+  },
   find: (id) => {
     return _http.get(`/api/banks/${id}`)
   },
