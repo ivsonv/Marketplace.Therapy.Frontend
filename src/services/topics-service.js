@@ -9,6 +9,9 @@ export default {
     }
     return _http.get(`/api/topics${_parans}`)
   },
+  showAll: () => {
+    return _http.get(`/api/topics?size=999`)
+  },
   find: (id) => {
     return _http.get(`/api/topics/${id}`)
   },

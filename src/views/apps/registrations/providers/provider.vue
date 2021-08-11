@@ -313,12 +313,69 @@
         </b-form-group>
       </b-col>
     </b-row>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="py-1">Idiomas</h1>
+        <hr class="p-0 m-0 mb-1" />
+        <b-row>
+          <div
+            v-for="(lan, index) in optionsLanguages"
+            :key="`lan-${index}`"
+            class="col-4 col-md-3 mb-1"
+          >
+            <b-form-checkbox
+              class="custom-control-success"
+              v-model="lan.selected"
+              name="check-button"
+              switch
+            >
+              <span class="switch-icon-left">
+                <feather-icon icon="CheckIcon" />
+              </span>
+              <span class="switch-icon-right">
+                <feather-icon icon="XIcon" />
+              </span>
+            </b-form-checkbox>
+            <span class="pt-1">{{ lan.name }}</span>
+          </div>
+        </b-row>
+      </div>
+      <div class="col-md-6">
+        <h1 class="py-1">Temas</h1>
+        <hr class="p-0 m-0 mb-1" />
+        <b-row>
+          <div
+            class="col-4 col-md-3 mb-1"
+            v-for="(topic, index) in optionsTopics"
+            :key="`lan-${index}`"
+          >
+            <b-form-checkbox
+              class="custom-control-success"
+              v-model="topic.selected"
+              name="check-button"
+              switch
+            >
+              <span class="switch-icon-left">
+                <feather-icon icon="CheckIcon" />
+              </span>
+              <span class="switch-icon-right">
+                <feather-icon icon="XIcon" />
+              </span>
+            </b-form-checkbox>
+            <span class="pt-1">{{ topic.name }}</span>
+          </div>
+        </b-row>
+      </div>
+    </div>
   </viewcard--c>
 </template>
 <script>
 import _providerService from "@/services/providers-service";
 import _locationsService from "@/services/locations-service";
 import _bankService from "@/services/bank-service";
+import _languagesService from "@/services/languages-service";
+import _topicsService from "@/services/topics-service";
 
 export default {
   data() {
@@ -336,6 +393,8 @@ export default {
       optionsBankSelected: null,
       optionsAccountTypes: [],
       optionsTypeAccountSelected: null,
+      optionsLanguages: [],
+      optionsTopics: [],
       record: {
         id: 0,
         nickname: "",
@@ -366,14 +425,45 @@ export default {
     };
   },
   created() {
+    this.loading = true;
     this.optionsUf = this.$utils.getStates();
     this.getSituations();
     this.getAccountTypes();
-  },
-  mounted() {
-    this.getRecord();
+    this.getlanguages();
+    this.getTopics();
   },
   methods: {
+    getlanguages() {
+      _languagesService
+        .show()
+        .then((res) => {
+          this.optionsLanguages = res.content
+            .filter((f) => f.active)
+            .map((m) => {
+              return {
+                selected: false,
+                ...m,
+              };
+            });
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error));
+    },
+    async getTopics() {
+      _topicsService
+        .showAll()
+        .then((res) => {
+          this.optionsTopics = res.content
+            .filter((f) => f.active)
+            .map((m) => {
+              return {
+                selected: false,
+                ...m,
+              };
+            });
+          this.getRecord();
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error));
+    },
     getSituations() {
       _providerService
         .showSituations()
@@ -451,12 +541,56 @@ export default {
                   )[0];
               });
             }
+
+            // idiomas
+            if (this.record.languages && this.record.languages.length > 0) {
+              this.record.languages.forEach((_lan) => {
+                if (
+                  this.optionsLanguages.some((s) => s.id === _lan.language_id)
+                ) {
+                  this.optionsLanguages.filter(
+                    (f) => f.id === _lan.language_id
+                  )[0].selected = true;
+                }
+              });
+            }
+
+            // Topics
+            if (this.record.topics && this.record.topics.length > 0) {
+              this.record.topics.forEach((_topi) => {
+                if (this.optionsTopics.some((s) => s.id === _topi.topic_id)) {
+                  this.optionsTopics.filter(
+                    (f) => f.id === _topi.topic_id
+                  )[0].selected = true;
+                }
+              });
+            }
           })
           .catch((error) => this.$utils.toastError("Notificação", error))
           .finally(() => (this.loading = false));
       }
     },
     save() {
+      if (this.optionsTopics) {
+        this.record.topics = this.optionsTopics
+          .filter((f) => f.selected)
+          .map((m) => {
+            return {
+              topic_id: m.id,
+            };
+          });
+      }
+
+      if (this.optionsLanguages) {
+        this.record.languages = this.optionsLanguages
+          .filter((f) => f.selected)
+          .map((m) => {
+            return {
+              language_id: m.id,
+            };
+          });
+      }
+
       if (this.optionsSituarionUfSelected) {
         this.record.situation = this.optionsSituarionUfSelected.value;
       }
