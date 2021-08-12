@@ -33,28 +33,7 @@ export default {
     };
   },
   created() {},
-  methods: {
-    login() {
-      const loginRq = {
-        login: "",
-        pass: "",
-      };
-      // requisição AXIOS
-      // ...........
-
-      // popular dados usuario
-      //   const payload = {
-      //     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", // token gerado dynamic
-      //     name: "Leonardo Brandão",
-      //     ramal: this.userRamal || "TST",
-      //     id: "I6IkpXVCJ9",
-      //   };
-      //   this.$store.dispatch("setLogin", payload);
-
-      //   // Tela Inicial
-      //   this.$router.push({ name: "softphone-view" });
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -109,7 +88,7 @@ export default {
     width: 178px;
     button {
       position: absolute;
-      bottom: -5px;
+      bottom: -20px;
     }
   }
 }
