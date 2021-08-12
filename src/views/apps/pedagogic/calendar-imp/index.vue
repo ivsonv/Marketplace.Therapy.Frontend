@@ -356,17 +356,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
 
-import _appointmentService from "@/services/appointment-service";
-import appointment from "./appointment";
-import companies from "./companies";
-import studios from "./studios";
-
 export default {
   components: {
     FullCalendar,
-    "v-studios": studios,
-    "v-companies": companies,
-    "v-appointment": appointment,
   },
   data() {
     return {
@@ -471,7 +463,7 @@ export default {
     };
   },
   created() {
-    this.showAppointments();
+    //this.showAppointments();
   },
   computed: {
     containsFilter() {

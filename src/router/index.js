@@ -3,11 +3,9 @@ import VueRouter from 'vue-router'
 
 // Routes
 import registrations from './routes/registrations'
-import pedagogic from './routes/pedagogic'
 import authetication from './routes/authetication'
 import authUser from './routes/auth-user'
 import defaults from './routes/defaults'
-import softphone from './routes/softphone'
 import home from './routes/home'
 
 Vue.use(VueRouter)
@@ -22,10 +20,8 @@ const router = new VueRouter({
     { path: '/', redirect: { name: 'home-view' } },
     ...home,
     ...registrations,
-    ...pedagogic,
     ...authetication,
     ...defaults,
-    ...softphone,
     ...authUser,
     {
       path: '*',
