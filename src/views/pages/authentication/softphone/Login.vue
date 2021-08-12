@@ -20,7 +20,7 @@
 export default {
   data() {
     return {
-      logo: require("@/assets/images/logo/C4LL_logo.png"),
+      logo: null, //require("@/assets/images/logo/C4LL_logo.png"),
       userRamal: "",
       loading: false,
     };
