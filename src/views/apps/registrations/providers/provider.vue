@@ -368,10 +368,23 @@
         </b-row>
       </div>
     </div>
+
+    <hr class="p-0 m-0 mb-1" />
+    <div class="row">
+      <div class="col-12">
+        <button--c
+          permission="provider.merchant.create"
+          title="Criar Estabelecimento (Nexxera)"
+          variant="info"
+          @clicked="createMerchant"
+        />
+      </div>
+    </div>
   </viewcard--c>
 </template>
 <script>
 import _providerService from "@/services/providers-service";
+import _merchantService from "@/services/merchant-service";
 import _locationsService from "@/services/locations-service";
 import _bankService from "@/services/bank-service";
 import _languagesService from "@/services/languages-service";
@@ -448,7 +461,7 @@ export default {
         })
         .catch((error) => this.$utils.toastError("Notificação", error));
     },
-    async getTopics() {
+    getTopics() {
       _topicsService
         .showAll()
         .then((res) => {
@@ -615,6 +628,21 @@ export default {
         .then(() => {
           this.$utils.toast("Notificação", "Salvo com sucesso.");
           this.$router.go(-1);
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
+    },
+    createMerchant() {
+      const payload = { data: { ...this.record } };
+      this.loading = true;
+      _merchantService
+        .create(payload)
+        .then(() => {
+          this.$utils.toast(
+            "Notificação",
+            "Estabelecimento criado com  sucesso."
+          );
+          this.getRecord();
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));

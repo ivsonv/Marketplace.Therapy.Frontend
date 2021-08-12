@@ -1,6 +1,6 @@
 <template>
   <viewcard--c
-    :title="$route.params.id > 0 ? 'Atualizar Usuário' : 'Cadastrar Usuário'"
+    :title="$route.params.id > 0 ? 'Atualizar Tema' : 'Cadastrar Tema'"
     :btsave="$route.params.id > 0 ? btedit : btcreate"
     :btdelete="$route.params.id > 0 ? btdelete : null"
     :btback="{}"
