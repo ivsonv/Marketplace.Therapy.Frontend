@@ -1,7 +1,9 @@
 <template>
   <div class="main-view">
     <!-- HEADER -->
-    <header--v />
+    <div class="d-flex justify-content-center">
+      <header--v />
+    </div>
 
     <!-- BODY -->
     <section id="Inicio">
@@ -13,7 +15,13 @@
         </p>
       </div>
       <a>
-        <b-button size="lg" variant="warning" class="rounded" pill>
+        <b-button
+          @click="goSearch"
+          size="lg"
+          variant="warning"
+          class="rounded"
+          pill
+        >
           Agendar agora
         </b-button>
       </a>
@@ -33,7 +41,11 @@ export default {
     };
   },
   created() {},
-  methods: {},
+  methods: {
+    goSearch() {
+      this.$router.push({ name: "merchants-view" });
+    },
+  },
 };
 </script>
 
