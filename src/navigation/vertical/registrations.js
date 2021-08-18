@@ -27,7 +27,7 @@ export default [{
       roles: ['bank.view']
     },
     {
-      title: 'Temas',
+      title: 'Espec. / Exper.',
       route: 'registrations-topics-list',
       icon: 'GitBranchIcon',
       roles: ['topic.view']

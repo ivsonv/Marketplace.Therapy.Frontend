@@ -7,6 +7,7 @@ import authetication from './routes/authetication'
 import authUser from './routes/auth-user'
 import defaults from './routes/defaults'
 import home from './routes/home'
+import providers from './routes/providers'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,7 @@ const router = new VueRouter({
     ...authetication,
     ...defaults,
     ...authUser,
+    ...providers,
     {
       path: '*',
       redirect: 'error-404',

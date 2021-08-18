@@ -1,13 +1,5 @@
 <template>
-  <viewcard--c
-    :title="($route.params.id > 0 ? 'Atualizar' : 'Cadastrar') + ' Psicólogo'"
-    :btsave="$route.params.id > 0 ? btedit : btcreate"
-    :btdelete="$route.params.id > 0 ? btdelete : null"
-    :btback="{}"
-    :busy="loading"
-    @clicked-save="save"
-    @clicked-delete="onDelete"
-  >
+  <viewcard--c title="MINHA CONTA" :busy="loading">
     <b-tabs id="tabs-provider" content-class="mt-2" justified>
       <b-tab title="DADOS PESSOAIS">
         <b-row>
@@ -91,32 +83,6 @@
                 autocomplete="off"
               />
             </b-form-group>
-          </b-col>
-
-          <b-col md="3">
-            <b-form-group label="Situação">
-              <v-select
-                v-model="optionsSituarionUfSelected"
-                :options="optionsSituarion"
-                autocomplete="off"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col md="2">
-            <b-card-text class="mb-0"> Ativo </b-card-text>
-            <b-form-checkbox
-              class="custom-control-success mt-1"
-              name="check-button"
-              switch
-              v-model="record.active"
-            >
-              <span class="switch-icon-left">
-                <feather-icon icon="CheckIcon" />
-              </span>
-              <span class="switch-icon-right">
-                <feather-icon icon="XIcon" />
-              </span>
-            </b-form-checkbox>
           </b-col>
         </b-row>
 
@@ -306,8 +272,39 @@
       </b-tab>
       <b-tab title="PROFISSIONAL">
         <div class="row">
+          <b-col md="6">
+            <b-form-group label="RESUMO SOBRE VOCÊ">
+              <b-form-textarea
+                rows="7"
+                v-model="record.description"
+                placeholder="Em poucas palavras, fale sobre da sua experiência. Aqui, você pode colocar a linha que atua e como pode ajuda o seus pacientes..."
+              />
+              <small class="text-muted"
+                >*Em poucas palavras, fale sobre da sua experiência. Aqui, você
+                pode colocar a linha que atua e como pode ajuda o seus
+                pacientes.</small
+              >
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="APRESENTAÇÃO PESSOAL (BIOGRÁFIA)">
+              <b-form-textarea
+                rows="7"
+                v-model="record.biography"
+                placeholder="Nesta fase, o paciente quer saber um pouco mais sobre você além do profissional. Explique o objetivo da sua linha de atuação, perfil nas redes e sua trajetória de forma mais detalhada. Crie um momento acolhedor com as palavras..."
+              />
+              <small class="text-muted"
+                >*Nesta fase, o paciente quer saber um pouco mais sobre você
+                além do profissional. Explique o objetivo da sua linha de
+                atuação, perfil nas redes e sua trajetória de forma mais
+                detalhada. Crie um momento acolhedor com as palavras</small
+              >
+            </b-form-group>
+          </b-col>
+        </div>
+        <div class="row">
           <div class="col-md-6">
-            <h1 class="py-1">ESPECIALIDADE</h1>
+            <h3 class="py-1">ESPECIALIDADE</h3>
             <small>Até 3 Opções</small>
             <hr class="p-0 m-0 mb-1" />
             <b-row>
@@ -336,7 +333,7 @@
             </b-row>
           </div>
           <div class="col-md-6">
-            <h1 class="py-1">EXPERIÊNCIAS</h1>
+            <h3 class="py-1">EXPERIÊNCIAS</h3>
             <small>Até 8 Opções</small>
             <hr class="p-0 m-0 mb-1" />
             <b-row>
@@ -392,54 +389,20 @@
             </b-row>
           </div>
         </div>
-        <hr />
-        <div class="row">
-          <b-col md="6">
-            <b-form-group label="RESUMO SOBRE VOCÊ">
-              <b-form-textarea
-                rows="7"
-                v-model="record.description"
-                placeholder="Em poucas palavras, fale sobre da sua experiência. Aqui, você pode colocar a linha que atua e como pode ajuda o seus pacientes..."
-              />
-              <small class="text-muted"
-                >*Em poucas palavras, fale sobre da sua experiência. Aqui, você
-                pode colocar a linha que atua e como pode ajuda o seus
-                pacientes.</small
-              >
-            </b-form-group>
-          </b-col>
-          <b-col md="6">
-            <b-form-group label="APRESENTAÇÃO PESSOAL (BIOGRÁFIA)">
-              <b-form-textarea
-                rows="7"
-                v-model="record.biography"
-                placeholder="Nesta fase, o paciente quer saber um pouco mais sobre você além do profissional. Explique o objetivo da sua linha de atuação, perfil nas redes e sua trajetória de forma mais detalhada. Crie um momento acolhedor com as palavras..."
-              />
-              <small class="text-muted"
-                >*Nesta fase, o paciente quer saber um pouco mais sobre você
-                além do profissional. Explique o objetivo da sua linha de
-                atuação, perfil nas redes e sua trajetória de forma mais
-                detalhada. Crie um momento acolhedor com as palavras</small
-              >
-            </b-form-group>
-          </b-col>
-        </div>
       </b-tab>
       <b-tab title="PAGAMENTOS"> </b-tab>
     </b-tabs>
-    <hr class="p-0 m-0 mb-1" />
-    <div class="row">
-      <div class="col-12">
-        <button--c
-          permission="provider.merchant.create"
-          title="Criar Estabelecimento (Nexxera)"
-          variant="info"
-          @clicked="createMerchant"
-        />
-      </div>
-    </div>
+    <hr />
+    <b-row>
+      <b-col cols="12">
+        <b-button size="lg" @click="save" variant="gradient-info">
+          Salvar Alterações
+        </b-button>
+      </b-col>
+    </b-row>
   </viewcard--c>
 </template>
+
 <script>
 import _providerService from "@/services/providers-service";
 import _merchantService from "@/services/merchant-service";
@@ -447,19 +410,9 @@ import _locationsService from "@/services/locations-service";
 import _bankService from "@/services/bank-service";
 import _languagesService from "@/services/languages-service";
 import _topicsService from "@/services/topics-service";
-
-import { BTabs, BTab } from "bootstrap-vue";
-
 export default {
-  components: {
-    BTabs,
-    BTab,
-  },
   data() {
     return {
-      btedit: { permission: `provider.edit` },
-      btcreate: { permission: `provider.create` },
-      btdelete: { permission: `provider.delete` },
       loading: false,
       isLoadingBank: false,
       optionsUf: [],
@@ -510,6 +463,163 @@ export default {
     this.getTopics();
   },
   methods: {
+    save() {
+      if (this.optionsTopics) {
+        this.record.topics = this.optionsTopics
+          .filter((f) => f.selected)
+          .map((m) => {
+            return {
+              experience: m.experience,
+              topic_id: m.id,
+            };
+          });
+
+        // Experience 8 opções
+        if (this.record.topics) {
+          if (this.record.topics.filter((f) => !f.experience).length > 3) {
+            this.$utils.toastError(
+              "Notificação",
+              "São pemitidos 3 especilidade."
+            );
+            return;
+          }
+
+          if (this.record.topics.filter((f) => f.experience).length > 8) {
+            this.$utils.toastError(
+              "Notificação",
+              "São Pemitidos 8 experiências."
+            );
+            return;
+          }
+        }
+      }
+
+      if (this.optionsLanguages) {
+        this.record.languages = this.optionsLanguages
+          .filter((f) => f.selected)
+          .map((m) => {
+            return {
+              language_id: m.id,
+            };
+          });
+      }
+
+      // if (this.optionsSituarionUfSelected) {
+      //   this.record.situation = this.optionsSituarionUfSelected.value;
+      // }
+
+      this.record.bankAccounts.forEach((_bank) => {
+        if (this.optionsTypeAccountSelected)
+          _bank.account_bank_type = this.optionsTypeAccountSelected.value;
+
+        if (this.optionsBankSelected)
+          _bank.bank_code = this.optionsBankSelected.value;
+      });
+
+      const payload = { data: { ...this.record } };
+
+      const _createOrUpdate =
+        this.record.id <= 0
+          ? _providerService.create(payload)
+          : _providerService.update(payload);
+
+      this.loading = true;
+      _createOrUpdate
+        .then(() => {
+          this.$utils.toast("Notificação", "Salvo com sucesso.");
+          this.$router.push({ name: "account-appointments" });
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
+    },
+    getRecord() {
+      const id = 1;
+      this.loading = true;
+      _providerService
+        .find(id)
+        .then((res) => {
+          this.record = res.content.provider[0];
+
+          // situação provider
+          this.optionsSituarionUfSelected = {
+            label: this.record.ds_situation,
+            value: this.record.situation,
+          };
+
+          // caso não tenha endereço.
+          if (!this.record.address || this.record.address.length <= 0) {
+            this.address.optionsUfSelected = this.optionsUf.filter(
+              (f) => f.value === this.address.uf
+            )[0];
+
+            this.record.address = [];
+            this.record.address.push({ ...this.address });
+          } else {
+            this.record.address.forEach((_address) => {
+              _address.optionsUfSelected = this.optionsUf.filter(
+                (f) => f.value === _address.uf
+              )[0];
+            });
+          }
+
+          // dados da conta.
+          if (
+            !this.record.bankAccounts ||
+            this.record.bankAccounts.length <= 0
+          ) {
+            this.record.bankAccounts = [];
+            this.record.bankAccounts.push({
+              fetching: false,
+              options: [],
+              provider_id: this.record.id,
+              agency_number: "",
+              agency_digit: "",
+              account_digit: "",
+              account_number: "",
+              bank_code: "",
+              account_bank_type: 0,
+            });
+          } else {
+            this.record.bankAccounts.forEach((_bank) => {
+              // banco
+              this.optionsBankSelected = {
+                label: `${_bank.bank_code} - ${_bank.ds_bank}`,
+                value: _bank.bank_code,
+              };
+
+              this.optionsTypeAccountSelected = this.optionsAccountTypes.filter(
+                (f) => f.value === _bank.account_bank_type.toString()
+              )[0];
+            });
+          }
+
+          // idiomas
+          if (this.record.languages && this.record.languages.length > 0) {
+            this.record.languages.forEach((_lan) => {
+              if (
+                this.optionsLanguages.some((s) => s.id === _lan.language_id)
+              ) {
+                this.optionsLanguages.filter(
+                  (f) => f.id === _lan.language_id
+                )[0].selected = true;
+              }
+            });
+          }
+
+          // Topics
+          if (this.record.topics && this.record.topics.length > 0) {
+            this.record.topics.forEach((_topi) => {
+              if (this.optionsTopics.some((s) => s.id === _topi.topic_id)) {
+                this.optionsTopics.filter(
+                  (f) => f.id === _topi.topic_id
+                )[0].selected = true;
+              }
+            });
+          }
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
+    },
     getlanguages() {
       _languagesService
         .show()
@@ -557,179 +667,25 @@ export default {
         })
         .catch((error) => this.$utils.toastError("Notificação", error));
     },
-    getRecord() {
-      if (this.$route.params.id > 0) {
-        this.loading = true;
-        _providerService
-          .find(this.$route.params.id)
-          .then((res) => {
-            this.record = res.content.provider[0];
-
-            // situação provider
-            this.optionsSituarionUfSelected = {
-              label: this.record.ds_situation,
-              value: this.record.situation,
-            };
-
-            // caso não tenha endereço.
-            if (!this.record.address || this.record.address.length <= 0) {
-              this.address.optionsUfSelected = this.optionsUf.filter(
-                (f) => f.value === this.address.uf
-              )[0];
-
-              this.record.address = [];
-              this.record.address.push({ ...this.address });
-            } else {
-              this.record.address.forEach((_address) => {
-                _address.optionsUfSelected = this.optionsUf.filter(
-                  (f) => f.value === _address.uf
-                )[0];
-              });
-            }
-
-            // dados da conta.
-            if (
-              !this.record.bankAccounts ||
-              this.record.bankAccounts.length <= 0
-            ) {
-              this.record.bankAccounts = [];
-              this.record.bankAccounts.push({
-                fetching: false,
-                options: [],
-                provider_id: this.record.id,
-                agency_number: "",
-                agency_digit: "",
-                account_digit: "",
-                account_number: "",
-                bank_code: "",
-                account_bank_type: 0,
-              });
-            } else {
-              this.record.bankAccounts.forEach((_bank) => {
-                // banco
-                this.optionsBankSelected = {
-                  label: `${_bank.bank_code} - ${_bank.ds_bank}`,
-                  value: _bank.bank_code,
-                };
-
-                this.optionsTypeAccountSelected =
-                  this.optionsAccountTypes.filter(
-                    (f) => f.value === _bank.account_bank_type.toString()
-                  )[0];
-              });
-            }
-
-            // idiomas
-            if (this.record.languages && this.record.languages.length > 0) {
-              this.record.languages.forEach((_lan) => {
-                if (
-                  this.optionsLanguages.some((s) => s.id === _lan.language_id)
-                ) {
-                  this.optionsLanguages.filter(
-                    (f) => f.id === _lan.language_id
-                  )[0].selected = true;
-                }
-              });
-            }
-
-            // Topics
-            if (this.record.topics && this.record.topics.length > 0) {
-              this.record.topics.forEach((_topi) => {
-                if (this.optionsTopics.some((s) => s.id === _topi.topic_id)) {
-                  this.optionsTopics.filter(
-                    (f) => f.id === _topi.topic_id
-                  )[0].selected = true;
-                }
-              });
-            }
-          })
-          .catch((error) => this.$utils.toastError("Notificação", error))
-          .finally(() => (this.loading = false));
-      }
-    },
-    save() {
-      if (this.optionsTopics) {
-        this.record.topics = this.optionsTopics
-          .filter((f) => f.selected)
-          .map((m) => {
-            return {
-              experience: m.experience,
-              topic_id: m.id,
-            };
-          });
-
-        // Experience 8 opções
-        if (this.record.topics) {
-          if (this.record.topics.filter((f) => !f.experience).length > 3) {
-            this.$utils.toastError(
-              "Notificação",
-              "São pemitidos 3 especilidade."
-            );
-            return;
+    fetchBanks(item, _search) {
+      if (_search && _search.length >= 3) {
+        setTimeout(() => {
+          if (!this.isLoadingBank) {
+            this.isLoadingBank = true;
+            _bankService
+              .show(1, _search)
+              .then((res) => {
+                item.options = this.$utils.populardrp(
+                  res.content,
+                  "name_format",
+                  "code"
+                );
+              })
+              .catch((error) => this.$utils.toastError("Notificação", error))
+              .finally(() => (this.isLoadingBank = false));
           }
-
-          if (this.record.topics.filter((f) => f.experience).length > 8) {
-            this.$utils.toastError(
-              "Notificação",
-              "São Pemitidos 8 experiências."
-            );
-            return;
-          }
-        }
+        }, 500);
       }
-
-      if (this.optionsLanguages) {
-        this.record.languages = this.optionsLanguages
-          .filter((f) => f.selected)
-          .map((m) => {
-            return {
-              language_id: m.id,
-            };
-          });
-      }
-
-      if (this.optionsSituarionUfSelected) {
-        this.record.situation = this.optionsSituarionUfSelected.value;
-      }
-
-      this.record.bankAccounts.forEach((_bank) => {
-        if (this.optionsTypeAccountSelected)
-          _bank.account_bank_type = this.optionsTypeAccountSelected.value;
-
-        if (this.optionsBankSelected)
-          _bank.bank_code = this.optionsBankSelected.value;
-      });
-
-      const payload = { data: { ...this.record } };
-
-      const _createOrUpdate =
-        this.record.id <= 0
-          ? _providerService.create(payload)
-          : _providerService.update(payload);
-
-      this.loading = true;
-      _createOrUpdate
-        .then(() => {
-          this.$utils.toast("Notificação", "Salvo com sucesso.");
-          this.$router.go(-1);
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error))
-        .finally(() => (this.loading = false));
-    },
-    createMerchant() {
-      const payload = { data: { ...this.record } };
-      this.loading = true;
-      _merchantService
-        .create(payload)
-        .then(() => {
-          this.$utils.toast(
-            "Notificação",
-            "Estabelecimento criado com  sucesso."
-          );
-          this.getRecord();
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error))
-        .finally(() => (this.loading = false));
     },
     getAddress(zipcode, item) {
       this.loading = true;
@@ -754,42 +710,11 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
-    onDelete() {
-      this.loading = true;
-      _providerService
-        .delete(this.record.id)
-        .then(() => {
-          this.$utils.toast("Notificação", "Excluido com sucesso.");
-          this.$router.go(-1);
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error))
-        .finally(() => (this.loading = false));
-    },
-    fetchBanks(item, _search) {
-      if (_search && _search.length >= 3) {
-        setTimeout(() => {
-          if (!this.isLoadingBank) {
-            this.isLoadingBank = true;
-            _bankService
-              .show(1, _search)
-              .then((res) => {
-                item.options = this.$utils.populardrp(
-                  res.content,
-                  "name_format",
-                  "code"
-                );
-              })
-              .catch((error) => this.$utils.toastError("Notificação", error))
-              .finally(() => (this.isLoadingBank = false));
-          }
-        }, 500);
-      }
-    },
   },
 };
 </script>
 <style>
 #tabs-provider__BV_tab_controls_ li {
-  font-size: 25px;
+  font-size: 20px;
 }
 </style>

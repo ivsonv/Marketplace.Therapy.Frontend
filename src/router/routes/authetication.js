@@ -1,5 +1,5 @@
 export default [{
-  path: '/login',
+  path: '/login-operador',
   name: 'auth-login',
   component: () => import('@/views/pages/authentication/Login.vue'),
   meta: {

@@ -10,7 +10,7 @@
   >
     <hr class="p-0 m-0 mb-1" />
     <b-row>
-      <b-col md="4">
+      <b-col md="6">
         <b-form-group label="Nome *">
           <b-form-input
             v-model="record.name"
@@ -18,6 +18,22 @@
             autocomplete="off"
           />
         </b-form-group>
+      </b-col>
+      <b-col md="2">
+        <b-card-text class="mb-0"> Experiencia ? </b-card-text>
+        <b-form-checkbox
+          class="custom-control-success mt-1"
+          name="check-button"
+          switch
+          v-model="record.experience"
+        >
+          <span class="switch-icon-left">
+            <feather-icon icon="CheckIcon" />
+          </span>
+          <span class="switch-icon-right">
+            <feather-icon icon="XIcon" />
+          </span>
+        </b-form-checkbox>
       </b-col>
       <b-col md="2">
         <b-card-text class="mb-0"> Ativo </b-card-text>
@@ -47,12 +63,11 @@ export default {
       btcreate: { permission: `topic.create` },
       btdelete: { permission: `topic.delete` },
       loading: false,
-      groups: [],
-      groupsSelected: [],
       record: {
         id: 0,
         name: "",
         active: true,
+        experience: false,
       },
     };
   },

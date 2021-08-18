@@ -68,7 +68,7 @@ export default {
       localStorage.removeItem("userData");
 
       // Redirect to login page
-      this.$router.push({ name: "auth-login" });
+      this.$router.push({ name: "home-view" });
     },
   },
 };

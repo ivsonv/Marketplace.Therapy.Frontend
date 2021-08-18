@@ -1,5 +1,5 @@
 <template>
-  <viewcard--c title="Especialidades e Experiências" :btnew="btnew">
+  <viewcard--c title="Listagem de bancos" :btnew="btnew">
     <b-row class="mb-1 d-flex justify-content-end">
       <b-col md="5">
         <b-input-group>
@@ -25,11 +25,17 @@
         striped
         hover
       >
-        <template #cell(active)="data">
-          {{ data.item.active ? "Sim" : "Não" }}
+        <template #cell(name)="data">
+          <div class="text-nowrap">
+            {{ `${data.item.code} - ${data.item.name}` }}
+          </div>
         </template>
-        <template #cell(experience)="data">
-          {{ data.item.experience ? "Sim" : "Não" }}
+        <template #cell(active)="data">
+          <feather-icon
+            :icon="data.item.active ? 'CheckIcon' : 'XIcon'"
+            size="22"
+            class="mx-1"
+          />
         </template>
         <template #cell(actions)="data">
           <div class="text-nowrap">
@@ -52,13 +58,13 @@
 </template>
 
 <script>
-import _topicService from "@/services/topics-service";
+import _bankService from "@/services/bank-service";
 export default {
   data() {
     return {
       btnew: {
-        permission: "topic.create",
-        to: "/registrations/topic/0",
+        permission: "bank.create",
+        to: "/registrations/bank/0",
       },
       isloading: false,
       currentePage: 1,
@@ -67,8 +73,7 @@ export default {
       size: 20,
       fields: [
         { key: "name", label: "Nome" },
-        { key: "active", label: "Ativo" },
-        { key: "experience", label: "Experiencia" },
+        { key: "active", label: "Status" },
         { key: "actions", label: "Ações" },
       ],
       list: [],
@@ -80,7 +85,7 @@ export default {
   methods: {
     getRecords(_page) {
       this.isloading = true;
-      _topicService
+      _bankService
         .show(_page, this.search)
         .then((res) => {
           if (res.content) {
@@ -102,7 +107,7 @@ export default {
     },
     onClickSelected(record, _) {
       this.$router.push({
-        path: `/registrations/topic/${record.id}`,
+        path: `/registrations/bank/${record.id}`,
       });
     },
   },

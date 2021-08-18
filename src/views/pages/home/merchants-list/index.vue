@@ -34,7 +34,6 @@
             </b-input-group>
           </div>
         </div> -->
-
         <div class="boxSearch">
           <div class="divSearch">
             <div class="itemSearch">
@@ -59,14 +58,14 @@
           </b-button>
         </div>
       </div>
-      <img
+      <!-- <img
         class="List_imgThree"
         :src="require('@/assets/images/home/List_imgThree.jpg')"
       />
       <img
         class="List_imgFour"
         :src="require('@/assets/images/home/List_imgFour.jpg')"
-      />
+      /> -->
     </section>
 
     <!-- profissionais -->
@@ -228,7 +227,9 @@
               </div>
             </div>
             <a @click="godetalhes(data)">
-              <button @click="godetalhes(data)">Marcar consulta</button>
+              <b-button size="lg" variant="warning" class="rounded" pill>
+                Marcar consulta
+              </b-button>
             </a>
           </div>
         </div>
