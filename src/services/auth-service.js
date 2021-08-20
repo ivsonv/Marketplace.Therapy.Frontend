@@ -5,6 +5,9 @@ export default {
   loginAdmin: (payload) => {
     return _http.post('/api/auth/admin', payload)
   },
+  loginProvider: (payload) => {
+    return _http.post('/api/auth/provider', payload)
+  },
   // login: (payload) => {
   //   return _http.post('/api/auth', payload)
   // },

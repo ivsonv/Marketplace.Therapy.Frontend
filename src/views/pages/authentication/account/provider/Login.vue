@@ -207,7 +207,7 @@ export default {
           // enviar
           this.loading = true;
           _authService
-            .loginAdmin(payload)
+            .loginProvider(payload)
             .then((res) => {
               this.loading = false;
               useJwt.setToken(res.content.accessToken);

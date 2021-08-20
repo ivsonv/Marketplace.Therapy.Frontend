@@ -410,6 +410,8 @@ import _locationsService from "@/services/locations-service";
 import _bankService from "@/services/bank-service";
 import _languagesService from "@/services/languages-service";
 import _topicsService from "@/services/topics-service";
+
+import _accountProviderService from "@/services/account-provider-service";
 export default {
   data() {
     return {
@@ -457,10 +459,12 @@ export default {
   created() {
     this.loading = true;
     this.optionsUf = this.$utils.getStates();
-    this.getSituations();
-    this.getAccountTypes();
-    this.getlanguages();
-    this.getTopics();
+    this.getRecord();
+
+    //this.getSituations();
+    //this.getAccountTypes();
+    //this.getlanguages();
+    //this.getTopics();
   },
   methods: {
     save() {
@@ -533,10 +537,9 @@ export default {
         .finally(() => (this.loading = false));
     },
     getRecord() {
-      const id = 1;
       this.loading = true;
-      _providerService
-        .find(id)
+      _accountProviderService
+        .find()
         .then((res) => {
           this.record = res.content.provider[0];
 

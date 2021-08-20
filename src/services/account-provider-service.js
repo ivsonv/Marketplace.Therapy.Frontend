@@ -2,13 +2,13 @@ import HttpService from './HttpService'
 
 const _http = new HttpService()
 export default {
-  save: (payload) => {
-    return _http.post('/api/account/provider/schedules', payload)
+  find: () => {
+    return _http.get(`/api/account-provider`)
   },
-  // update: (payload) => {
-  //   return _http.put('/api/account/provider/schedules', payload)
-  // },
-  // delete: (id) => {
-  //   return _http.delete(`/api/account/provider/schedules/${id}`)
-  // }
+  update: (payload) => {
+    return _http.put('/api/account-provider', payload)
+  },
+  create: (payload) => {
+    return _http.post('/api/account-provider', payload)
+  },
 }

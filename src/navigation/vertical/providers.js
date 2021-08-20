@@ -7,21 +7,21 @@ export default [
     route: 'account-appointments',
     icon: 'CalendarIcon',
     active: true,
-    roles: ['account.provider.view']
+    roles: ['account.provider']
   },
   {
     title: 'Minha Conta',
     route: 'account-details',
     icon: 'UserIcon',
     active: true,
-    roles: ['account.provider.view']
+    roles: ['account.provider']
   },
   {
     title: 'Meus Horários',
     route: 'account-schedules',
     icon: 'ClockIcon',
     active: true,
-    roles: ['account.provider.view']
+    roles: ['account.provider']
   },
   {
     title: 'Relatório Financeiro',
