@@ -404,14 +404,7 @@
 </template>
 
 <script>
-import _providerService from "@/services/providers-service";
-import _merchantService from "@/services/merchant-service";
-import _locationsService from "@/services/locations-service";
-import _bankService from "@/services/bank-service";
-import _languagesService from "@/services/languages-service";
-import _topicsService from "@/services/topics-service";
-
-import _accountProviderService from "@/services/account-provider-service";
+import _account from "@/services/account-provider-service";
 export default {
   data() {
     return {
@@ -457,16 +450,40 @@ export default {
     };
   },
   created() {
-    this.loading = true;
-    this.optionsUf = this.$utils.getStates();
-    this.getRecord();
-
-    //this.getSituations();
-    //this.getAccountTypes();
-    //this.getlanguages();
-    //this.getTopics();
+    this.getLoadInit();
   },
   methods: {
+    async getLoadInit() {
+      this.loading = true;
+      this.optionsUf = this.$utils.getStates();
+
+      // promiss
+      await this.fetchLanguages();
+      await this.fetchTopics();
+
+      // buscar principal
+      this.getRecord();
+    },
+    async fetchLanguages() {
+      await _account.fetchLanguages().then((res) => {
+        this.optionsLanguages = res.content.languages.map((m) => {
+          return {
+            selected: false,
+            ...m,
+          };
+        });
+      });
+    },
+    async fetchTopics() {
+      await _account.fetchTopics().then((res) => {
+        this.optionsTopics = res.content.topics.map((m) => {
+          return {
+            selected: false,
+            ...m,
+          };
+        });
+      });
+    },
     save() {
       if (this.optionsTopics) {
         this.record.topics = this.optionsTopics
@@ -538,10 +555,10 @@ export default {
     },
     getRecord() {
       this.loading = true;
-      _accountProviderService
+      _account
         .find()
         .then((res) => {
-          this.record = res.content.provider[0];
+          this.record = res.content.provider.provider[0];
 
           // situação provider
           this.optionsSituarionUfSelected = {
@@ -623,37 +640,6 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
-    getlanguages() {
-      _languagesService
-        .show()
-        .then((res) => {
-          this.optionsLanguages = res.content
-            .filter((f) => f.active)
-            .map((m) => {
-              return {
-                selected: false,
-                ...m,
-              };
-            });
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error));
-    },
-    getTopics() {
-      _topicsService
-        .showAll()
-        .then((res) => {
-          this.optionsTopics = res.content
-            .filter((f) => f.active)
-            .map((m) => {
-              return {
-                selected: false,
-                ...m,
-              };
-            });
-          this.getRecord();
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error));
-    },
     getSituations() {
       _providerService
         .showSituations()
@@ -675,11 +661,11 @@ export default {
         setTimeout(() => {
           if (!this.isLoadingBank) {
             this.isLoadingBank = true;
-            _bankService
-              .show(1, _search)
+            _account
+              .fetchBanks(_search)
               .then((res) => {
                 item.options = this.$utils.populardrp(
-                  res.content,
+                  res.content.banks,
                   "name_format",
                   "code"
                 );
