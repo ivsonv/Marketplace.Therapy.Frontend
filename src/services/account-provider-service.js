@@ -17,7 +17,13 @@ export default {
   update: (payload) => {
     return _http.put('/api/account-provider', payload)
   },
-  // create: (payload) => {
-  //   return _http.post('/api/account-provider', payload)
-  // },
+  fetchSchedules: () => {
+    return _http.get('/api/account-provider/schedules')
+  },
+  saveSchedules: (payload) => {
+    return _http.post('/api/account-provider/schedules', payload)
+  },
+  removeSchedules: (id) => {
+    return _http.delete(`/api/account-provider/schedules/${id}`)
+  }
 }

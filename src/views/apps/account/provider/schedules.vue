@@ -15,70 +15,61 @@
         centered
         @hide="onHideTransfer"
       >
-        <validation-observer ref="newHourRules">
-          <b-row v-if="hourNew">
-            <b-col cols="6">
-              <b-form-group label="SEMANA">
-                <v-select
-                  v-model="optionsWeekSelected"
-                  :options="optionsWeek"
-                  autocomplete="off"
-                />
-              </b-form-group>
-            </b-col>
-            <b-col cols="3">
-              <b-form-group label="INICIO">
-                <validation-provider
-                  #default="{ errors }"
-                  name="Nome"
-                  rules="required"
-                >
-                  <b-form-input type="time" autocomplete="off" />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
-              </b-form-group>
-            </b-col>
-            <b-col cols="3">
-              <b-form-group label="FINAL">
-                <validation-provider
-                  #default="{ errors }"
-                  name="Nome"
-                  rules="required"
-                >
-                  <b-form-input type="time" autocomplete="off" />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <div class="d-block">
-            <b-button @click="save" variant="info" class="mr-1" size="lg">
-              Salvar
-            </b-button>
-          </div>
-        </validation-observer>
+        <b-row v-if="hourNew">
+          <b-col cols="6">
+            <b-form-group label="SEMANA">
+              <v-select
+                v-model="optionsWeekSelected"
+                :options="optionsWeek"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col cols="3">
+            <b-form-group label="INICIO">
+              <b-form-input
+                v-model="hourNew.start"
+                type="time"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col cols="3">
+            <b-form-group label="FINAL">
+              <b-form-input
+                v-model="hourNew.end"
+                type="time"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <div class="d-block">
+          <b-button @click="save" variant="info" class="mr-1" size="lg">
+            Salvar
+          </b-button>
+        </div>
       </b-modal>
     </b-row>
 
     <b-table
-      :busy="isloading"
+      :busy="loading"
       :fields="fields"
       :items="list"
       responsive
       striped
       hover
     >
-      <template #cell(name)="data">
+      <template #cell(day_week)="data">
         <div class="text-nowrap">
-          {{ `${data.item.code} - ${data.item.name}` }}
+          {{ data.item.ds_week }}
         </div>
       </template>
-      <template #cell(active)="data">
-        <feather-icon
-          :icon="data.item.active ? 'CheckIcon' : 'XIcon'"
-          size="22"
-          class="mx-1"
-        />
+      <template #cell(start)="data">
+        <div class="text-nowrap">
+          {{ `${data.item.start.substring(0, 5)}h até ` }}
+          {{ `${data.item.end.substring(0, 5)}h` }}
+        </div>
       </template>
       <template #cell(actions)="data">
         <div class="text-nowrap">
@@ -88,6 +79,12 @@
             class="mx-1"
             @click="onClickSelected(data.item)"
           />
+          <feather-icon
+            icon="Trash2Icon"
+            size="22"
+            class="mx-1"
+            @click="onClickRemove(data.item)"
+          />
         </div>
       </template>
     </b-table>
@@ -95,16 +92,11 @@
 </template>
 
 <script>
-import _accountProviderService from "@/services/account-provider-service";
-import _bankService from "@/services/bank-service";
+import _accounService from "@/services/account-provider-service";
 export default {
   data() {
     return {
       loading: false,
-      currentePage: 1,
-      search: null,
-      more: false,
-      size: 20,
       hourNew: null,
       optionsWeekSelected: null,
       optionsWeek: [
@@ -117,15 +109,15 @@ export default {
         { label: "Domingo", key: "0" },
       ],
       fields: [
-        { key: "name", label: "Nome" },
-        { key: "active", label: "Status" },
+        { key: "day_week", label: "Semana" },
+        { key: "start", label: "Horário" },
         { key: "actions", label: "Ações" },
       ],
       list: [],
     };
   },
   created() {
-    this.getRecords(this.currentePage);
+    this.getRecords();
   },
   methods: {
     save() {
@@ -134,20 +126,23 @@ export default {
         return;
       }
 
-      this.hourNew.day_week = this.optionsWeekSelected.value;
+      this.hourNew.day_week = this.optionsWeekSelected.key;
 
-      const payload = { data: { ...this.hourNew } };
+      const payload = { data: { schedule: { ...this.hourNew } } };
 
+      this.$refs["modal-hour"].hide();
       this.loading = true;
-      _accountProviderService
-        .save(payload)
+      _accounService
+        .saveSchedules(payload)
         .then(() => {
           this.$utils.toast("Notificação", "Salvo com sucesso.");
+          this.getRecords();
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
     newHour() {
+      this.optionsWeekSelected = null;
       this.hourNew = {
         start: null,
         end: null,
@@ -162,27 +157,55 @@ export default {
         evt.preventDefault();
       }
     },
-    getRecords(_page) {
+    getRecords() {
       this.isloading = true;
-      _bankService
-        .show(_page, this.search)
+      _accounService
+        .fetchSchedules()
         .then((res) => {
           if (res.content) {
-            this.more = res.content.length >= this.size;
-            this.list.push(...res.content);
-            this.currentePage = _page;
+            this.list = res.content.schedules;
           }
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.isloading = false));
     },
-    getLoadMore() {
-      this.getRecords(this.currentePage + 1);
+    onClickSelected(_item) {
+      this.optionsWeekSelected = this.optionsWeek.filter(
+        (f) => f.key.toString() === _item.day_week.toString()
+      )[0];
+
+      this.hourNew = _item;
+      this.$refs["modal-hour"].show();
     },
-    onClickSelected(record, _) {
-      // this.$router.push({
-      //   path: `/registrations/bank/${record.id}`,
-      // });
+    onClickRemove(_item) {
+      this.$swal({
+        title: "Tem certeza?",
+        text: "Isso não pode ser revertido!",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "Sim, quero excluir!",
+        cancelButtonText: "Cancelar",
+        customClass: {
+          confirmButton: "btn btn-info",
+          cancelButton: "btn btn-outline-danger ml-1",
+        },
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.value) {
+          this.remove(_item);
+        }
+      });
+    },
+    remove(_item) {
+      this.loading = true;
+      _accounService
+        .removeSchedules(_item.id)
+        .then(() => {
+          this.$utils.toast("Notificação", "Removido com sucesso.");
+          this.getRecords();
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
     },
   },
 };

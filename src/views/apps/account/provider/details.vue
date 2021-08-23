@@ -541,8 +541,8 @@ export default {
 
       const _createOrUpdate =
         this.record.id <= 0
-          ? _providerService.create(payload)
-          : _providerService.update(payload);
+          ? _account.create(payload)
+          : _account.update(payload);
 
       this.loading = true;
       _createOrUpdate
