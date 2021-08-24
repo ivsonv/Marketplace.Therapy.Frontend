@@ -272,6 +272,54 @@
       </b-tab>
       <b-tab title="PROFISSIONAL">
         <div class="row">
+          <div class="col-md-6">
+            <b-form-group label="ESPECIALIDADES">
+              <small>Até 3 Opções</small>
+              <v-select
+                v-model="optionsTopicsSelectd"
+                :options="optionsTopics"
+                multiple
+              />
+            </b-form-group>
+          </div>
+          <div class="col-md-6">
+            <b-form-group label="EXPERIÊNCIAS">
+              <small>Até 8 Opções</small>
+              <v-select
+                v-model="optionsTopicsExperienceSelectd"
+                :options="optionsTopicsExperience"
+                multiple
+              />
+            </b-form-group>
+          </div>
+          <div class="col-md-6">
+            <h1 class="py-1">Idiomas</h1>
+            <b-row>
+              <div
+                v-for="(lan, index) in optionsLanguages"
+                :key="`lan-${index}`"
+                class="col-4 col-md-3 mb-1"
+              >
+                <b-form-checkbox
+                  class="custom-control-success"
+                  v-model="lan.selected"
+                  name="check-button"
+                  switch
+                >
+                  <span class="switch-icon-left">
+                    <feather-icon icon="CheckIcon" />
+                  </span>
+                  <span class="switch-icon-right">
+                    <feather-icon icon="XIcon" />
+                  </span>
+                </b-form-checkbox>
+                <span class="pt-1">{{ lan.name }}</span>
+              </div>
+            </b-row>
+          </div>
+        </div>
+        <hr class="p-0 m-0 mb-1" />
+        <div class="row">
           <b-col md="6">
             <b-form-group label="RESUMO SOBRE VOCÊ">
               <b-form-textarea
@@ -301,93 +349,6 @@
               >
             </b-form-group>
           </b-col>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <h3 class="py-1">ESPECIALIDADE</h3>
-            <small>Até 3 Opções</small>
-            <hr class="p-0 m-0 mb-1" />
-            <b-row>
-              <div
-                class="col-4 col-md-3 mb-1"
-                v-for="(topic, index) in optionsTopics.filter(
-                  (f) => !f.experience
-                )"
-                :key="`lan-${index}`"
-              >
-                <b-form-checkbox
-                  class="custom-control-success"
-                  v-model="topic.selected"
-                  name="check-button"
-                  switch
-                >
-                  <span class="switch-icon-left">
-                    <feather-icon icon="CheckIcon" />
-                  </span>
-                  <span class="switch-icon-right">
-                    <feather-icon icon="XIcon" />
-                  </span>
-                </b-form-checkbox>
-                <span class="pt-1">{{ topic.name }}</span>
-              </div>
-            </b-row>
-          </div>
-          <div class="col-md-6">
-            <h3 class="py-1">EXPERIÊNCIAS</h3>
-            <small>Até 8 Opções</small>
-            <hr class="p-0 m-0 mb-1" />
-            <b-row>
-              <div
-                class="col-4 col-md-3 mb-1"
-                v-for="(topic, index) in optionsTopics.filter(
-                  (f) => f.experience
-                )"
-                :key="`lan-${index}`"
-              >
-                <b-form-checkbox
-                  class="custom-control-success"
-                  v-model="topic.selected"
-                  name="check-button"
-                  switch
-                >
-                  <span class="switch-icon-left">
-                    <feather-icon icon="CheckIcon" />
-                  </span>
-                  <span class="switch-icon-right">
-                    <feather-icon icon="XIcon" />
-                  </span>
-                </b-form-checkbox>
-                <span class="pt-1">{{ topic.name }}</span>
-              </div>
-            </b-row>
-          </div>
-          <div class="col-md-6">
-            <h1 class="py-1">Idiomas</h1>
-            <small>-</small>
-            <hr class="p-0 m-0 mb-1" />
-            <b-row>
-              <div
-                v-for="(lan, index) in optionsLanguages"
-                :key="`lan-${index}`"
-                class="col-4 col-md-3 mb-1"
-              >
-                <b-form-checkbox
-                  class="custom-control-success"
-                  v-model="lan.selected"
-                  name="check-button"
-                  switch
-                >
-                  <span class="switch-icon-left">
-                    <feather-icon icon="CheckIcon" />
-                  </span>
-                  <span class="switch-icon-right">
-                    <feather-icon icon="XIcon" />
-                  </span>
-                </b-form-checkbox>
-                <span class="pt-1">{{ lan.name }}</span>
-              </div>
-            </b-row>
-          </div>
         </div>
       </b-tab>
       <b-tab title="PAGAMENTOS"> </b-tab>
@@ -420,6 +381,9 @@ export default {
       optionsTypeAccountSelected: null,
       optionsLanguages: [],
       optionsTopics: [],
+      optionsTopicsSelectd: null,
+      optionsTopicsExperience: [],
+      optionsTopicsExperienceSelectd: null,
       record: {
         id: 0,
         nickname: "",
@@ -476,24 +440,48 @@ export default {
     },
     async fetchTopics() {
       await _account.fetchTopics().then((res) => {
-        this.optionsTopics = res.content.topics.map((m) => {
-          return {
-            selected: false,
-            ...m,
-          };
-        });
+        if (res.content.topics.some((f) => !f.experience)) {
+          this.optionsTopics = res.content.topics
+            .filter((f) => !f.experience)
+            .map((m) => {
+              return {
+                label: m.name,
+                value: m.id,
+                ...m,
+              };
+            });
+        }
+
+        if (res.content.topics.some((f) => f.experience)) {
+          this.optionsTopicsExperience = res.content.topics
+            .filter((f) => f.experience)
+            .map((m) => {
+              return {
+                label: m.name,
+                value: m.id,
+                ...m,
+              };
+            });
+        }
       });
     },
     save() {
       if (this.optionsTopics) {
-        this.record.topics = this.optionsTopics
-          .filter((f) => f.selected)
-          .map((m) => {
-            return {
-              experience: m.experience,
-              topic_id: m.id,
-            };
-          });
+        let _topics = [];
+        if (this.optionsTopicsSelectd) {
+          _topics.push(this.optionsTopicsSelectd);
+        }
+
+        if (this.optionsTopicsExperienceSelectd) {
+          _topics.push(this.optionsTopicsExperienceSelectd);
+        }
+
+        this.record.topics = _topics.map((m) => {
+          return {
+            experience: m.experience,
+            topic_id: m.id,
+          };
+        });
 
         // Experience 8 opções
         if (this.record.topics) {
@@ -524,10 +512,6 @@ export default {
             };
           });
       }
-
-      // if (this.optionsSituarionUfSelected) {
-      //   this.record.situation = this.optionsSituarionUfSelected.value;
-      // }
 
       this.record.bankAccounts.forEach((_bank) => {
         if (this.optionsTypeAccountSelected)
@@ -628,11 +612,19 @@ export default {
 
           // Topics
           if (this.record.topics && this.record.topics.length > 0) {
+            this.optionsTopicsExperienceSelectd = [];
+            this.optionsTopicsSelectd = [];
             this.record.topics.forEach((_topi) => {
               if (this.optionsTopics.some((s) => s.id === _topi.topic_id)) {
-                this.optionsTopics.filter(
+                //selecionado
+                const ll = this.optionsTopics.filter(
                   (f) => f.id === _topi.topic_id
-                )[0].selected = true;
+                )[0];
+                if (!ll.experience) {
+                  this.optionsTopicsSelectd.push(ll);
+                } else {
+                  this.optionsTopicsExperienceSelectd.push(ll);
+                }
               }
             });
           }

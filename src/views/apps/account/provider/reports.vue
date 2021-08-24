@@ -1,86 +1,96 @@
 <template>
-  <viewcard--c title="Listagem de bancos" :btnew="btnew">
-    <b-row class="mb-1 d-flex justify-content-end">
-      <b-col md="5">
-        <b-input-group>
-          <b-form-input
-            placeholder="pesquise por nome..."
-            autocomplete="off"
-            v-model="search"
-          />
-          <b-input-group-append>
-            <b-button variant="gradient-info" @click="filter">
-              Pesquisar
-            </b-button>
-          </b-input-group-append>
-        </b-input-group>
+  <viewcard--c title="Relatório Financeiro" :btnew="btnew">
+    <hr class="m-0 p-0 mb-1" />
+    <b-row class="mb-1 d-flex justify-content-start">
+      <b-col md="4" class="mb-1">
+        <b-form-input
+          placeholder="pesquise por cliente/evento..."
+          autocomplete="off"
+          v-model="filter.search"
+          size="lg"
+        />
+      </b-col>
+      <b-col cols="6" md="2" class="mb-1">
+        <b-form-input
+          placeholder="Data Início"
+          autocomplete="off"
+          v-model="filter.start"
+          size="lg"
+        />
+      </b-col>
+      <b-col cols="6" md="2" class="mb-1">
+        <b-form-input
+          placeholder="Data Final"
+          autocomplete="off"
+          v-model="filter.end"
+          size="lg"
+        />
+      </b-col>
+      <b-col cols="12" md="4">
+        <b-button size="lg" variant="info" @click="searching" class="mr-1">
+          PESQUISAR
+        </b-button>
+        <b-button size="lg" variant="info" @click="searching">
+          EXPORTAR RELATÓRIO
+        </b-button>
       </b-col>
     </b-row>
-    <view--c permission="topic.view" :busy="isloading">
-      <b-table
-        :busy="isloading"
-        :fields="fields"
-        :items="list"
-        responsive
-        striped
-        hover
-      >
-        <template #cell(name)="data">
-          <div class="text-nowrap">
-            {{ `${data.item.code} - ${data.item.name}` }}
-          </div>
-        </template>
-        <template #cell(active)="data">
+    <b-table
+      v-if="list && list.length > 0"
+      :busy="isloading"
+      :fields="fields"
+      :items="list"
+      responsive
+      striped
+      hover
+    >
+      <template #cell(actions)="data">
+        <div class="text-nowrap">
           <feather-icon
-            :icon="data.item.active ? 'CheckIcon' : 'XIcon'"
+            icon="EditIcon"
             size="22"
             class="mx-1"
+            @click="onClickSelected(data.item)"
           />
-        </template>
-        <template #cell(actions)="data">
-          <div class="text-nowrap">
-            <feather-icon
-              icon="EditIcon"
-              size="22"
-              class="mx-1"
-              @click="onClickSelected(data.item)"
-            />
-          </div>
-        </template>
-      </b-table>
-      <div class="d-flex justify-content-center">
-        <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
-          Carregar mais
-        </b-button>
-      </div>
-    </view--c>
+        </div>
+      </template>
+    </b-table>
+    <h2 class="text-center mt-2 mt-md-5" v-else>
+      Nenhum registro encontrada para os parametros acima informados.
+    </h2>
+    <div class="d-flex justify-content-center">
+      <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
+        Carregar mais
+      </b-button>
+    </div>
   </viewcard--c>
 </template>
 
 <script>
-import _bankService from "@/services/bank-service";
+import _accounService from "@/services/account-provider-service";
 export default {
   data() {
     return {
-      btnew: {
-        permission: "bank.create",
-        to: "/registrations/bank/0",
-      },
       isloading: false,
       currentePage: 1,
-      search: null,
+      filter: {
+        search: "",
+        start: null,
+        end: null,
+      },
       more: false,
       size: 20,
       fields: [
-        { key: "name", label: "Nome" },
-        { key: "active", label: "Status" },
+        { key: "date", label: "Data/Hora Sessão" },
+        { key: "client", label: "Cliente" },
+        { key: "price", label: "Receita" },
         { key: "actions", label: "Ações" },
       ],
       list: [],
     };
   },
   created() {
-    this.getRecords(this.currentePage);
+    //this.getRecords(this.currentePage);
   },
   methods: {
     getRecords(_page) {
@@ -100,16 +110,12 @@ export default {
     getLoadMore() {
       this.getRecords(this.currentePage + 1);
     },
-    filter() {
+    searching() {
       this.currentePage = 1;
       this.list = [];
       this.getRecords(this.currentePage);
     },
-    onClickSelected(record, _) {
-      this.$router.push({
-        path: `/registrations/bank/${record.id}`,
-      });
-    },
+    onClickSelected(record, _) {},
   },
 };
 </script>

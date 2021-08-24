@@ -79,7 +79,7 @@ export default class HttpService {
                 case 401:
                 case 403:
                     localStorage.clear();
-                    window.location = "/login"
+                    window.location = "/"
                     throw "Você não tem permissão para acessar...";
             }
         }
