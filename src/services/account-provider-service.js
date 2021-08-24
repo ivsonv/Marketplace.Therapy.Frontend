@@ -25,5 +25,8 @@ export default {
   },
   removeSchedules: (id) => {
     return _http.delete(`/api/account-provider/schedules/${id}`)
+  },
+  fetchCalendar: (month = -1) => {
+    return _http.get(`/api/account-provider/calendar?month=${month}`)
   }
 }

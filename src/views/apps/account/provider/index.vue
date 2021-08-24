@@ -151,6 +151,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
 
+import _account from "@/services/account-provider-service";
+
 export default {
   components: {
     FullCalendar,
@@ -182,7 +184,8 @@ export default {
           },
         },
         headerToolbar: {
-          start: "prev,next, title",
+          //start: "prev,next, title",
+          start: "title",
           end: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
         },
         buttonText: {
@@ -198,7 +201,7 @@ export default {
         events: [],
         customButtons: {
           prev: {
-            click: () => {
+            click: (_prv) => {
               this.currentmonth -= 1;
               this.showAppointments();
               this.$refs.fullCalendar.getApi().prev();
@@ -216,7 +219,7 @@ export default {
     };
   },
   created() {
-    //this.showAppointments();
+    this.showAppointments();
   },
   computed: {
     containsFilter() {
@@ -226,11 +229,13 @@ export default {
   methods: {
     showAppointments() {
       this.isloading = true;
-      _appointmentService
-        .show(this.currentmonth)
+      _account
+        .fetchCalendar(this.currentmonth)
         .then((res) => {
-          this.appointments = res.content;
-          this.populateEvents(res.content);
+          if (res.content && res.content.appointments) {
+            this.appointments = res.content.appointments;
+            this.populateEvents(res.content.appointments);
+          }
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.isloading = false));
@@ -272,14 +277,23 @@ export default {
     },
     isOperator(_appointment, _operatorid) {},
     populateEvents(_events) {
-      // this.calendarOptions.events = _events.map((m) => {
-      //   return {
-      //     title: `${m.project} - ${m.time.substring(0, 5)} ${m.title}`,
-      //     start: `${m.start}`,
-      //     color: m.color,
-      //     id: m.id,
-      //   };
-      // });
+      this.calendarOptions.events = _events.map((m) => {
+        return {
+          title: `${m.hour.substring(0, 5)} ${m.customer.name}`,
+          color: this.getColor(m.type),
+          start: `${m.startds}`,
+          id: m.id,
+        };
+      });
+    },
+    getColor(_type) {
+      switch (_type) {
+        case 0:
+          return "#007bff"; // sessão online
+        case 1:
+          return "#FFAC10"; // personal_session
+      }
+      return null;
     },
     clearfilter() {},
   },
