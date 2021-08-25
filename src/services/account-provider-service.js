@@ -20,6 +20,9 @@ export default {
   fetchSchedules: () => {
     return _http.get('/api/account-provider/schedules')
   },
+  fetchAccountTypes: () => {
+    return _http.get(`/api/account-provider/account-types`)
+  },
   saveSchedules: (payload) => {
     return _http.post('/api/account-provider/schedules', payload)
   },

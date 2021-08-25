@@ -3,6 +3,30 @@
     <b-tabs id="tabs-provider" content-class="mt-2" justified>
       <b-tab title="DADOS PESSOAIS">
         <b-row>
+          <b-col cols="12" class="text-center">
+            <b-form-group class="d-flex justify-content-center">
+              <div style="width: 200px">
+                <img
+                  @click="$refs.fileInput.click()"
+                  :src="urlImage"
+                  id="thumbnail-perfil"
+                  class="img-fluid rounded-shadow cursor-pointer"
+                />
+                <input
+                  style="display: none"
+                  ref="fileInput"
+                  type="file"
+                  accept="image/*"
+                  @change="onFileChange"
+                />
+              </div>
+              <small>{{
+                !urlImage
+                  ? "Selecione uma foto"
+                  : "Clique na imagem para trocar a foto"
+              }}</small>
+            </b-form-group>
+          </b-col>
           <b-col md="6">
             <b-form-group label="Nome *">
               <b-form-input
@@ -175,7 +199,89 @@
             </b-form-group>
           </b-col>
         </b-row>
-
+      </b-tab>
+      <b-tab title="PROFISSIONAL">
+        <div class="row">
+          <b-col md="6">
+            <b-form-group label="RESUMO SOBRE VOCÊ">
+              <b-form-textarea
+                rows="7"
+                v-model="record.description"
+                placeholder="Em poucas palavras, fale sobre da sua experiência. Aqui, você pode colocar a linha que atua e como pode ajuda o seus pacientes..."
+              />
+              <small class="text-muted"
+                >*Em poucas palavras, fale sobre da sua experiência. Aqui, você
+                pode colocar a linha que atua e como pode ajuda o seus
+                pacientes.</small
+              >
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="APRESENTAÇÃO PESSOAL (BIOGRÁFIA)">
+              <b-form-textarea
+                rows="7"
+                v-model="record.biography"
+                placeholder="Nesta fase, o paciente quer saber um pouco mais sobre você além do profissional. Explique o objetivo da sua linha de atuação, perfil nas redes e sua trajetória de forma mais detalhada. Crie um momento acolhedor com as palavras..."
+              />
+              <small class="text-muted"
+                >*Nesta fase, o paciente quer saber um pouco mais sobre você
+                além do profissional. Explique o objetivo da sua linha de
+                atuação, perfil nas redes e sua trajetória de forma mais
+                detalhada. Crie um momento acolhedor com as palavras</small
+              >
+            </b-form-group>
+          </b-col>
+        </div>
+        <hr class="p-0 m-0 mb-1" />
+        <div class="row">
+          <div class="col-md-6">
+            <b-form-group label="ESPECIALIDADES">
+              <small>Até 3 Opções</small>
+              <v-select
+                v-model="optionsTopicsSelectd"
+                :options="optionsTopics"
+                multiple
+              />
+            </b-form-group>
+          </div>
+          <div class="col-md-6">
+            <b-form-group label="EXPERIÊNCIAS">
+              <small>Até 8 Opções</small>
+              <v-select
+                v-model="optionsTopicsExperienceSelectd"
+                :options="optionsTopicsExperience"
+                multiple
+              />
+            </b-form-group>
+          </div>
+          <div class="col-md-6">
+            <h1 class="py-1">Idiomas</h1>
+            <b-row>
+              <div
+                v-for="(lan, index) in optionsLanguages"
+                :key="`lan-${index}`"
+                class="col-4 col-md-3 mb-1"
+              >
+                <b-form-checkbox
+                  class="custom-control-success"
+                  v-model="lan.selected"
+                  name="check-button"
+                  switch
+                >
+                  <span class="switch-icon-left">
+                    <feather-icon icon="CheckIcon" />
+                  </span>
+                  <span class="switch-icon-right">
+                    <feather-icon icon="XIcon" />
+                  </span>
+                </b-form-checkbox>
+                <span class="pt-1">{{ lan.name }}</span>
+              </div>
+            </b-row>
+          </div>
+        </div>
+      </b-tab>
+      <b-tab title="PAGAMENTOS">
         <h1 class="py-1">Dados Bancários</h1>
         <hr class="p-0 m-0 mb-1" />
         <b-row
@@ -270,88 +376,6 @@
           </b-col>
         </b-row>
       </b-tab>
-      <b-tab title="PROFISSIONAL">
-        <div class="row">
-          <div class="col-md-6">
-            <b-form-group label="ESPECIALIDADES">
-              <small>Até 3 Opções</small>
-              <v-select
-                v-model="optionsTopicsSelectd"
-                :options="optionsTopics"
-                multiple
-              />
-            </b-form-group>
-          </div>
-          <div class="col-md-6">
-            <b-form-group label="EXPERIÊNCIAS">
-              <small>Até 8 Opções</small>
-              <v-select
-                v-model="optionsTopicsExperienceSelectd"
-                :options="optionsTopicsExperience"
-                multiple
-              />
-            </b-form-group>
-          </div>
-          <div class="col-md-6">
-            <h1 class="py-1">Idiomas</h1>
-            <b-row>
-              <div
-                v-for="(lan, index) in optionsLanguages"
-                :key="`lan-${index}`"
-                class="col-4 col-md-3 mb-1"
-              >
-                <b-form-checkbox
-                  class="custom-control-success"
-                  v-model="lan.selected"
-                  name="check-button"
-                  switch
-                >
-                  <span class="switch-icon-left">
-                    <feather-icon icon="CheckIcon" />
-                  </span>
-                  <span class="switch-icon-right">
-                    <feather-icon icon="XIcon" />
-                  </span>
-                </b-form-checkbox>
-                <span class="pt-1">{{ lan.name }}</span>
-              </div>
-            </b-row>
-          </div>
-        </div>
-        <hr class="p-0 m-0 mb-1" />
-        <div class="row">
-          <b-col md="6">
-            <b-form-group label="RESUMO SOBRE VOCÊ">
-              <b-form-textarea
-                rows="7"
-                v-model="record.description"
-                placeholder="Em poucas palavras, fale sobre da sua experiência. Aqui, você pode colocar a linha que atua e como pode ajuda o seus pacientes..."
-              />
-              <small class="text-muted"
-                >*Em poucas palavras, fale sobre da sua experiência. Aqui, você
-                pode colocar a linha que atua e como pode ajuda o seus
-                pacientes.</small
-              >
-            </b-form-group>
-          </b-col>
-          <b-col md="6">
-            <b-form-group label="APRESENTAÇÃO PESSOAL (BIOGRÁFIA)">
-              <b-form-textarea
-                rows="7"
-                v-model="record.biography"
-                placeholder="Nesta fase, o paciente quer saber um pouco mais sobre você além do profissional. Explique o objetivo da sua linha de atuação, perfil nas redes e sua trajetória de forma mais detalhada. Crie um momento acolhedor com as palavras..."
-              />
-              <small class="text-muted"
-                >*Nesta fase, o paciente quer saber um pouco mais sobre você
-                além do profissional. Explique o objetivo da sua linha de
-                atuação, perfil nas redes e sua trajetória de forma mais
-                detalhada. Crie um momento acolhedor com as palavras</small
-              >
-            </b-form-group>
-          </b-col>
-        </div>
-      </b-tab>
-      <b-tab title="PAGAMENTOS"> </b-tab>
     </b-tabs>
     <hr />
     <b-row>
@@ -384,6 +408,9 @@ export default {
       optionsTopicsSelectd: null,
       optionsTopicsExperience: [],
       optionsTopicsExperienceSelectd: null,
+      fileImageSelected: null,
+      fileSignatureSelected: null,
+      urlImage: require("@/assets/images/pages/sem-foto.png"),
       record: {
         id: 0,
         nickname: "",
@@ -422,10 +449,9 @@ export default {
       this.optionsUf = this.$utils.getStates();
 
       // promiss
+      await this.fetchAccountTypes();
       await this.fetchLanguages();
       await this.fetchTopics();
-
-      // buscar principal
       this.getRecord();
     },
     async fetchLanguages() {
@@ -465,41 +491,47 @@ export default {
         }
       });
     },
+    async fetchAccountTypes() {
+      await _account.fetchAccountTypes().then((res) => {
+        this.optionsAccountTypes = res.content.accounttypes;
+      });
+    },
     save() {
-      if (this.optionsTopics) {
-        let _topics = [];
-        if (this.optionsTopicsSelectd) {
-          _topics.push(this.optionsTopicsSelectd);
+      let _topics = [];
+      if (this.optionsTopicsSelectd && this.optionsTopicsSelectd.length > 0) {
+        _topics.push(...this.optionsTopicsSelectd);
+      }
+
+      if (
+        this.optionsTopicsExperienceSelectd &&
+        this.optionsTopicsExperienceSelectd.length > 0
+      ) {
+        _topics.push(...this.optionsTopicsExperienceSelectd);
+      }
+
+      this.record.topics = _topics.map((m) => {
+        return {
+          experience: m.experience,
+          topic_id: m.id,
+        };
+      });
+
+      // Experience 8 opções
+      if (this.record.topics) {
+        if (this.record.topics.filter((f) => !f.experience).length > 3) {
+          this.$utils.toastError(
+            "Notificação",
+            "São pemitidos 3 especilidade."
+          );
+          return;
         }
 
-        if (this.optionsTopicsExperienceSelectd) {
-          _topics.push(this.optionsTopicsExperienceSelectd);
-        }
-
-        this.record.topics = _topics.map((m) => {
-          return {
-            experience: m.experience,
-            topic_id: m.id,
-          };
-        });
-
-        // Experience 8 opções
-        if (this.record.topics) {
-          if (this.record.topics.filter((f) => !f.experience).length > 3) {
-            this.$utils.toastError(
-              "Notificação",
-              "São pemitidos 3 especilidade."
-            );
-            return;
-          }
-
-          if (this.record.topics.filter((f) => f.experience).length > 8) {
-            this.$utils.toastError(
-              "Notificação",
-              "São Pemitidos 8 experiências."
-            );
-            return;
-          }
+        if (this.record.topics.filter((f) => f.experience).length > 8) {
+          this.$utils.toastError(
+            "Notificação",
+            "São Pemitidos 8 experiências."
+          );
+          return;
         }
       }
 
@@ -521,7 +553,14 @@ export default {
           _bank.bank_code = this.optionsBankSelected.value;
       });
 
-      const payload = { data: { ...this.record } };
+      let payload = new FormData();
+      if (this.fileImageSelected) {
+        payload.append("profile", this.fileImageSelected);
+      }
+      if (this.fileSignatureSelected) {
+        payload.append("sig", this.fileSignatureSelected);
+      }
+      payload.append("data", JSON.stringify(this.record));
 
       const _createOrUpdate =
         this.record.id <= 0
@@ -543,6 +582,7 @@ export default {
         .find()
         .then((res) => {
           this.record = res.content.provider.provider[0];
+          this.urlImage = this.record.imageurl;
 
           // situação provider
           this.optionsSituarionUfSelected = {
@@ -614,39 +654,33 @@ export default {
           if (this.record.topics && this.record.topics.length > 0) {
             this.optionsTopicsExperienceSelectd = [];
             this.optionsTopicsSelectd = [];
+
             this.record.topics.forEach((_topi) => {
               if (this.optionsTopics.some((s) => s.id === _topi.topic_id)) {
                 //selecionado
                 const ll = this.optionsTopics.filter(
                   (f) => f.id === _topi.topic_id
                 )[0];
-                if (!ll.experience) {
-                  this.optionsTopicsSelectd.push(ll);
-                } else {
-                  this.optionsTopicsExperienceSelectd.push(ll);
-                }
+                this.optionsTopicsSelectd.push(ll);
+              }
+
+              // experiencia
+              if (
+                this.optionsTopicsExperience.some(
+                  (s) => s.id === _topi.topic_id
+                )
+              ) {
+                //selecionado
+                const ll = this.optionsTopicsExperience.filter(
+                  (f) => f.id === _topi.topic_id
+                )[0];
+                this.optionsTopicsExperienceSelectd.push(ll);
               }
             });
           }
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
-    },
-    getSituations() {
-      _providerService
-        .showSituations()
-        .then((res) => {
-          this.optionsSituarion = res;
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error));
-    },
-    getAccountTypes() {
-      _bankService
-        .showAccountTypes()
-        .then((res) => {
-          this.optionsAccountTypes = res;
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error));
     },
     fetchBanks(item, _search) {
       if (_search && _search.length >= 3) {
@@ -691,11 +725,25 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
     },
+    onFileChange(e) {
+      e.preventDefault();
+      this.fileImageSelected = e.target.files[0];
+      this.urlImage = URL.createObjectURL(e.target.files[0]);
+    },
   },
 };
 </script>
 <style>
 #tabs-provider__BV_tab_controls_ li {
   font-size: 20px;
+}
+#thumbnail-perfil {
+  border: 1px solid #999;
+  width: 300px;
+  height: 200px;
+  border-radius: 50%;
+}
+#thumbnail-perfil:hover {
+  opacity: 0.5;
 }
 </style>
