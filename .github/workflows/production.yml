@@ -28,7 +28,7 @@ jobs:
         run: npm rebuild node-sass
                 
       - name: Build app
-        run: build-production
+        run: npm run build-production
       
       - name: Deploy S3
         run: aws s3 sync ./dist/ s3://cliqueterapia.com.br --delete
