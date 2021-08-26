@@ -464,6 +464,7 @@
 
 <script>
 import _account from "@/services/account-provider-service";
+import _locationsService from "@/services/locations-service";
 export default {
   data() {
     return {
@@ -628,6 +629,7 @@ export default {
           _bank.bank_code = this.optionsBankSelected.value;
       });
 
+      debugger;
       let payload = new FormData();
       if (this.fileImageSelected) {
         payload.append("profile", this.fileImageSelected);
