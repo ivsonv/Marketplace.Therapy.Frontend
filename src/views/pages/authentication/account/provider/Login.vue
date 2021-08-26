@@ -5,8 +5,11 @@
       <!-- Brand logo-->
       <b-link to="/" class="brand-logo d-none d-lg-flex">
         <img :src="logo" />
-        <h2 class="brand-text text-primary ml-1">SOU PSICÓLOGO</h2>
-        <br />
+        <h2 class="brand-text text-primary ml-1">
+          CLIQUE TERAPIA
+          <br />
+          <small class="text-muted">SOU PSICÓLOGO</small>
+        </h2>
       </b-link>
       <!-- /Brand logo-->
 
@@ -33,13 +36,13 @@
             "
           >
             <img :src="logo" class="mb-2" />
-            <h2 class="brand-text text-primary ml-1">SOU PSICÓLOGO</h2>
-            <small class="text-muted">Login</small>
+            <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
+            <small class="text-muted">SOU PSICÓLOGO</small>
           </div>
 
           <!-- form -->
           <validation-observer ref="loginForm" #default="{ invalid }">
-            <b-form class="auth-login-form mt-2" @submit.prevent="login">
+            <b-form class="auth-login-form mt-2">
               <!-- email -->
               <b-form-group label="Login" label-for="login-email">
                 <validation-provider
@@ -97,19 +100,33 @@
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-
-              <!-- submit buttons -->
               <div class="d-flex justify-content-center">
                 <b-button
                   type="submit"
-                  variant="primary"
-                  block
+                  variant="warning"
+                  size="lg"
+                  pill
                   :disabled="invalid"
                   v-if="!loading"
+                  @click="login"
                 >
-                  ACESSAR
+                  ACESSAR COMO PSICOLOGO
                 </b-button>
                 <spinner--c v-else />
+              </div>
+              <div
+                class="d-flex justify-content-center"
+                style="flex-direction: column"
+                v-if="!loading"
+              >
+                <div class="text-center">
+                  <div class="divider">
+                    <div class="divider-text">OU</div>
+                  </div>
+                  <b-button @click="register" variant="warning" size="lg" pill>
+                    QUERO ME CADASTRAR
+                  </b-button>
+                </div>
               </div>
             </b-form>
           </validation-observer>
@@ -242,6 +259,9 @@ export default {
             .finally(() => (this.loading = false));
         }
       });
+    },
+    register() {
+      this.$router.push({ name: "auth-quero-cadastrar-psicologo" });
     },
   },
 };

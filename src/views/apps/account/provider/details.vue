@@ -3,30 +3,6 @@
     <b-tabs id="tabs-provider" content-class="mt-2" justified>
       <b-tab title="DADOS PESSOAIS">
         <b-row>
-          <b-col cols="12" class="text-center">
-            <b-form-group class="d-flex justify-content-center">
-              <div style="width: 200px">
-                <img
-                  @click="$refs.fileInput.click()"
-                  :src="urlImage"
-                  id="thumbnail-perfil"
-                  class="img-fluid rounded-shadow cursor-pointer"
-                />
-                <input
-                  style="display: none"
-                  ref="fileInput"
-                  type="file"
-                  accept="image/*"
-                  @change="onFileChange"
-                />
-              </div>
-              <small>{{
-                !urlImage
-                  ? "Selecione uma foto"
-                  : "Clique na imagem para trocar a foto"
-              }}</small>
-            </b-form-group>
-          </b-col>
           <b-col md="6">
             <b-form-group label="Nome *">
               <b-form-input
@@ -202,6 +178,30 @@
       </b-tab>
       <b-tab title="PROFISSIONAL">
         <div class="row">
+          <b-col cols="12" class="text-center">
+            <b-form-group class="d-flex justify-content-center">
+              <div style="width: 200px">
+                <img
+                  @click="$refs.fileInput.click()"
+                  :src="urlImage"
+                  id="thumbnail-perfil"
+                  class="img-fluid rounded-shadow cursor-pointer"
+                />
+                <input
+                  style="display: none"
+                  ref="fileInput"
+                  type="file"
+                  accept="image/*"
+                  @change="onFileChange"
+                />
+              </div>
+              <small>{{
+                !urlImage
+                  ? "Selecione uma foto"
+                  : "Clique na imagem para trocar a foto"
+              }}</small>
+            </b-form-group>
+          </b-col>
           <b-col md="6">
             <b-form-group label="RESUMO SOBRE VOCÊ">
               <b-form-textarea
@@ -373,6 +373,80 @@
                 autocomplete="off"
               />
             </b-form-group>
+          </b-col> </b-row
+        >ENDEREÇO
+        <h1 class="py-1">Faturamento</h1>
+        <hr class="p-0 m-0 mb-1" />
+        <b-row
+          v-for="(item, index) in record.receipts"
+          :key="`receipts-${index}`"
+        >
+          <b-col md="12">
+            <b-form-group label="RAZÃO SOCIAL (PARA EMPRESAS)">
+              <b-form-input v-model="item.fantasy_name" autocomplete="off" />
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="CPF">
+              <b-form-input
+                v-mask="$utils.masked.cpf"
+                v-model="item.cpf"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="CNPJ (OPCIONAL)">
+              <b-form-input
+                v-mask="$utils.masked.cnpj"
+                v-model="item.cnpj"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="12">
+            <b-form-group label="ASSINATURA">
+              <img
+                @click="$refs.fileInputSig[0].click()"
+                :src="urlsignatureImage"
+                v-if="urlsignatureImage"
+                id="thumbnail-signature"
+                class="img-fluid rounded-shadow cursor-pointer"
+              />
+              <input
+                style="display: none"
+                ref="fileInputSig"
+                type="file"
+                accept="image/*"
+                @change="onFileChangeSignature"
+              />
+              <b-button
+                @click="$refs.fileInputSig[0].click()"
+                variant="info"
+                class="d-flex align-items-center mb-25"
+              >
+                <feather-icon icon="PaperclipIcon" size="22" />
+                <strong class="ml-25"
+                  >{{
+                    urlsignatureImage ? "ALTERAR" : "ENVIAR"
+                  }}
+                  ASSINATURA</strong
+                >
+              </b-button>
+              <h5>
+                Adicione uma imagem de sua assinatura para poder emitir recibos.
+                Tire uma foto da sua assinatura em um papel branco
+              </h5>
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="ENDEREÇO">
+              <b-form-textarea
+                rows="5"
+                v-model="item.address"
+                placeholder="Logradouro, CEP, Cidade..."
+              />
+            </b-form-group>
           </b-col>
         </b-row>
       </b-tab>
@@ -411,6 +485,7 @@ export default {
       fileImageSelected: null,
       fileSignatureSelected: null,
       urlImage: require("@/assets/images/pages/sem-foto.png"),
+      urlsignatureImage: null,
       record: {
         id: 0,
         nickname: "",
@@ -582,6 +657,7 @@ export default {
         .find()
         .then((res) => {
           this.record = res.content.provider.provider[0];
+          this.urlsignatureImage = this.record.signatureurl;
           this.urlImage = this.record.imageurl;
 
           // situação provider
@@ -637,8 +713,47 @@ export default {
             });
           }
 
-          // idiomas
+          // assinatura
+          if (!this.record.receipts || this.record.receipts.length <= 0) {
+            this.record.receipts = [];
+
+            let _address = "";
+            if (this.record.address && this.record.address.length > 0) {
+              if (this.record.address[0].address) {
+                _address = this.record.address[0].address;
+
+                if (this.record.address[0].number)
+                  _address += ", " + this.record.address[0].number;
+
+                if (this.record.address[0].complement)
+                  _address += ", " + this.record.address[0].complement;
+
+                if (this.record.address[0].zipcode)
+                  _address += ", cep: " + this.record.address[0].zipcode;
+
+                if (this.record.address[0].neighborhood)
+                  _address += ", " + this.record.address[0].neighborhood;
+
+                if (this.record.address[0].city)
+                  _address += ", " + this.record.address[0].city;
+
+                if (this.record.address[0].uf)
+                  _address += " - " + this.record.address[0].uf;
+              }
+            }
+
+            this.record.receipts.push({
+              fantasy_name: `${this.record.fantasy_name} ${this.record.company_name}`,
+              signature: "",
+              address: _address,
+              cnpj: this.record.cnpj,
+              cpf: this.record.cpf,
+            });
+          } else {
+          }
+
           if (this.record.languages && this.record.languages.length > 0) {
+            // idiomas
             this.record.languages.forEach((_lan) => {
               if (
                 this.optionsLanguages.some((s) => s.id === _lan.language_id)
@@ -730,12 +845,22 @@ export default {
       this.fileImageSelected = e.target.files[0];
       this.urlImage = URL.createObjectURL(e.target.files[0]);
     },
+    onFileChangeSignature(e) {
+      e.preventDefault();
+      this.fileSignatureSelected = e.target.files[0];
+      this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
+    },
   },
 };
 </script>
 <style>
 #tabs-provider__BV_tab_controls_ li {
   font-size: 20px;
+}
+#thumbnail-signature {
+  width: 300px;
+  height: 200px;
+  margin-bottom: 5px;
 }
 #thumbnail-perfil {
   border: 1px solid #999;

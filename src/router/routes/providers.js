@@ -11,6 +11,17 @@ export default [
     },
   },
   {
+    path: '/sou-psicologo-quero-me-cadastrar',
+    name: 'auth-quero-cadastrar-psicologo',
+    component: () => import('@/views/pages/authentication/account/provider/register.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: false,
+      notauthentication: true,
+    },
+  },
+  {
     path: '/account/appointments',
     name: 'account-appointments',
     component: () => import('@/views/apps/account/provider/index.vue'),

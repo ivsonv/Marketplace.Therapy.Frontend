@@ -4,7 +4,7 @@ const masked = {
   cpf: "###.###.###-##",
   cnpj: "##.###.###/####-##",
   countrycode: ['+##'],
-  phone: ['(##) ####-####', '(##) #####-####'],
+  phone: ['(##) ####-####', '(##) # ####-####'],
   cep: ['##.###-###'],
   unmask: text => {
     return text ? String(text).replace(new RegExp(defaultDelimiters, 'g'), '') : text

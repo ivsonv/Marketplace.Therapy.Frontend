@@ -2,6 +2,12 @@ import HttpService from './HttpService'
 
 const _http = new HttpService()
 export default {
+  update: (payload) => {
+    return _http.put('/api/account-provider', payload)
+  },
+  create: (payload) => {
+    return _http.post('/api/account-provider', payload)
+  },
   find: () => {
     return _http.get(`/api/account-provider`)
   },
@@ -13,9 +19,6 @@ export default {
   },
   fetchLanguages: () => {
     return _http.get(`/api/account-provider/languages`)
-  },
-  update: (payload) => {
-    return _http.put('/api/account-provider', payload)
   },
   fetchSchedules: () => {
     return _http.get('/api/account-provider/schedules')
