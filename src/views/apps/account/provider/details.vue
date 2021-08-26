@@ -88,17 +88,14 @@
 
         <h1 class="py-1">Endereço</h1>
         <hr class="p-0 m-0 mb-1" />
-        <b-row
-          v-for="(item, index) in record.address"
-          :key="`address-${index}`"
-        >
+        <b-row>
           <b-col md="3">
             <b-form-group label="CEP *">
               <!-- -->
               <b-input-group>
                 <b-form-input
                   v-mask="$utils.masked.cep"
-                  v-model="item.zipcode"
+                  v-model="address.zipcode"
                   placeholder="cep..."
                   autocomplete="off"
                   maxlength="10"
@@ -106,7 +103,7 @@
                 <b-input-group-append>
                   <b-button
                     variant="gradient-info"
-                    @click="getAddress(item.zipcode, item)"
+                    @click="getAddress(address.zipcode, address)"
                   >
                     <feather-icon
                       class="cursor-pointer"
@@ -119,9 +116,9 @@
             </b-form-group>
           </b-col>
           <b-col md="3">
-            <b-form-group label="UF">
+            <b-form-group label="UF *">
               <v-select
-                v-model="item.optionsUfSelected"
+                v-model="optionsUfSelected"
                 :options="optionsUf"
                 autocomplete="off"
               />
@@ -132,7 +129,7 @@
           <b-col md="6">
             <b-form-group label="Cidade *">
               <b-form-input
-                v-model="item.city"
+                v-model="address.city"
                 placeholder="cidade..."
                 autocomplete="off"
               />
@@ -141,7 +138,7 @@
           <b-col md="6">
             <b-form-group label="Bairro *">
               <b-form-input
-                v-model="item.neighborhood"
+                v-model="address.neighborhood"
                 placeholder="bairro..."
                 autocomplete="off"
               />
@@ -150,7 +147,7 @@
           <b-col md="6">
             <b-form-group label="Logradouro *">
               <b-form-input
-                v-model="item.address"
+                v-model="address.address"
                 placeholder="Logradouro..."
                 autocomplete="off"
               />
@@ -159,7 +156,7 @@
           <b-col md="4">
             <b-form-group label="Complemento *">
               <b-form-input
-                v-model="item.complement"
+                v-model="address.complement"
                 placeholder="Complemento..."
                 autocomplete="off"
               />
@@ -168,7 +165,7 @@
           <b-col md="2">
             <b-form-group label="Número">
               <b-form-input
-                v-model="item.number"
+                v-model="address.number"
                 placeholder="Número..."
                 autocomplete="off"
               />
@@ -505,7 +502,6 @@ export default {
         situation: 0,
       },
       address: {
-        optionsUfSelected: null,
         address: "",
         city: "",
         complement: "",
@@ -573,6 +569,13 @@ export default {
       });
     },
     save() {
+      if (this.optionsUfSelected) {
+        this.address.uf = this.optionsUfSelected.value;
+      }
+
+      this.record.address = [];
+      this.record.address.push(this.address);
+
       let _topics = [];
       if (this.optionsTopicsSelectd && this.optionsTopicsSelectd.length > 0) {
         _topics.push(...this.optionsTopicsSelectd);
@@ -670,18 +673,19 @@ export default {
 
           // caso não tenha endereço.
           if (!this.record.address || this.record.address.length <= 0) {
-            this.address.optionsUfSelected = this.optionsUf.filter(
+            this.record.address = [];
+            this.address.optionsUfSelected = null;
+          } else {
+            this.address = this.record.address[0];
+            this.optionsUfSelected = this.optionsUf.filter(
               (f) => f.value === this.address.uf
             )[0];
 
-            this.record.address = [];
-            this.record.address.push({ ...this.address });
-          } else {
-            this.record.address.forEach((_address) => {
-              _address.optionsUfSelected = this.optionsUf.filter(
-                (f) => f.value === _address.uf
-              )[0];
-            });
+            // this.record.address.forEach((_address) => {
+            //   _address.optionsUfSelected = this.optionsUf.filter(
+            //     (f) => f.value === _address.uf
+            //   )[0];
+            // });
           }
 
           // dados da conta.
