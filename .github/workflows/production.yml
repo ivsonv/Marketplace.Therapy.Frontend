@@ -1,0 +1,37 @@
+name: Deploy Production S3
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          
+      - name: Use Node.js 14.15.4
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.4
+          
+      - name: Install dependencies
+        run: npm install
+                
+      - name: NODE SASS
+        run: npm rebuild node-sass
+                
+      - name: Build app
+        run: build-production
+      
+      - name: Deploy S3
+        run: aws s3 sync ./dist/ s3://cliqueterapia.com.br --delete
+      
+      # - name: Clear Cache CloudFront
+      #   run: aws cloudfront create-invalidation --distribution-id "E7SHFO29C983H" --paths "/*"
