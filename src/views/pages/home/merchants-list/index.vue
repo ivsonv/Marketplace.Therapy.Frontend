@@ -20,7 +20,7 @@
           A qualquer hora, em qualquer lugar.
           <br />Dados seguros, privacidade total.
         </p>
-        <!-- <div class="row" id="search_name">
+        <div class="row" id="search_name">
           <div class="col-12 mt-3">
             <b-input-group>
               <b-form-input
@@ -33,44 +33,58 @@
               </b-input-group-append>
             </b-input-group>
           </div>
-        </div> -->
-        <div class="boxSearch">
-          <div class="divSearch">
-            <div class="itemSearch">
-              <label>Especialidade</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Ex: Casal, Pânico..."
-              />
+        </div>
+        <b-card class="mt-2" style="width: 100%">
+          <div class="row text-left">
+            <div class="col-12 col-lg-6">
+              <b-form-group label="Motivos">
+                <v-select
+                  v-model="experienceSelected"
+                  :options="experiences"
+                  autocomplete="off"
+                  multiple
+                />
+              </b-form-group>
             </div>
-            <div class="itemSearch">
-              <label>Idioma</label>
-              <input type="text" name="nome" placeholder="Ex: Português..." />
+            <div class="col-12 col-lg-4">
+              <b-form-group label="Idioma">
+                <v-select
+                  v-model="languageSelected"
+                  :options="languages"
+                  autocomplete="off"
+                />
+              </b-form-group>
             </div>
-            <div class="itemSearch">
-              <label>Valor</label>
-              <input type="number" name="nome" placeholder="Ex: R$ 80,00..." />
+            <div class="col-12 col-lg-4">
+              <b-form-group label="">
+                <!-- <v-select
+                  v-model="experienceSelected"
+                  :options="experiences"
+                  autocomplete="off"
+                /> -->
+              </b-form-group>
             </div>
           </div>
-          <b-button size="lg" variant="warning" class="rounded" pill>
-            Pesquisar
-          </b-button>
-        </div>
+          <div style="position: absolute; right: 0; left: 0">
+            <b-button size="lg" variant="warning" class="rounded" pill>
+              Pesquisar
+            </b-button>
+          </div>
+        </b-card>
       </div>
-      <!-- <img
+      <img
         class="List_imgThree"
         :src="require('@/assets/images/home/List_imgThree.jpg')"
       />
       <img
         class="List_imgFour"
         :src="require('@/assets/images/home/List_imgFour.jpg')"
-      /> -->
+      />
     </section>
 
     <!-- profissionais -->
     <section id="bodyListProfissional" class="container-fluid" v-if="providers">
-      <h1 v-if="providers.length > 0">Encontre o seu especialista</h1>
+      <h1 v-if="providers.length > 0">Nossos Especialistas</h1>
       <h1 v-if="providers.length <= 0">Nenhum especialista encontrado</h1>
       <div class="row" id="profissionaislist">
         <div
@@ -208,9 +222,9 @@
                 </div>-->
                 <p>
                   {{
-                    data.description && data.description.length > 189
-                      ? data.description.substring(0, 188) + "..."
-                      : data.description
+                    data.introduction && data.introduction.length > 189
+                      ? data.introduction.substring(0, 188) + "..."
+                      : data.introduction
                   }}
                 </p>
                 <a @click="godetalhes(data)">Ver perfil completo</a>
@@ -240,6 +254,7 @@
 
 <script>
 import HomeHeader from "../components/home-header";
+import _ecommerce from "@/services/ecommerce-service";
 export default {
   components: {
     "header--v": HomeHeader,
@@ -247,100 +262,49 @@ export default {
   data() {
     return {
       loading: false,
-      providers: [
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-        {
-          name: "Jéssica Guedes da Silva",
-          price: 60,
-          crp: "06/167004",
-          state: "São Paulo",
-          description:
-            "Olá, seja bem vindo (a)! Sou Psicóloga clinica e atendo na abordagem cognitivo comportamental. Fazer terapia, é apreender a ler a si mesmo, olhar para suas emoções, compreender seus sentimentos e pensamentos, e com isso, lidar com os obstáculos/desafios que a vida nos proporciona.",
-          image:
-            "https://zenklub.com.br/static/professionals/60f9832674370e001162e446/7cc169604463dbab06c389b33ee6077c4a27a336-180x180.png",
-        },
-      ],
-
-      model: {
-        consultores: [
-          {
-            name: "IVSON",
-          },
-        ],
-      },
+      page: 0,
+      experienceSelected: null,
+      experiences: [],
+      providers: [],
     };
   },
-  created() {},
-  methods: {},
+  created() {
+    this.getTopics();
+    this.getProviders();
+  },
+  methods: {
+    getTopics() {
+      _ecommerce
+        .showTopics()
+        .then((_res) => {
+          this.experiences = _res.content
+            .filter((f) => f.active && f.experience)
+            .map((m) => {
+              return {
+                label: m.name,
+                value: m.id,
+              };
+            });
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error));
+    },
+    getProviders() {
+      this.loading = true;
+      const payload = { data: null };
+
+      _ecommerce
+        .showProviders(payload)
+        .then((_res) => {
+          this.providers = _res.content;
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
+    },
+    filter() {
+      this.page = 0;
+      this.getProviders();
+    },
+  },
 };
 </script>
 
@@ -398,13 +362,13 @@ export default {
   }
 
   .boxSearch {
+    width: 100%;
     display: flex;
     margin-top: 60px;
     border-radius: 10px;
     position: relative;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
+    text-align: initial;
     padding: 20px 20px 50px;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
@@ -420,25 +384,6 @@ export default {
       @media screen and (max-width: 767px) {
         width: 100%;
         flex-direction: column;
-      }
-      .itemSearch {
-        display: flex;
-        margin: 0 20px;
-        text-align: left;
-        flex-direction: column;
-        @media screen and (max-width: 767px) {
-          width: 100%;
-          margin: 15px 20px;
-        }
-        label {
-          margin: 0;
-        }
-        input {
-          box-shadow: none;
-          padding: 5px 12px;
-          border-radius: 5px;
-          border: 1px solid #707070;
-        }
       }
     }
     button {

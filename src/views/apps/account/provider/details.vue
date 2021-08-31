@@ -25,7 +25,7 @@
             <b-form-group label="Apelido">
               <b-form-input
                 v-model="record.nickname"
-                placeholder="Nome do Psicólogo"
+                placeholder="Como gostaria de ser chamado ?"
                 autocomplete="off"
               />
               <small class="text-muted"
@@ -179,11 +179,23 @@
             <b-form-group class="d-flex justify-content-center">
               <div style="width: 200px">
                 <img
-                  @click="$refs.fileInput.click()"
-                  :src="urlImage"
-                  id="thumbnail-perfil"
                   class="img-fluid rounded-shadow cursor-pointer"
+                  id="thumbnail-perfil"
+                  v-if="urlImage"
+                  :src="urlImage"
                 />
+                <b-button
+                  class="d-flex align-items-center my-1 ml-2"
+                  @click="$refs.fileInput.click()"
+                  variant="info"
+                >
+                  <feather-icon icon="ImageIcon" size="22" />
+                  <strong class="ml-25">{{
+                    !urlImage
+                      ? "Selecione uma Imagem Perfil"
+                      : "Escolher outra Imagem"
+                  }}</strong>
+                </b-button>
                 <input
                   style="display: none"
                   ref="fileInput"
@@ -192,11 +204,6 @@
                   @change="onFileChange"
                 />
               </div>
-              <small>{{
-                !urlImage
-                  ? "Selecione uma foto"
-                  : "Clique na imagem para trocar a foto"
-              }}</small>
             </b-form-group>
           </b-col>
           <b-col md="6">
@@ -632,7 +639,6 @@ export default {
           _bank.bank_code = this.optionsBankSelected.value;
       });
 
-      debugger;
       let payload = new FormData();
       if (this.fileImageSelected) {
         payload.append("profile", this.fileImageSelected);
