@@ -19,9 +19,9 @@ export default [{
     },
 },
 {
-    path: '/psicologos/link?',
+    path: '/psicologos/:link?',
     name: 'merchants-details',
-    component: () => import('@/views/pages/home/merchants-list/index.vue'),
+    component: () => import('@/views/pages/home/merchants-details/index.vue'),
     meta: {
         layout: 'full',
         redirectIfLoggedIn: false,

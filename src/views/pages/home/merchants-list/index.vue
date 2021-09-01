@@ -34,43 +34,45 @@
             </b-input-group>
           </div>
         </div>
-        <b-card class="mt-2" style="width: 100%">
-          <div class="row text-left">
-            <div class="col-12 col-lg-6">
-              <b-form-group label="Motivos">
-                <v-select
-                  v-model="experienceSelected"
-                  :options="experiences"
-                  autocomplete="off"
-                  multiple
-                />
-              </b-form-group>
-            </div>
-            <div class="col-12 col-lg-4">
-              <b-form-group label="Idioma">
-                <v-select
-                  v-model="languageSelected"
-                  :options="languages"
-                  autocomplete="off"
-                />
-              </b-form-group>
-            </div>
-            <div class="col-12 col-lg-4">
-              <b-form-group label="">
-                <!-- <v-select
+        <div class="px-2 px-lg-0" style="width: 100%">
+          <b-card class="mt-2" style="width: 100%">
+            <div class="row text-left">
+              <div class="col-12 col-lg-6">
+                <b-form-group label="Motivos">
+                  <v-select
+                    v-model="experienceSelected"
+                    :options="experiences"
+                    autocomplete="off"
+                    multiple
+                  />
+                </b-form-group>
+              </div>
+              <div class="col-12 col-lg-4">
+                <b-form-group label="Idioma">
+                  <v-select
+                    v-model="languageSelected"
+                    :options="languages"
+                    autocomplete="off"
+                  />
+                </b-form-group>
+              </div>
+              <div class="col-12 col-lg-4">
+                <b-form-group label="">
+                  <!-- <v-select
                   v-model="experienceSelected"
                   :options="experiences"
                   autocomplete="off"
                 /> -->
-              </b-form-group>
+                </b-form-group>
+              </div>
             </div>
-          </div>
-          <div style="position: absolute; right: 0; left: 0">
-            <b-button size="lg" variant="warning" class="rounded" pill>
-              Pesquisar
-            </b-button>
-          </div>
-        </b-card>
+            <div style="position: absolute; right: 0; left: 0">
+              <b-button size="lg" variant="warning" class="rounded" pill>
+                Pesquisar
+              </b-button>
+            </div>
+          </b-card>
+        </div>
       </div>
       <img
         class="List_imgThree"
@@ -227,7 +229,7 @@
                       : data.introduction
                   }}
                 </p>
-                <a @click="godetalhes(data)">Ver perfil completo</a>
+                <a @click="goDetails(data)">Ver perfil completo</a>
               </div>
             </div>
             <div class="detailProfissonal">
@@ -240,7 +242,7 @@
                 <span>50 minutos</span>
               </div>
             </div>
-            <a @click="godetalhes(data)">
+            <a @click="goDetails(data)">
               <b-button size="lg" variant="warning" class="rounded" pill>
                 Marcar consulta
               </b-button>
@@ -265,10 +267,12 @@ export default {
       page: 0,
       experienceSelected: null,
       experiences: [],
+      languageSelected: null,
+      languages: [],
       providers: [],
     };
   },
-  created() {
+  mounted() {
     this.getTopics();
     this.getProviders();
   },
@@ -299,6 +303,12 @@ export default {
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
+    },
+    goDetails(_dto) {
+      this.$router.push({
+        name: "merchants-details",
+        params: { link: _dto.link },
+      });
     },
     filter() {
       this.page = 0;
