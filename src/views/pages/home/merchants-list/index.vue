@@ -86,8 +86,9 @@
 
     <!-- profissionais -->
     <section id="bodyListProfissional" class="container-fluid" v-if="providers">
-      <h1 v-if="providers.length > 0">Nossos Especialistas</h1>
-      <h1 v-if="providers.length <= 0">Nenhum especialista encontrado</h1>
+      <h1 v-if="loading">Carregando... <spinner--c /></h1>
+      <h1 v-else-if="providers.length > 0">Nossos Especialistas</h1>
+      <h1 v-else-if="providers.length <= 0">Nenhum especialista encontrado</h1>
       <div class="row" id="profissionaislist">
         <div
           class="col-lg-6 mb-1 d-flex justify-content-center"
