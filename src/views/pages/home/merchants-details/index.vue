@@ -4,7 +4,7 @@
 
     <div v-if="!loading">
       <!-- PROFILE -->
-      <section class="mx-2 px-lg-5 py-3" v-if="provider">
+      <section class="mx-2 px-lg-5 pt-3 pb-0" v-if="provider">
         <div class="row">
           <div class="col-12 col-lg-7">
             <div class="d-flex provider-bloco">
@@ -42,7 +42,9 @@
         <div class="col-12 col-lg-7">
           <hr />
           <div class="row my-25" v-if="provider.experiences">
-            <div class="col-12">Temas que trabalho</div>
+            <div class="col-12 mb-1">
+              <span class="title-details">Temas que trabalho</span>
+            </div>
             <div class="col">
               <b-badge
                 v-for="(exper, iexper) in provider.experiences"
@@ -56,27 +58,43 @@
             </div>
           </div>
           <div class="row my-2" v-if="provider.introduction">
-            <div class="col-12">Descrição</div>
             <div class="col-12">
-              <span class="text-wrap">
+              <span class="title-details">Descrição</span>
+            </div>
+            <div class="col-12 text-justify">
+              <span>
                 {{ provider.introduction }}
               </span>
             </div>
           </div>
           <div class="row my-2" v-if="provider.expertises">
-            <div class="col-12">Minhas Especialidades</div>
+            <div class="col-12">
+              <span class="title-details">Especialidades</span>
+            </div>
             <div class="col">
-              {{ provider.expertises.map((m) => m.name).join(", ") }}
+              <b-badge
+                v-for="(_exp, _iexp) in provider.expertises"
+                class="bagde-expertises"
+                variant="warning"
+                :key="_iexp"
+                pill
+              >
+                {{ _exp.name }}
+              </b-badge>
             </div>
           </div>
           <div class="row my-2" v-if="provider.biography">
-            <div class="col-12">Biografia</div>
+            <div class="col-12">
+              <span class="title-details">Biografia</span>
+            </div>
             <div class="col-12 text-justify">
               <span> {{ provider.biography }} </span>
             </div>
           </div>
           <div class="row my-2">
-            <div class="col-12">Política de Remarcação</div>
+            <div class="col-12">
+              <span class="title-details">Política de Remarcação</span>
+            </div>
             <div class="col-12">
               Remarcações podem ocorrer em até 24 hora(s).
             </div>
@@ -159,6 +177,10 @@ export default {
   font-size: 14px;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+
+.title-details {
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 991px) {

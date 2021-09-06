@@ -377,10 +377,22 @@
                 autocomplete="off"
               />
             </b-form-group>
-          </b-col> </b-row
-        >ENDEREÇO
+          </b-col>
+        </b-row>
         <h1 class="py-1">Faturamento</h1>
         <hr class="p-0 m-0 mb-1" />
+        <b-row>
+          <b-col cols="6" md="3">
+            <b-form-group label="Valor da Sessão (50 minutos)">
+              <b-form-input
+                v-mask="$utils.masked.money"
+                v-model="record.price"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+        </b-row>
+
         <b-row
           v-for="(item, index) in record.receipts"
           :key="`receipts-${index}`"
@@ -638,6 +650,9 @@ export default {
         if (this.optionsBankSelected)
           _bank.bank_code = this.optionsBankSelected.value;
       });
+      if (this.record.price) {
+        this.record.price = this.record.price.toString().replace(",", ".");
+      }
 
       let payload = new FormData();
       if (this.fileImageSelected) {
@@ -657,7 +672,8 @@ export default {
       _createOrUpdate
         .then(() => {
           this.$utils.toast("Notificação", "Salvo com sucesso.");
-          this.$router.push({ name: "account-appointments" });
+          // this.getRecord();
+          // this.$router.push({ name: "account-appointments" });
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
@@ -670,6 +686,13 @@ export default {
           this.record = res.content.provider.provider[0];
           this.urlsignatureImage = this.record.signatureurl;
           this.urlImage = this.record.imageurl;
+
+          if (this.record.price > 0) {
+            this.record.price = this.record.price
+              .toFixed(2)
+              .toString()
+              .replace(".", ",");
+          }
 
           // situação provider
           this.optionsSituarionUfSelected = {
@@ -686,12 +709,6 @@ export default {
             this.optionsUfSelected = this.optionsUf.filter(
               (f) => f.value === this.address.uf
             )[0];
-
-            // this.record.address.forEach((_address) => {
-            //   _address.optionsUfSelected = this.optionsUf.filter(
-            //     (f) => f.value === _address.uf
-            //   )[0];
-            // });
           }
 
           // dados da conta.
