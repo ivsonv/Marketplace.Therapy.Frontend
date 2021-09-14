@@ -11,4 +11,7 @@ export default {
   showTopics: () => {
     return _http.get('/api/marketplace/topics')
   },
+  showProviderHours: (link) => {
+    return _http.get(`/api/marketplace/provider/${link}/hours`)
+  },
 }

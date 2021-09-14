@@ -451,7 +451,7 @@
               </b-button>
               <h5>
                 Adicione uma imagem de sua assinatura para poder emitir recibos.
-                Tire uma foto da sua assinatura em um papel branco
+                Tire uma foto da sua assinatura em um papel branco.
               </h5>
             </b-form-group>
           </b-col>

@@ -18,10 +18,10 @@
               <div class="personal ml-lg-1 mt-lg-0 mt-2">
                 <p>{{ provider.name }}</p>
                 <strong class="text-center" v-if="provider.crp"
-                  >CRP – 6737/01</strong
+                  >CRP – {{ provider.crp }}</strong
                 >
-                <span class="text-center text-lg-left">
-                  | DISTRITO FEDERAL - DF</span
+                <span class="text-center text-lg-left" v-if="provider.state">
+                  | {{ provider.state }}</span
                 >
                 <div class="price">
                   <strong
@@ -31,8 +31,16 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-lg-5">
-            <p>Agende aqui sua consulta</p>
+          <div id="box-hours" class="col-12 col-lg-5 text-center shadow p-0">
+            <h1 class="fuso-required py-1 px-0 m-0" v-if="!loadinghours">
+              Agende aqui sua consulta
+              <div>
+                <small>Fuso horário de São Paulo ({{ horasp }})</small>
+                <hr class="divisor-hour" />
+              </div>
+            </h1>
+            <h4 v-if="loadinghours">Buscando horários... <spinner--c /></h4>
+            <div class="form-group" v-if="hours"></div>
           </div>
         </div>
       </section>
@@ -114,11 +122,17 @@ export default {
   },
   data() {
     return {
+      optionsUf: this.$utils.getStates(),
+      loadinghours: false,
       loading: false,
       provider: null,
-      biograby:
-        "Possui graduação em Psicologia pelo Centro Universitário de Brasília (1996), mestrado (2005) e doutorado (2011) em Psicologia pela Universidade de Brasília na área de Desenvolvimento Humano e Saúde. Professora da Secretaria de Estado de Educação do Distrito Federal, desde 1991, atuou como professora de Educação Básica, psicóloga escolar e gestora do sistema educacional. Foi docente e orientadora de mestrado e doutorado no Programa de Pós-graduação em Educação da Universidade Católica de Brasília, no período de 2012 a 2016. Atualmente realiza atividades na Educação Básica, no Atendimento Educacional Especializado para Estudantes com Altas Habilidades/Superdotação. e desenvolve docência e pesquisa na Educação Superior. Aplica-se à pesquisa e estudos nas áreas de criatividade, motivação, processos de ensino aprendizagem e metodologias ativas de aprendizagem, educação especial e inclusiva e transtornos funcionais específicos. Suas áreas de interesse são avaliação e atendimento em altas habilidades/superdotação e Transtorno de Déficit de Atenção e Hiperatividade. Sócia e Responsável Técnica da Clínica Em Si Psicologia, atua na clínica psicológica desde 1996. Dedica-se a palestras, cursos de formação de professores e produção científica na área de Educação e Psicologia. Membro do Conselho Brasileiro para Superdotação ? CONBRASD; Associação Nacional de Pós-Graduação e Pesquisa em Educação ANPED; Associação Brasileira de Pesquisadores em Educação Especial ABPEE; Associação Brasileira de Psicologia Escolar e Educacional ABRAPEE, vinculada ao Conselho Federal de Psicologia e Conselho Regional de Psicologia CRP 01/ DistritoFederal.",
+      hours: null,
+      horasp: null,
     };
+  },
+  created() {
+    this.getProviderHours();
+    this.getfuso();
   },
   mounted() {
     this.getProvider();
@@ -129,10 +143,31 @@ export default {
       _ecommerce
         .findByProvider(this.$route.params.link)
         .then((_res) => {
+          if (_res.content.state) {
+            _res.content.state = this.optionsUf
+              .filter((f) => f.value === _res.content.state)[0]
+              .label.toUpperCase();
+          }
+
           this.provider = _res.content;
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
+    },
+    getProviderHours() {
+      this.loadinghours = true;
+      _ecommerce
+        .showProviderHours(this.$route.params.link)
+        .then((_res) => {
+          this.hours = _res.content;
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loadinghours = false));
+    },
+    getfuso() {
+      setInterval(() => {
+        this.horasp = this.$utils.getFusoHorarioSP();
+      }, 1000);
     },
   },
 };
@@ -181,6 +216,21 @@ export default {
 
 .title-details {
   font-size: 2rem;
+}
+
+.divisor-hour {
+  width: 30px;
+  border: 1px solid var(--success);
+}
+
+.fuso-required {
+  border-radius: 4px;
+  // background: var(--dark);
+  color: var(--dark);
+}
+
+#box-hours {
+  max-width: 600px;
 }
 
 @media screen and (max-width: 991px) {

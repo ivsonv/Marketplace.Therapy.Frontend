@@ -52,6 +52,16 @@ export default {
     formatToNumber(number) {
         return parseInt(number)
     },
+    getFusoHorarioSP() {
+        const options = {
+            timeZone: "America/Sao_Paulo",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+        };
+        const date = new Intl.DateTimeFormat([], options);
+        return date.format(new Date());
+    },
     toast(title, msg) {
         this._toast({
             title,
