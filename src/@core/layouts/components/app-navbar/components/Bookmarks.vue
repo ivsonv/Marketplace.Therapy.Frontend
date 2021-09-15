@@ -1,5 +1,5 @@
 <template>
-  <b-navbar-nav class="nav">
+  <b-navbar-nav v-show="showCalendar" class="nav">
     <b-nav-item
       v-for="(bookmark, index) in bookmarks"
       :id="`bookmark-${index}`"
@@ -40,6 +40,15 @@ export default {
     BFormInput,
     VuePerfectScrollbar,
     BDropdownItem,
+  },
+  data() {
+    return {
+      userData: JSON.parse(localStorage.getItem("userData")),
+      showCalendar: false,
+    };
+  },
+  created() {
+    this.showCalendar = this.userData.roles[0] === "account.provider";
   },
   setup() {
     const searchAndBookmarkDataPages = ref(searchAndBookmarkData.pages);

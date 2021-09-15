@@ -11,7 +11,11 @@ export default {
   showTopics: () => {
     return _http.get('/api/marketplace/topics')
   },
-  showProviderHours: (link) => {
-    return _http.get(`/api/marketplace/provider/${link}/hours`)
+  showProviderHours: (link, dt_start = null) => {
+    if (dt_start) {
+      return _http.get(`/api/marketplace/provider/${link}/hours?dt_start=${dt_start}`)
+    }
+    else
+      return _http.get(`/api/marketplace/provider/${link}/hours`)
   },
 }

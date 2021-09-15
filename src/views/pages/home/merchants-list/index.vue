@@ -273,6 +273,9 @@ export default {
       providers: [],
     };
   },
+  created() {
+    localStorage.removeItem("checkout");
+  },
   mounted() {
     this.getTopics();
     this.getProviders();

@@ -1,3 +1,4 @@
 import registrations from './registrations'
 import providers from './providers'
-export default [...registrations, ...providers]
+import customers from './customers'
+export default [...registrations, ...providers, ...customers]

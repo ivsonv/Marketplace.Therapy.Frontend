@@ -27,4 +27,14 @@ export default [{
         redirectIfLoggedIn: false,
         notauthentication: true,
     },
+},
+{
+    path: '/psicologos/resumo',
+    name: 'merchants-resume',
+    component: () => import('@/views/pages/home/merchants-details/resume.vue'),
+    meta: {
+        layout: 'full',
+        redirectIfLoggedIn: false,
+        notauthentication: true,
+    },
 }]

@@ -266,41 +266,14 @@ export default {
           hour: `${_hour}:00`,
           date: _date,
         };
-        const _dateformat = this.getformathour(_date);
+        localStorage.setItem("checkout", JSON.stringify(payload));
 
-        this.$swal({
-          title: `Sua consulta será para ${_dateformat} as ${_hour}h`,
-          text: "FUSO Horário de São Paulo",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Sim, Quero Continuar!",
-          cancelButtonText: "Cancelar",
-          customClass: {
-            confirmButton: "btn btn-info",
-            cancelButton: "btn btn-outline-danger ml-1",
-          },
-          buttonsStyling: false,
-        }).then((result) => {
-          if (result.value) {
-            this.confirmSelected(payload);
-          }
+        this.$router.push({
+          name: "merchants-details",
+          params: { link: _dto.link },
         });
       }
     },
-    confirmSelected(payload) {
-      localStorage.setItem("checkout", JSON.stringify(payload));
-
-      // this.$router.push({
-      //   name: "merchants-resume",
-      // });
-    },
-    getformathour(_date) {
-      return `${_date.substr(8, 2)}/${_date.substr(5, 2)}/${_date.substr(
-        0,
-        4
-      )}`;
-    },
-
     nexthours() {
       const _date = this.dates[3].date;
 

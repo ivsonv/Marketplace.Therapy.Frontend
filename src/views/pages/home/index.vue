@@ -40,7 +40,9 @@ export default {
       loading: false,
     };
   },
-  created() {},
+  created() {
+    localStorage.removeItem("checkout");
+  },
   methods: {
     goSearch() {
       this.$router.push({ name: "merchants-view" });

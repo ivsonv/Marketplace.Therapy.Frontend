@@ -8,6 +8,9 @@ export default {
   loginProvider: (payload) => {
     return _http.post('/api/auth/provider', payload)
   },
+  loginCustomer: (payload) => {
+    return _http.post('/api/auth/customer', payload)
+  },
   // login: (payload) => {
   //   return _http.post('/api/auth', payload)
   // },

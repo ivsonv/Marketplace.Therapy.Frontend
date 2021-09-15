@@ -15,7 +15,13 @@
           >
             Sou Psicólogo
           </b-button>
-          <b-button size="lg" variant="warning" class="rounded" pill>
+          <b-button
+            @click="goCustomer"
+            size="lg"
+            variant="warning"
+            class="rounded"
+            pill
+          >
             Sou Paciente
           </b-button>
         </div>
@@ -37,6 +43,9 @@ export default {
     },
     goMerchant() {
       this.$router.push({ name: "auth-login-psicologo" });
+    },
+    goCustomer() {
+      this.$router.push({ name: "auth-login-paciente" });
     },
   },
 };
