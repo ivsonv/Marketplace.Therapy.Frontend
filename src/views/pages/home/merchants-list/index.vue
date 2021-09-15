@@ -236,7 +236,7 @@
             <div class="detailProfissonal">
               <div>
                 <p>Sessão</p>
-                <span>R$ {{ data.price.toFixed(2) }}</span>
+                <span>R$ {{ data.price.toFixed(0) }}</span>
               </div>
               <div>
                 <p>Tempo</p>
