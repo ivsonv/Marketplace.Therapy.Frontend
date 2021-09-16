@@ -277,7 +277,7 @@ export default {
 
           // redirecionar para o cadastro
           this.$ability.update([{ action: "manage", subject: "all" }]);
-          this.$router.push({ name: "account-customer-reports" });
+          this.$router.push({ name: "sou-paciente-appointments" });
         })
         .catch((error) => {
           this.$utils.toastError("Notificação", error);

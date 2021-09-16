@@ -206,7 +206,6 @@ export default {
     };
   },
   created() {
-    localStorage.removeItem("checkout");
     this.getProviderHours(null);
     this.getfuso();
   },
@@ -265,6 +264,7 @@ export default {
           provider_id: this.provider.id,
           hour: `${_hour}:00`,
           date: _date,
+          auth: false,
         };
         const _dateformat = this.getformathour(_date);
 
@@ -289,10 +289,16 @@ export default {
     },
     confirmSelected(payload) {
       localStorage.setItem("checkout", JSON.stringify(payload));
-
-      // this.$router.push({
-      //   name: "merchants-resume",
-      // });
+      const auth = `${localStorage.getItem("accessToken")}`;
+      if (auth && auth !== "null") {
+        this.$router.push({
+          name: "checkout-details",
+        });
+      } else {
+        this.$router.push({
+          path: `/sou-paciente?goto=checkout`,
+        });
+      }
     },
     getformathour(_date) {
       return `${_date.substr(8, 2)}/${_date.substr(5, 2)}/${_date.substr(
@@ -300,7 +306,6 @@ export default {
         4
       )}`;
     },
-
     nexthours() {
       const _date = this.dates[3].date;
 

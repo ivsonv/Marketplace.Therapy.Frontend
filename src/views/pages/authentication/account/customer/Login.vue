@@ -195,7 +195,10 @@ export default {
     };
   },
   created() {
-    localStorage.clear();
+    console.log(this.$route.query);
+    if (!this.$route.query.goto) {
+      localStorage.clear();
+    }
   },
   mounted() {
     localize("pt_BR", pt_br);
@@ -240,20 +243,13 @@ export default {
               );
               this.$ability.update([{ action: "manage", subject: "all" }]);
 
-              this.$router.push({ name: "account-customer-reports" });
-
-              // redirect
-              // if (this.$route.params.redirect) {
-              //   let redirect_url = this.$route.params.redirect.replace(
-              //     /_/g,
-              //     "/"
-              //   );
-              //   this.$router.push({
-              //     path: `/${redirect_url}`,
-              //   });
-              // } else {
-              //   this.$router.push({ name: "account-appointments" });
-              // }
+              if (this.$route.query.goto) {
+                this.$router.push({
+                  path: `/${this.$route.query.goto}`,
+                });
+              } else {
+                this.$router.push({ name: "sou-paciente-appointments" });
+              }
             })
             .catch((error) =>
               this.$refs.loginForm.setErrors({ password: error })

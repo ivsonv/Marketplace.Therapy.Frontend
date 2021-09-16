@@ -45,7 +45,12 @@ export default {
       this.$router.push({ name: "auth-login-psicologo" });
     },
     goCustomer() {
-      this.$router.push({ name: "auth-login-paciente" });
+      const auth = `${localStorage.getItem("accessToken")}`;
+      if (auth && auth !== "null") {
+        this.$router.push({ name: "sou-paciente-appointments" });
+      } else {
+        this.$router.push({ name: "auth-login-paciente" });
+      }
     },
   },
 };

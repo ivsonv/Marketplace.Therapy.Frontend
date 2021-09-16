@@ -67,6 +67,9 @@ export default {
       // Remove userData from localStorage
       localStorage.removeItem("userData");
 
+      // remove localfull
+      localStorage.clear();
+
       // Redirect to login page
       this.$router.push({ name: "home-view" });
     },
