@@ -4,7 +4,7 @@ export default [
   },
   {
     title: 'Minhas Sessões',
-    route: 'account-customer-reports',
+    route: 'sou-paciente-appointments',
     icon: 'DatabaseIcon',
     active: true,
     roles: ['account.customer']
@@ -15,4 +15,5 @@ export default [
     icon: 'UserIcon',
     active: true,
     roles: ['account.customer']
-  }]
+  }
+]

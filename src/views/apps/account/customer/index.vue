@@ -1,23 +1,8 @@
 <template>
-  <viewcard--c title="Listagem de bancos" :btnew="btnew">
-    <b-row class="mb-1 d-flex justify-content-end">
-      <b-col md="5">
-        <b-input-group>
-          <b-form-input
-            placeholder="pesquise por nome..."
-            autocomplete="off"
-            v-model="search"
-          />
-          <b-input-group-append>
-            <b-button variant="gradient-info" @click="filter">
-              Pesquisar
-            </b-button>
-          </b-input-group-append>
-        </b-input-group>
-      </b-col>
-    </b-row>
-    <view--c permission="topic.view" :busy="isloading">
+  <viewcard--c title="MINHAS SESSÕES" subtitle="* Fuso horário de São Paulo">
+    <view--c permission="account.customer" :busy="isloading">
       <b-table
+        @row-clicked="onClickSelected"
         :busy="isloading"
         :fields="fields"
         :items="list"
@@ -25,28 +10,21 @@
         striped
         hover
       >
-        <template #cell(name)="data">
-          <div class="text-nowrap">
-            {{ `${data.item.code} - ${data.item.name}` }}
-          </div>
-        </template>
-        <template #cell(active)="data">
+        <template #cell(actions)="data">
           <feather-icon
-            :icon="data.item.active ? 'CheckIcon' : 'XIcon'"
+            icon="EyeIcon"
             size="22"
             class="mx-1"
+            @click="onClickSelected(data.item)"
           />
         </template>
-        <template #cell(actions)="data">
-          <div class="text-nowrap">
-            <feather-icon
-              icon="EditIcon"
-              size="22"
-              class="mx-1"
-              @click="onClickSelected(data.item)"
-            />
-          </div>
+        <template #cell(data)="data">
+          {{ data.item.data }} <br />
+          {{ data.item.hora }}h
         </template>
+        <template #cell(fuso)>
+          <strong style="color: var(--danger)"> * São Paulo </strong></template
+        >
       </b-table>
       <div class="d-flex justify-content-center">
         <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
@@ -54,27 +32,65 @@
         </b-button>
       </div>
     </view--c>
+
+    <!-- Details appointment -->
+    <b-sidebar
+      sidebar-class="sidebar-lg"
+      bg-variant="white"
+      v-model="isActiveDetails"
+      right
+      backdrop
+      shadow
+      no-header
+    >
+      <template #default="{ hide }" v-if="isActiveDetails">
+        <div
+          class="
+            d-flex
+            justify-content-between
+            align-items-center
+            content-sidebar-header
+            px-2
+            py-1
+          "
+        >
+          <h5 class="mb-0">Detalhes da Sessão - Cód. #{{ appointmentid }}</h5>
+          <div>
+            <feather-icon
+              class="ml-1 cursor-pointer"
+              icon="XIcon"
+              size="16"
+              @click="hide"
+            />
+          </div>
+        </div>
+        <v-appointment v-if="appointmentid > 0" :id="appointmentid" />
+      </template>
+    </b-sidebar>
   </viewcard--c>
 </template>
 
 <script>
-import _bankService from "@/services/bank-service";
+import _customerService from "@/services/account-customer-service";
+import appointmentDetails from "./appointment-details.vue";
 export default {
+  components: {
+    "v-appointment": appointmentDetails,
+  },
   data() {
     return {
-      btnew: {
-        permission: "bank.create",
-        to: "/registrations/bank/0",
-      },
+      isActiveDetails: false,
       isloading: false,
       currentePage: 1,
       search: null,
       more: false,
       size: 20,
       fields: [
-        { key: "name", label: "Nome" },
-        { key: "active", label: "Status" },
         { key: "actions", label: "Ações" },
+        { key: "provider_name", label: "Psicólogo" },
+        { key: "data", label: "Agendado" },
+        { key: "dsStatus", label: "Status" },
+        { key: "fuso", label: "Fuso Horário" },
       ],
       list: [],
     };
@@ -85,12 +101,12 @@ export default {
   methods: {
     getRecords(_page) {
       this.isloading = true;
-      _bankService
-        .show(_page, this.search)
+      _customerService
+        .appointments(_page)
         .then((res) => {
           if (res.content) {
-            this.more = res.content.length >= this.size;
-            this.list.push(...res.content);
+            this.more = res.content.appointments.length >= this.size;
+            this.list.push(...res.content.appointments);
             this.currentePage = _page;
           }
         })
@@ -106,9 +122,8 @@ export default {
       this.getRecords(this.currentePage);
     },
     onClickSelected(record, _) {
-      this.$router.push({
-        path: `/registrations/bank/${record.id}`,
-      });
+      this.appointmentid = record.id;
+      this.isActiveDetails = true;
     },
   },
 };

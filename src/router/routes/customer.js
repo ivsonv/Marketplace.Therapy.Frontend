@@ -24,6 +24,6 @@ export default [
   {
     path: '/sou-paciente/appointments',
     name: 'sou-paciente-appointments',
-    component: () => import('@/views/apps/account/provider/index.vue'),
+    component: () => import('@/views/apps/account/customer/index.vue'),
   }
 ]
