@@ -14,9 +14,10 @@
           <feather-icon
             icon="EyeIcon"
             size="22"
-            class="mx-1"
+            class="mr-1"
             @click="onClickSelected(data.item)"
           />
+          Ver Detalhes
         </template>
         <template #cell(data)="data">
           {{ data.item.data }} <br />
