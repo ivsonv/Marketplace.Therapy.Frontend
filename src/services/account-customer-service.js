@@ -11,6 +11,9 @@ export default {
   appointmentById: (id) => {
     return _http.get(`/api/account-customer/appointment/${id}`)
   },
+  invoice: (id) => {
+    return _http.get(`/api/account-customer/appointment/${id}/invoice`)
+  },
   find: () => {
     return _http.get(`/api/account-customer`)
   }

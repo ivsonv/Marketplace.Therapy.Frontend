@@ -17,7 +17,8 @@
             class="mr-1"
             @click="onClickSelected(data.item)"
           />
-          Ver Detalhes
+          <feather-icon icon="FileTextIcon" size="21" />
+          <!-- Ver Detalhes -->
         </template>
         <template #cell(data)="data">
           {{ data.item.data }} <br />
@@ -87,7 +88,7 @@ export default {
       more: false,
       size: 20,
       fields: [
-        { key: "actions", label: "Ações" },
+        { key: "actions", label: "Ações", thStyle: { width: "120px" } },
         { key: "provider_name", label: "Psicólogo" },
         { key: "data", label: "Agendado" },
         { key: "dsStatus", label: "Status" },
