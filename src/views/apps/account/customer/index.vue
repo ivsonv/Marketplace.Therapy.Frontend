@@ -2,7 +2,6 @@
   <viewcard--c title="MINHAS SESSÕES" subtitle="* Fuso horário de São Paulo">
     <view--c permission="account.customer" :busy="isloading">
       <b-table
-        @row-clicked="onClickSelected"
         :busy="isloading"
         :fields="fields"
         :items="list"
@@ -28,6 +27,7 @@
           <strong style="color: var(--danger)"> * São Paulo </strong></template
         >
       </b-table>
+      <div v-if="list.length <= 0">Nenhum Registro Encontrado.</div>
       <div class="d-flex justify-content-center">
         <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
           Carregar mais

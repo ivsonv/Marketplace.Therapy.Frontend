@@ -47,10 +47,12 @@
             <feather-icon icon="XIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">Cancelar</p>
           </b-button>
-          <b-button variant="primary" size="sm" class="ml-1">
+          <b-button variant="primary" size="sm" class="ml-1" @click="goInvoice">
             <!-- VideoOffIcon -->
             <feather-icon icon="FileTextIcon" size="30" />
-            <p class="m-0 p-0 text-white" style="font-size: 16px">Recibo</p>
+            <p class="m-0 p-0 text-white" style="font-size: 16px">
+              Gerar Recibo
+            </p>
           </b-button>
         </div>
       </div>
@@ -86,6 +88,12 @@ export default {
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.isloading = false));
+    },
+    goInvoice() {
+      this.$router.push({
+        name: "sou-paciente-agendamento-invoice",
+        params: { id: this.id },
+      });
     },
   },
 };
