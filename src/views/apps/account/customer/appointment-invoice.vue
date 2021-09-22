@@ -20,18 +20,18 @@
             >
               <div>
                 <div class="logo-wrapper m-0">
-                  <h3 class="text-secondary invoice-logo mx-0">
+                  <h3 class="text-secondary invoice-logo mx-0 text-secondary">
                     {{ appointment.customer.name }}
                   </h3>
                 </div>
-                <p class="card-text p-0 m-0">
+                <p class="card-text p-0 m-0 text-secondary">
                   <strong>
                     {{ appointment.customer.cpf }}
                     {{ appointment.customer.cnpj }}</strong
                   >
                   <small class="text-muted">| PACIENTE</small>
                 </p>
-                <p class="card-text mb-25">
+                <p class="card-text mb-25 text-secondary">
                   <span class="font-weight-bold">Sessão realizada em:</span>
                   <br />
                   <span class=""
@@ -57,7 +57,7 @@
                 <h3 class="mb-25">
                   {{ appointment.provider.receipts[0].fantasy_name }}
                 </h3>
-                <p class="card-text mb-25">
+                <p class="card-text mb-25 text-secondary">
                   <strong v-if="appointment.provider.receipts[0].cpf"
                     >CPF {{ appointment.provider.receipts[0].cpf }}
                   </strong>
@@ -65,7 +65,7 @@
                     >CNPJ {{ appointment.provider.receipts[0].cnpj }}
                   </strong>
                 </p>
-                <p class="card-text mb-25">
+                <p class="card-text mb-25 text-secondary">
                   <strong v-if="appointment.provider.crp"
                     >CRP {{ appointment.provider.crp }}
                   </strong>

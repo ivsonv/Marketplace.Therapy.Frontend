@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-6">
           <strong>PSICÓLOGO</strong>
-          <p>
+          <p class="text-secondary">
             {{
               `${appointment.provider.fantasy_name} 
                ${appointment.provider.company_name}`
@@ -14,17 +14,17 @@
         </div>
         <div class="col-6">
           <strong>Status</strong>
-          <p>{{ appointment.dsStatus }}</p>
+          <p class="text-secondary">{{ appointment.dsStatus }}</p>
         </div>
         <div class="col-6">
           <strong>Data/Hora</strong>
-          <p>
+          <p class="text-secondary">
             {{ appointment.start }} ás {{ appointment.hour.substring(0, 5) }}h
           </p>
         </div>
         <div class="col-6">
           <strong>Fuso</strong>
-          <p>
+          <p class="text-secondary">
             Fuso Horário de
             <strong style="color: var(--danger)"> * São Paulo</strong>
           </p>

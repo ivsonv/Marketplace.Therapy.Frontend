@@ -2,6 +2,7 @@
   <viewcard--c title="MINHAS SESSÕES" subtitle="* Fuso horário de São Paulo">
     <view--c permission="account.customer" :busy="isloading">
       <b-table
+        @row-clicked="onClickSelected"
         :busy="isloading"
         :fields="fields"
         :items="list"
@@ -16,7 +17,11 @@
             class="mr-1"
             @click="onClickSelected(data.item)"
           />
-          <feather-icon icon="FileTextIcon" size="21" />
+          <feather-icon
+            icon="FileTextIcon"
+            size="21"
+            @click="onClickSelected(data.item)"
+          />
           <!-- Ver Detalhes -->
         </template>
         <template #cell(data)="data">
