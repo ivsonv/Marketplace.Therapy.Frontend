@@ -1,11 +1,11 @@
 <template>
-  <view--c permission="account.customer" :busy="isloading">
+  <view--c permission="account.provider" :busy="isloading">
     <v-invoice :appointment="appointment" v-if="!isloading" />
   </view--c>
 </template>
 
 <script>
-import _customerService from "@/services/account-customer-service";
+import _providerService from "@/services/account-provider-service";
 import invoice from "@/views/apps/account/invoice/index.vue";
 export default {
   components: {
@@ -23,7 +23,7 @@ export default {
   methods: {
     getAppointment() {
       this.isloading = true;
-      _customerService
+      _providerService
         .invoice(this.$route.params.id)
         .then((res) => {
           this.appointment = res.content.appointment;

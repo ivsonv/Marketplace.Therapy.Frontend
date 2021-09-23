@@ -48,7 +48,7 @@
                 />
               </div>
             </div>
-            <v-appointment v-if="appointmentid > 0" :id="appointmentid" />
+            <v-schedule v-if="appointmentid > 0" :id="appointmentid" />
           </template>
         </b-sidebar>
 
@@ -152,9 +152,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
 
 import _account from "@/services/account-provider-service";
+import schedule from "./schedule-details.vue";
 
 export default {
   components: {
+    "v-schedule": schedule,
     FullCalendar,
   },
   data() {

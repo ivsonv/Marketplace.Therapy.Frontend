@@ -34,5 +34,11 @@ export default {
   },
   fetchCalendar: (month = -1) => {
     return _http.get(`/api/account-provider/calendar?month=${month}`)
-  }
+  },
+  appointmentById: (id) => {
+    return _http.get(`/api/account-provider/appointment/${id}`)
+  },
+  invoice: (id) => {
+    return _http.get(`/api/account-provider/appointment/${id}/invoice`)
+  },
 }

@@ -40,4 +40,9 @@ export default [
     path: '/account/reports',
     name: 'account-reports',
     component: () => import('@/views/apps/account/provider/reports.vue'),
+  },
+  {
+    path: '/account/appointment/:id/invoice',
+    name: 'sou-provider-agendamento-invoice',
+    component: () => import('@/views/apps/account/provider/schedule-invoice.vue'),
   }]
