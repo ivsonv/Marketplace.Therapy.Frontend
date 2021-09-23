@@ -1,5 +1,5 @@
 <template>
-  <viewcard--c title="Relatório Financeiro" :btnew="btnew">
+  <viewcard--c title="Relatório Financeiro" :busy="isloading">
     <hr class="m-0 p-0 mb-1" />
     <b-row class="mb-1 d-flex justify-content-start">
       <b-col md="4" class="mb-1">
@@ -10,18 +10,18 @@
           size="lg"
         />
       </b-col>
-      <b-col cols="6" md="2" class="mb-1">
-        <b-form-input
-          placeholder="Data Início"
-          autocomplete="off"
+      <b-col cols="12" md="2" class="mb-1">
+        <b-form-datepicker
+          :date-format-options="{ day: '2-digit' }"
           v-model="filter.start"
+          placeholder="Data Início"
           size="lg"
         />
       </b-col>
-      <b-col cols="6" md="2" class="mb-1">
-        <b-form-input
+      <b-col cols="12" md="2" class="mb-1">
+        <b-form-datepicker
+          :date-format-options="{ day: '2-digit' }"
           placeholder="Data Final"
-          autocomplete="off"
           v-model="filter.end"
           size="lg"
         />
@@ -44,10 +44,16 @@
       striped
       hover
     >
+      <template #cell(start)="data">
+        {{ data.item.start }} ás {{ data.item.hour }}h
+      </template>
+      <template #cell(revenue)="data">
+        R$ {{ data.item.revenue.toFixed(2) }}
+      </template>
       <template #cell(actions)="data">
         <div class="text-nowrap">
           <feather-icon
-            icon="EditIcon"
+            icon="FileTextIcon"
             size="22"
             class="mx-1"
             @click="onClickSelected(data.item)"
@@ -56,7 +62,7 @@
       </template>
     </b-table>
     <h2 class="text-center mt-2 mt-md-5" v-else>
-      Nenhum registro encontrada para os parametros acima informados.
+      Nenhum registro encontrado para os parametros acima informados.
     </h2>
     <div class="d-flex justify-content-center">
       <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
@@ -67,40 +73,50 @@
 </template>
 
 <script>
-import _accounService from "@/services/account-provider-service";
+import _providerService from "@/services/account-provider-service";
+import { BFormDatepicker } from "bootstrap-vue";
+
 export default {
+  components: {
+    BFormDatepicker,
+  },
   data() {
     return {
       isloading: false,
       currentePage: 1,
       filter: {
-        search: "",
         start: null,
         end: null,
       },
       more: false,
       size: 20,
       fields: [
-        { key: "date", label: "Data/Hora Sessão" },
-        { key: "client", label: "Cliente" },
-        { key: "price", label: "Receita" },
-        { key: "actions", label: "Ações" },
+        { key: "customer", label: "Cliente" },
+        { key: "start", label: "Data/Hora Sessão" },
+        { key: "revenue", label: "Receita" },
+        { key: "actions", label: "Invoice" },
       ],
       list: [],
     };
   },
-  created() {
-    //this.getRecords(this.currentePage);
-  },
   methods: {
     getRecords(_page) {
+      const payload = {
+        page: _page,
+        search: this.filter.search,
+        data: {
+          start: this.filter.start,
+          end: this.filter.end,
+        },
+      };
+
       this.isloading = true;
-      _bankService
-        .show(_page, this.search)
+      _providerService
+        .reports(payload)
         .then((res) => {
           if (res.content) {
-            this.more = res.content.length >= this.size;
-            this.list.push(...res.content);
+            this.more = res.content.reports.length >= this.size;
+            this.list.push(...res.content.reports);
             this.currentePage = _page;
           }
         })
@@ -115,7 +131,12 @@ export default {
       this.list = [];
       this.getRecords(this.currentePage);
     },
-    onClickSelected(record, _) {},
+    onClickSelected(_item) {
+      this.$router.push({
+        name: "sou-provider-agendamento-invoice",
+        params: { id: _item.id },
+      });
+    },
   },
 };
 </script>
