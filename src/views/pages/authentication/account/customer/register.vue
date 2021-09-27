@@ -71,6 +71,15 @@
               </validation-provider>
             </b-form-group>
 
+            <b-form-group label="CPF">
+              <b-form-input
+                v-mask="$utils.masked.cpf"
+                v-model="record.cpf"
+                placeholder="cpf..."
+                autocomplete="off"
+              />
+            </b-form-group>
+
             <!-- <b-form-group label="Contato (Whatsapp)" label-for="whatsapp">
               <validation-provider
                 #default="{ errors }"
@@ -210,6 +219,7 @@ export default {
         emailconfirm: "",
         password: "",
         phone: "",
+        cpf: "",
       },
       loading: false,
       required,
@@ -238,6 +248,7 @@ export default {
             password: this.record.password,
             email: this.record.email,
             name: this.record.name,
+            cpf: this.record.cpf,
           };
 
           this.loading = true;
