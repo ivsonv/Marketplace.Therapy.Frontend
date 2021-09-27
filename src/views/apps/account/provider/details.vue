@@ -1,6 +1,7 @@
 <template>
   <viewcard--c title="MINHA CONTA" :busy="loading">
-    <b-tabs id="tabs-provider" content-class="mt-2" justified>
+    <hr />
+    <b-tabs pills id="tabs-provider" content-class="mt-2">
       <b-tab title="DADOS PESSOAIS">
         <b-row>
           <b-col md="6">
