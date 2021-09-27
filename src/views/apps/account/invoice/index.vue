@@ -25,7 +25,12 @@
               </div>
               <p class="card-text p-0 m-0 text-secondary">
                 <strong>
-                  {{ appointment.customer.cpf }}
+                  {{
+                    appointment.customer.cpf.replace(
+                      /^(\d{3})(\d{3})(\d{3})(\d{2})/,
+                      "$1.$2.$3-$4"
+                    )
+                  }}
                   {{ appointment.customer.cnpj }}</strong
                 >
                 <small class="text-muted">| PACIENTE</small>
@@ -66,11 +71,27 @@
                 {{ appointment.provider.receipts[0].fantasy_name }}
               </h3>
               <p class="card-text mb-25 text-secondary">
-                <strong v-if="appointment.provider.receipts[0].cpf"
-                  >CPF {{ appointment.provider.receipts[0].cpf }}
+                <strong
+                  class="d-block"
+                  v-if="appointment.provider.receipts[0].cnpj"
+                  >CNPJ
+                  {{
+                    appointment.provider.receipts[0].cnpj.replace(
+                      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+                      "$1.$2.$3/$4-$5"
+                    )
+                  }}
                 </strong>
-                <strong v-if="appointment.provider.receipts[0].cnpj"
-                  >CNPJ {{ appointment.provider.receipts[0].cnpj }}
+                <strong
+                  class="d-block"
+                  v-if="appointment.provider.receipts[0].cpf"
+                  >CPF
+                  {{
+                    appointment.provider.receipts[0].cpf.replace(
+                      /^(\d{3})(\d{3})(\d{3})(\d{2})/,
+                      "$1.$2.$3-$4"
+                    )
+                  }}
                 </strong>
               </p>
               <p class="card-text mb-25 text-secondary">

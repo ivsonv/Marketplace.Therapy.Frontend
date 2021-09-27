@@ -47,4 +47,14 @@ export default [{
         redirectIfLoggedIn: false,
         notauthentication: true,
     },
+},
+{
+    path: '/payment/:code?',
+    name: 'merchants-payment-return',
+    component: () => import('@/views/pages/home/merchant-checkout/payment-return.vue'),
+    meta: {
+        layout: 'full',
+        redirectIfLoggedIn: false,
+        notauthentication: true,
+    },
 }]

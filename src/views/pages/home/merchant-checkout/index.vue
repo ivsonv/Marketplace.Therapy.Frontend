@@ -1,5 +1,7 @@
 <template>
-  <div class="main-view">CHECKOUT</div>
+  <div class="main-view">
+    <h1 v-if="loading">Aguarde, processando...<spinner--c /></h1>
+  </div>
 </template>
 
 <script>
@@ -32,16 +34,11 @@ export default {
             data: checkout,
           };
 
-          debugger;
           this.loading = true;
           _paymentService
             .create(payload)
             .then((res) => {
-              debugger;
-              console.log(res);
-              this.$router.push({
-                name: `sou-paciente-appointments`,
-              });
+              window.location.href = res.content.url;
             })
             .catch((error) => this.$utils.toastError("Notificação", error))
             .finally(() => (this.loading = false));
