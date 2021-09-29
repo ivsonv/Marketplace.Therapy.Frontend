@@ -288,6 +288,10 @@
       </b-tab>
       <b-tab title="PAGAMENTOS">
         <h1 class="py-1">Dados Bancários</h1>
+        <p>
+          * Conta para receber o valor dos seus atendimentos online aqui na
+          plataforma.
+        </p>
         <hr class="p-0 m-0 mb-1" />
         <b-row
           v-for="(bcc, index) in record.bankAccounts"
