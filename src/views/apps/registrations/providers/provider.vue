@@ -482,11 +482,12 @@
     </b-tabs>
     <hr />
     <b-row>
-      <b-col cols="12">
-        <b-button size="lg" @click="save" variant="gradient-info">
-          Salvar Alterações
-        </b-button>
-      </b-col>
+      <button--c
+        permission="provider.merchant.create"
+        title="Criar Estabelecimento (Nexxera)"
+        variant="info"
+        @clicked="createMerchant"
+      />
     </b-row>
   </viewcard--c>
 </template>
@@ -911,6 +912,21 @@ export default {
       //   })
       //   .catch((error) => this.$utils.toastError("Notificação", error))
       //   .finally(() => (this.loading = false));
+    },
+    createMerchant() {
+      const payload = { data: { ...this.record } };
+      this.loading = true;
+      _merchantService
+        .create(payload)
+        .then(() => {
+          this.$utils.toast(
+            "Notificação",
+            "Estabelecimento criado com  sucesso."
+          );
+          this.getRecord();
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
     },
   },
 };
