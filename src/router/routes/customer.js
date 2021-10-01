@@ -30,5 +30,16 @@ export default [
     path: '/sou-paciente/agendamento/:id/recibo',
     name: 'sou-paciente-agendamento-invoice',
     component: () => import('@/views/apps/account/customer/appointment-invoice.vue'),
+  },
+  {
+    path: '/sou-paciente/agendamento/:id/:room_id/:room_name/video',
+    name: 'sou-paciente-agendamento-video',
+    component: () => import('@/views/apps/account/video/index.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: false,
+      notauthentication: true,
+    },
   }
 ]

@@ -1,7 +1,11 @@
 <template>
   <div class="main-view">
     <video-twilio-client v-if="videotwilioclient" />
-    <video-sdk-client v-if="videosdkclient" />
+    <video-sdk-client
+      v-if="videosdkclient"
+      :room_id="$route.params.room_id"
+      :room_name="$route.params.room_name"
+    />
   </div>
 </template>
 <script>
@@ -18,7 +22,12 @@ export default {
       videotwilioclient: false,
     };
   },
-  created() {},
+  created() {
+    // this.$route.params.room_name
+    // this.$route.params.room_id
+    // this.$route.params.id
+    this.videosdkclient = true;
+  },
   methods: {},
 };
 </script>
