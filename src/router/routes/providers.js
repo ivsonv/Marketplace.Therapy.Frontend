@@ -45,4 +45,15 @@ export default [
     path: '/account/appointment/:id/invoice',
     name: 'sou-provider-agendamento-invoice',
     component: () => import('@/views/apps/account/provider/schedule-invoice.vue'),
+  },
+  {
+    path: '/account/appointment/:id/:paciente/video',
+    name: 'sou-provider-agendamento-video',
+    component: () => import('@/views/apps/account/video/index.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: false,
+      notauthentication: true,
+    },
   }]

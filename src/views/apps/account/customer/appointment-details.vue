@@ -35,11 +35,11 @@
       <hr />
       <div class="row">
         <div class="col-12">
-          <b-button variant="info" size="sm">
+          <b-button variant="info" size="sm" @click="goInitConference">
             <!-- VideoOffIcon -->
             <feather-icon icon="VideoIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">
-              Inicia video
+              Iniciar video
             </p>
           </b-button>
           <b-button variant="danger" size="sm" class="ml-1">
@@ -93,6 +93,15 @@ export default {
       this.$router.push({
         name: "sou-paciente-agendamento-invoice",
         params: { id: this.id },
+      });
+    },
+    goInitConference() {
+      this.$router.push({
+        name: "sou-paciente-agendamento-video",
+        params: {
+          paciente: "sim",
+          id: this.id,
+        },
       });
     },
   },

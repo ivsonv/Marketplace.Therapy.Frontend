@@ -14,6 +14,9 @@ export default {
   invoice: (id) => {
     return _http.get(`/api/account-customer/appointment/${id}/invoice`)
   },
+  conference: (id) => {
+    return _http.get(`/api/account-customer/appointment/${id}/conference`)
+  },
   find: () => {
     return _http.get(`/api/account-customer`)
   }

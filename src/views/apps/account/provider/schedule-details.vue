@@ -32,7 +32,7 @@
       <hr />
       <div class="row">
         <div class="col-12">
-          <b-button variant="info" size="sm">
+          <b-button variant="info" size="sm" @click="goInitConference">
             <!-- VideoOffIcon -->
             <feather-icon icon="VideoIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">
@@ -44,7 +44,7 @@
             <feather-icon icon="XIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">Cancelar</p>
           </b-button>
-          <b-button variant="primary" size="sm" class="ml-1" @click="goInvoice">
+          <b-button variant="warning" size="sm" class="ml-1" @click="goInvoice">
             <!-- VideoOffIcon -->
             <feather-icon icon="FileTextIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">
@@ -90,6 +90,15 @@ export default {
       this.$router.push({
         name: "sou-provider-agendamento-invoice",
         params: { id: this.id },
+      });
+    },
+    goInitConference() {
+      this.$router.push({
+        name: "sou-provider-agendamento-video",
+        params: {
+          paciente: "n",
+          id: this.id,
+        },
       });
     },
   },
