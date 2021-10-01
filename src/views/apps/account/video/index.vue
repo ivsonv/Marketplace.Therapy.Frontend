@@ -1,14 +1,23 @@
 <template>
   <div class="main-view">
-    <video-twilio-client v-if="videotwilioclient" />
+    <h1 v-if="loading">caregando...<spinner--c /></h1>
+    <h2 v-if="msg">{{ msg }}</h2>
+    <video-twilio-client
+      v-if="videotwilioclient"
+      :room_id="room_id"
+      :room_name="room_name"
+    />
     <video-sdk-client
       v-if="videosdkclient"
-      :room_id="$route.params.room_id"
-      :room_name="$route.params.room_name"
+      :room_id="room_id"
+      :room_name="room_name"
     />
   </div>
 </template>
 <script>
+import _customerService from "@/services/account-customer-service";
+import _providerService from "@/services/account-provider-service";
+
 import videotwilio from "./video-twilio-client.vue";
 import videosdk from "./videosdk-client.vue";
 export default {
@@ -18,17 +27,38 @@ export default {
   },
   data() {
     return {
+      room_id: 0,
+      room_name: "",
       videosdkclient: false,
       videotwilioclient: false,
+      loading: false,
+      msg: "",
     };
   },
   created() {
-    // this.$route.params.room_name
-    // this.$route.params.room_id
-    // this.$route.params.id
-    this.videosdkclient = true;
+    this.checkAppointment();
   },
-  methods: {},
+  methods: {
+    checkAppointment() {
+      const _conference =
+        this.$route.params.paciente === "sim"
+          ? _customerService.conference(this.$route.params.id)
+          : _providerService.conference(this.$route.params.id);
+
+      this.loading = true;
+      _conference
+        .then((res) => {
+          this.room_name = res.content.appointment.room_name;
+          this.room_id = res.content.appointment.room_id;
+          this.videosdkclient = true;
+        })
+        .catch((error) => {
+          this.$utils.toastError("Notificação", error);
+          this.msg = error;
+        })
+        .finally(() => (this.loading = false));
+    },
+  },
 };
 </script>
 

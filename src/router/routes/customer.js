@@ -32,7 +32,7 @@ export default [
     component: () => import('@/views/apps/account/customer/appointment-invoice.vue'),
   },
   {
-    path: '/sou-paciente/agendamento/:id/:room_id/:room_name/video',
+    path: '/sou-paciente/agendamento/:id/:paciente/video',
     name: 'sou-paciente-agendamento-video',
     component: () => import('@/views/apps/account/video/index.vue'),
     meta: {

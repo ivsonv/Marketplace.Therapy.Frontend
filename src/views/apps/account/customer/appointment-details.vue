@@ -99,8 +99,7 @@ export default {
       this.$router.push({
         name: "sou-paciente-agendamento-video",
         params: {
-          room_name: this.appointment.room_name,
-          room_id: this.appointment.room_id,
+          paciente: "sim",
           id: this.id,
         },
       });
