@@ -42,13 +42,11 @@
               Iniciar video
             </p>
           </b-button>
-          <b-button variant="danger" size="sm" class="ml-1">
-            <!-- VideoOffIcon -->
+          <!-- <b-button variant="danger" size="sm" class="ml-1" @click="goCancel">
             <feather-icon icon="XIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">Cancelar</p>
-          </b-button>
-          <b-button variant="primary" size="sm" class="ml-1" @click="goInvoice">
-            <!-- VideoOffIcon -->
+          </b-button> -->
+          <b-button variant="warning" size="sm" class="ml-1" @click="goInvoice">
             <feather-icon icon="FileTextIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">
               Gerar Recibo
@@ -62,6 +60,7 @@
 
 <script>
 import _customerService from "@/services/account-customer-service";
+import _paymentService from "@/services/payment-service";
 export default {
   props: {
     id: {
@@ -103,6 +102,40 @@ export default {
           id: this.id,
         },
       });
+    },
+    goCancel() {
+      this.$swal({
+        title: "Tem certeza deseja cancelar agendamento?",
+        text: "Isso não pode ser revertido!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sim, quero cancelar!",
+        cancelButtonText: "Não",
+        customClass: {
+          confirmButton: "btn btn-info",
+          cancelButton: "btn btn-outline-danger ml-1",
+        },
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.value) {
+          this.confirmCancel();
+        }
+      });
+    },
+    confirmCancel() {
+      const payload = {
+        code: this.id,
+        pacient: true,
+      };
+
+      this.isloading = true;
+      _paymentService
+        .cancel(payload)
+        .then(() => {
+          this.getAppointment();
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.isloading = false));
     },
   },
 };

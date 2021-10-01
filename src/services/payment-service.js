@@ -7,5 +7,8 @@ export default {
   },
   consult: (payload) => {
     return _http.post(`/api/payment/consult`, payload)
+  },
+  cancel: (payload) => {
+    return _http.post(`/api/payment/cancel`, payload)
   }
 }
