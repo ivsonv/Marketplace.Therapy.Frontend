@@ -66,7 +66,7 @@
               <b-form-group>
                 <div class="d-flex justify-content-between">
                   <label for="login-password">Senha</label>
-                  <b-link :to="{ name: 'auth-forgot-password' }">
+                  <b-link :to="{ name: 'sou-psicologo-esqueci-minha-senha' }">
                     <small>Esqueceu a Senha?</small>
                   </b-link>
                 </div>

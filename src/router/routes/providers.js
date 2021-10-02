@@ -56,4 +56,15 @@ export default [
       redirectIfLoggedIn: false,
       notauthentication: true,
     },
+  },
+  {
+    path: '/sou-psicologo/esqueci-minha-senha',
+    name: 'sou-psicologo-esqueci-minha-senha',
+    component: () => import('@/views/pages/authentication/account/provider/ForgotPassword.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: false,
+      notauthentication: true,
+    },
   }]

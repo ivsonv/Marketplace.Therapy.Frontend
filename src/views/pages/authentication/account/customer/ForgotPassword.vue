@@ -14,7 +14,12 @@
             "
           >
             <img :src="logo" />
-            <h2 class="brand-text text-primary mt-3">ESQUECI MINHA SENHA</h2>
+            <h2 class="brand-text text-primary mt-3" v-if="!alterarVisible">
+              ESQUECI MINHA SENHA
+            </h2>
+            <h2 class="brand-text text-primary mt-3" v-if="alterarVisible">
+              INFORME SUA NOVA SENHA
+            </h2>
           </div>
 
           <!-- form -->
@@ -102,7 +107,7 @@
                 {{ loading ? "" : "ALTERAR" }}
               </b-button>
               <b-card-text class="text-center mt-2">
-                <b-link :to="{ name: 'auth-login' }">
+                <b-link :to="{ name: 'auth-login-paciente' }">
                   <feather-icon icon="ChevronLeftIcon" /> Retornar ao login
                 </b-link>
               </b-card-text>
@@ -138,10 +143,10 @@
                 :disabled="invalid"
               >
                 <b-spinner type="grow" v-if="loading" />
-                {{ loading ? "" : "SOLICITAR" }}
+                {{ loading ? "" : "Enviar" }}
               </b-button>
               <b-card-text class="text-center mt-2">
-                <b-link :to="{ name: 'auth-login' }">
+                <b-link :to="{ name: 'auth-login-paciente' }">
                   <feather-icon icon="ChevronLeftIcon" /> Retornar ao login
                 </b-link>
               </b-card-text>
@@ -235,10 +240,10 @@ export default {
   },
   methods: {
     iniciar() {
-      if (this.$route.params.token) {
+      if (this.$route.query.token) {
         this.formReset = true;
-        this.token = this.$route.params.token;
-        this.validateToken();
+        this.token = this.$route.query.token;
+        this.alterarVisible = true;
       } else {
         this.formReset = false;
         this.token = "";
@@ -256,17 +261,20 @@ export default {
       this.$refs.loginForm.validate().then((success) => {
         if (success) {
           const payload = {
-            email: this.userEmail,
+            login: this.userEmail,
           };
           this.loading = true;
           _authService
-            .userResetPassword(payload)
+            .resetLoginCustomer(payload)
             .then((res) => {
               this.loading = false;
               this.$utils.toast("Notificação", "Verifique seu e-mail.");
             })
             .catch((error) => {
               this.loading = false;
+              this.$refs.loginForm.setErrors({
+                email: error,
+              });
             });
         }
       });
@@ -279,21 +287,13 @@ export default {
               passwordConfirmed: "Senha e Confirmação da Senha diferentes",
             });
           } else {
-            const user = {
-              password: this.password,
-              usernotifications: [
-                {
-                  token: this.token,
-                },
-              ],
-            };
-            const payload = { data: { ...user } };
+            const payload = { password: this.password, token: this.token };
             this.loading = true;
             _authService
-              .updatePassword(payload)
+              .updateLoginCustomer(payload)
               .then((res) => {
                 this.loading = false;
-                this.$router.push({ name: "auth-login" });
+                this.$router.push({ name: "auth-login-paciente" });
               })
               .catch((error) => {
                 this.loading = false;
@@ -304,24 +304,6 @@ export default {
           }
         }
       });
-    },
-    validateToken() {
-      this.loading = true;
-      const payload = {
-        token: this.token,
-      };
-      _authService
-        .validateToken(payload)
-        .then((res) => {
-          this.loading = false;
-        })
-        .catch((error) => {
-          this.loading = false;
-          this.alterarVisible = false;
-          this.$refs.resetForm.setErrors({
-            passwordConfirmed: error,
-          });
-        });
     },
   },
 };

@@ -5,22 +5,22 @@ export default {
   loginAdmin: (payload) => {
     return _http.post('/api/auth/admin', payload)
   },
-  loginProvider: (payload) => {
-    return _http.post('/api/auth/provider', payload)
-  },
   loginCustomer: (payload) => {
     return _http.post('/api/auth/customer', payload)
   },
-  // login: (payload) => {
-  //   return _http.post('/api/auth', payload)
-  // },
-  // userResetPassword: (payload) => {
-  //   return _http.post('/api/auth/reset', payload)
-  // },
-  // updatePassword: (payload) => {
-  //   return _http.put('/api/auth/update-password', payload)
-  // },
-  // validateToken: (payload) => {
-  //   return _http.post('/api/auth/valid-token', payload)
-  // },
+  resetLoginCustomer: (payload) => {
+    return _http.post('/api/auth/customer/reset', payload)
+  },
+  updateLoginCustomer: (payload) => {
+    return _http.put('/api/auth/customer/update-password', payload)
+  },
+  loginProvider: (payload) => {
+    return _http.post('/api/auth/provider', payload)
+  },
+  resetLoginProvider: (payload) => {
+    return _http.post('/api/auth/provider/reset', payload)
+  },
+  updateLoginProvider: (payload) => {
+    return _http.put('/api/auth/provider/update-password', payload)
+  }
 }
