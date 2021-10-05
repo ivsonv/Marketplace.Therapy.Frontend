@@ -7,9 +7,6 @@
           <img :src="logo" />
         </div>
         <br />
-        <!-- <b-link class="brand-logo">
-          <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
-        </b-link> -->
 
         <b-card-title class="mb-1 text-center">
           A aventura começa aqui 🚀

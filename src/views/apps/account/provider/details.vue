@@ -1,5 +1,14 @@
 <template>
   <viewcard--c title="MINHA CONTA" :busy="loading">
+    <b-alert variant="warning" :show="!record.completed && !loading">
+      <h4 class="alert-heading">
+        Seu cadastro está pendente, por favor preencha com o máximo de
+        informações.
+      </h4>
+    </b-alert>
+    <b-alert variant="success" :show="record.completed && !loading">
+      <h4 class="alert-heading">Seu Cadastro está aprovado.</h4>
+    </b-alert>
     <hr />
     <b-tabs pills id="tabs-provider" content-class="mt-2">
       <b-tab title="DADOS PESSOAIS">
@@ -23,7 +32,7 @@
             </b-form-group>
           </b-col>
           <b-col md="6">
-            <b-form-group label="Apelido">
+            <b-form-group label="Nome Social">
               <b-form-input
                 v-model="record.nickname"
                 placeholder="Como gostaria de ser chamado ?"
@@ -46,7 +55,7 @@
             </b-form-group>
           </b-col>
           <b-col cols="6" md="4">
-            <b-form-group label="Telefone">
+            <b-form-group label="Telefone (Whatssap)">
               <b-form-input
                 v-mask="$utils.masked.phone"
                 v-model="record.phone"
@@ -56,7 +65,7 @@
             </b-form-group>
           </b-col>
           <b-col cols="6" md="2">
-            <b-form-group label="CRP">
+            <b-form-group label="CRP *">
               <b-form-input
                 v-model="record.crp"
                 placeholder="CRP"
@@ -66,7 +75,7 @@
           </b-col>
 
           <b-col cols="6" md="3">
-            <b-form-group label="CPF">
+            <b-form-group label="CPF *">
               <b-form-input
                 v-mask="$utils.masked.cpf"
                 v-model="record.cpf"
@@ -83,6 +92,23 @@
                 placeholder="CNPJ"
                 autocomplete="off"
               />
+            </b-form-group>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-form-group label="Estou Disponivel para consultas ?">
+              <b-form-checkbox
+                class="custom-control-success"
+                v-model="record.active"
+                name="check-button"
+                switch
+              >
+                <span class="switch-icon-left">
+                  <feather-icon icon="CheckIcon" />
+                </span>
+                <span class="switch-icon-right">
+                  <feather-icon icon="XIcon" />
+                </span>
+              </b-form-checkbox>
             </b-form-group>
           </b-col>
         </b-row>
@@ -192,9 +218,7 @@
                 >
                   <feather-icon icon="ImageIcon" size="22" />
                   <strong class="ml-25">{{
-                    !urlImage
-                      ? "Selecione uma Imagem Perfil"
-                      : "Escolher outra Imagem"
+                    !urlImage ? "Selecione uma Imagem Perfil" : "Alterar Imagem"
                   }}</strong>
                 </b-button>
                 <input

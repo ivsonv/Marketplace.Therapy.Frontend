@@ -288,7 +288,14 @@ export default {
 
           // redirecionar para o cadastro
           this.$ability.update([{ action: "manage", subject: "all" }]);
-          this.$router.push({ name: "sou-paciente-appointments" });
+
+          if (this.$route.query.goto) {
+            this.$router.push({
+              path: `/${this.$route.query.goto}`,
+            });
+          } else {
+            this.$router.push({ name: "sou-paciente-appointments" });
+          }
         })
         .catch((error) => {
           this.$utils.toastError("Notificação", error);

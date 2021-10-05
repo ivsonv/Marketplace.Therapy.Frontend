@@ -1,7 +1,7 @@
 <template>
   <viewcard--c
     :title="($route.params.id > 0 ? 'Atualizar' : 'Cadastrar') + ' Psicólogo'"
-    :btsave="null"
+    :btsave="btcreate"
     :btdelete="null"
     :btback="{}"
     :busy="loading"
@@ -31,7 +31,7 @@
             </b-form-group>
           </b-col>
           <b-col md="6">
-            <b-form-group label="Apelido">
+            <b-form-group label="Nome Social">
               <b-form-input
                 v-model="record.nickname"
                 placeholder="Como gostaria de ser chamado ?"
@@ -72,9 +72,8 @@
               />
             </b-form-group>
           </b-col>
-
           <b-col cols="6" md="3">
-            <b-form-group label="CPF">
+            <b-form-group label="CPF *">
               <b-form-input
                 v-mask="$utils.masked.cpf"
                 v-model="record.cpf"
@@ -84,13 +83,30 @@
             </b-form-group>
           </b-col>
           <b-col cols="6" md="3">
-            <b-form-group label="CNPJ">
+            <b-form-group label="CNPJ (opcional)">
               <b-form-input
                 v-mask="$utils.masked.cnpj"
                 v-model="record.cnpj"
                 placeholder="CNPJ"
                 autocomplete="off"
               />
+            </b-form-group>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-form-group label="Cadastro está completo ?">
+              <b-form-checkbox
+                class="custom-control-success"
+                v-model="record.completed"
+                name="check-button"
+                switch
+              >
+                <span class="switch-icon-left">
+                  <feather-icon icon="CheckIcon" />
+                </span>
+                <span class="switch-icon-right">
+                  <feather-icon icon="XIcon" />
+                </span>
+              </b-form-checkbox>
             </b-form-group>
           </b-col>
         </b-row>
@@ -193,7 +209,7 @@
                   v-if="urlImage"
                   :src="urlImage"
                 />
-                <b-button
+                <!-- <b-button
                   class="d-flex align-items-center my-1 ml-2"
                   @click="$refs.fileInput.click()"
                   variant="info"
@@ -204,7 +220,7 @@
                       ? "Selecione uma Imagem Perfil"
                       : "Escolher outra Imagem"
                   }}</strong>
-                </b-button>
+                </b-button> -->
                 <input
                   style="display: none"
                   ref="fileInput"
@@ -541,6 +557,7 @@ export default {
         academic_training: "",
         active: true,
         situation: 0,
+        completed: false,
       },
       address: {
         address: "",
@@ -676,29 +693,28 @@ export default {
         this.record.price = this.record.price.toString().replace(",", ".");
       }
 
-      let payload = new FormData();
-      if (this.fileImageSelected) {
-        payload.append("profile", this.fileImageSelected);
-      }
-      if (this.fileSignatureSelected) {
-        payload.append("sig", this.fileSignatureSelected);
-      }
-      payload.append("data", JSON.stringify(this.record));
+      // let payload = new FormData();
+      // if (this.fileImageSelected) {
+      //   payload.append("profile", this.fileImageSelected);
+      // }
+      // if (this.fileSignatureSelected) {
+      //   payload.append("sig", this.fileSignatureSelected);
+      // }
+      // payload.append("data", JSON.stringify(this.record));
+      //this.$utils.toast("Notificação", "Função de atualizar não disponivel.");
 
-      this.$utils.toast("Notificação", "Função de atualizar não disponivel.");
+      const payload = {
+        data: this.record,
+      };
 
-      // const _createOrUpdate =
-      //   this.record.id <= 0
-      //     ? _account.create(payload)
-      //     : _account.update(payload);
-
-      // this.loading = true;
-      // _createOrUpdate
-      //   .then(() => {
-      //     this.$utils.toast("Notificação", "Salvo com sucesso.");
-      //   })
-      //   .catch((error) => this.$utils.toastError("Notificação", error))
-      //   .finally(() => (this.loading = false));
+      const _createOrUpdate = _providerService.update(payload);
+      this.loading = true;
+      _createOrUpdate
+        .then(() => {
+          this.$utils.toast("Notificação", "Salvo com sucesso.");
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
     },
     getRecord() {
       this.loading = true;
