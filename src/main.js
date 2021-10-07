@@ -36,8 +36,9 @@ import {
   BFormInput, BForm, BRow, BCol, BFormTextarea,
   BSpinner, BInputGroup, BInputGroupAppend, BCardText,
   BAvatar, BTooltip, BSidebar, BFormSpinbutton, BTime,
-  BFormTimepicker, BTab, BTabs, BCardTitle, BCardHeader, BAlert
+  BFormTimepicker, BTab, BTabs, BCardTitle, BCardHeader, BAlert, BProgress
 } from 'bootstrap-vue';
+Vue.component('b-progress', BProgress)
 Vue.component('b-alert', BAlert)
 Vue.component('b-card-title', BCardTitle)
 Vue.component('b-card-header', BCardHeader)

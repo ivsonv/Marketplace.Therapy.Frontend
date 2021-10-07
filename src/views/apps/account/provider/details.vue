@@ -1,14 +1,40 @@
 <template>
   <viewcard--c title="MINHA CONTA" :busy="loading">
-    <b-alert variant="warning" :show="!record.completed && !loading">
-      <h4 class="alert-heading">
-        Seu cadastro está pendente, por favor preencha com o máximo de
-        informações.
-      </h4>
-    </b-alert>
-    <b-alert variant="success" :show="record.completed && !loading">
-      <h4 class="alert-heading">Seu Cadastro está aprovado.</h4>
-    </b-alert>
+    <div v-if="!loading">
+      <b-alert class="mb-1" variant="success" :show="record.completed">
+        <h4 class="alert-heading">Seu Cadastro está aprovado.</h4>
+      </b-alert>
+      <div v-if="record.statusCompleted && record.statusCompleted.warnings">
+        <div
+          class="progress-wrapper"
+          style="width: 150px"
+          v-if="record.statusCompleted.percent < 100 && !record.completed"
+        >
+          <b-progress
+            variant="success"
+            v-model="record.statusCompleted.percent"
+            max="100"
+          />
+          <small class="mx-1"
+            >{{ record.statusCompleted.percent }}% concluido</small
+          >
+        </div>
+        <b-alert
+          v-for="(_warn, i) in record.statusCompleted.warnings"
+          variant="warning"
+          class="mb-1"
+          :key="i"
+          show
+        >
+          <h4 class="alert-heading">
+            {{ _warn.label }}
+          </h4>
+          <div v-if="_warn.value" class="alert-body">
+            <span>{{ _warn.value }}.</span>
+          </div>
+        </b-alert>
+      </div>
+    </div>
     <hr />
     <b-tabs pills id="tabs-provider" content-class="mt-2">
       <b-tab title="DADOS PESSOAIS">
@@ -701,8 +727,7 @@ export default {
       _createOrUpdate
         .then(() => {
           this.$utils.toast("Notificação", "Salvo com sucesso.");
-          // this.getRecord();
-          // this.$router.push({ name: "account-appointments" });
+          this.getRecord();
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
