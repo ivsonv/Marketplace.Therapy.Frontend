@@ -294,7 +294,7 @@ export default {
               .updateLoginProvider(payload)
               .then((res) => {
                 this.loading = false;
-                this.$router.push({ name: "auth-login-paciente" });
+                this.$router.push({ name: "auth-login-psicologo" });
               })
               .catch((error) => {
                 this.loading = false;
