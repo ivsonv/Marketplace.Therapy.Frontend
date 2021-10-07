@@ -8,6 +8,16 @@
     @clicked-save="save"
     @clicked-delete="onDelete"
   >
+    <div v-if="!loading">
+      <b-alert variant="warning" :show="!record.active">
+        <h4 class="alert-heading">cadastro está inativo</h4>
+      </b-alert>
+
+      <b-alert variant="warning" :show="!record.completed">
+        <h4 class="alert-heading">cadastro está Incompleto</h4>
+      </b-alert>
+    </div>
+
     <hr />
     <b-tabs pills id="tabs-provider" content-class="mt-2">
       <b-tab title="Dados pessoais">
