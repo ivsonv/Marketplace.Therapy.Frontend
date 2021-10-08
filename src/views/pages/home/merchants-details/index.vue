@@ -42,7 +42,7 @@
                 <hr class="divisor-hour" />
               </div>
             </h1>
-            <h4 v-if="loadinghours">Buscando horários... <spinner--c /></h4>
+            <h2 v-if="loadinghours">Buscando horários... <spinner--c /></h2>
             <div class="form-group" v-if="dates">
               <!-- SEMANAS -->
               <div class="row">
