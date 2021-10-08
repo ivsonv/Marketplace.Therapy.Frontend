@@ -38,7 +38,7 @@
             <h1 class="fuso-required py-1 px-0 m-0" v-if="!loadinghours">
               Agende aqui sua consulta
               <div>
-                <h6 class="mt-25">Fuso horário de São Paulo ({{ horasp }})</h6>
+                <h4 class="mt-25">Fuso horário de São Paulo ({{ horasp }})</h4>
                 <hr class="divisor-hour" />
               </div>
             </h1>
