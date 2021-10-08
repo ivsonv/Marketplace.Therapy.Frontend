@@ -224,6 +224,7 @@ export default {
               .label.toUpperCase();
           }
           this.provider = _res.content;
+          this.setMetadata();
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
@@ -325,6 +326,11 @@ export default {
         this.qtdDisplayDates = _cm.displayDates;
         this.dates = _cm.dates;
       }
+    },
+    setMetadata() {
+      document.title = this.provider.name;
+      document.head.querySelector("meta[name=description]").content =
+        this.provider.introduction;
     },
   },
 };
