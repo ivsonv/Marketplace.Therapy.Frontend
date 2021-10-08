@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 // Routes
 import registrations from './routes/registrations'
 import authetication from './routes/authetication'
-import authUser from './routes/auth-user'
 import defaults from './routes/defaults'
 import home from './routes/home'
 import providers from './routes/providers'
@@ -24,7 +23,6 @@ const router = new VueRouter({
     ...registrations,
     ...authetication,
     ...defaults,
-    ...authUser,
     ...providers,
     ...customers,
     {

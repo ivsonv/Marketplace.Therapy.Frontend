@@ -259,7 +259,13 @@ export default {
       });
     },
     register() {
-      this.$router.push({ name: "auth-quero-cadastrar-paciente" });
+      if (this.$route.query.goto) {
+        this.$router.push({
+          path: `sou-paciente-quero-me-cadastrar?goto=${this.$route.query.goto}`,
+        });
+      } else {
+        this.$router.push({ name: "auth-quero-cadastrar-paciente" });
+      }
     },
   },
 };

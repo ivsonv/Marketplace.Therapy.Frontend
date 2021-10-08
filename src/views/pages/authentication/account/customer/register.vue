@@ -148,7 +148,7 @@
 
         <b-card-text class="text-center mt-2">
           <span>Já tem cadastro? </span>
-          <b-link :to="{ name: 'auth-login-paciente' }">
+          <b-link @click="goLogin">
             <span>Faça login</span>
           </b-link>
         </b-card-text>
@@ -301,6 +301,15 @@ export default {
           this.$utils.toastError("Notificação", error);
         })
         .finally(() => (this.loading = false));
+    },
+    goLogin() {
+      if (this.$route.query.goto) {
+        this.$router.push({
+          path: `/sou-paciente?goto=${this.$route.query.goto}`,
+        });
+      } else {
+        this.$router.push({ name: "auth-login-paciente" });
+      }
     },
   },
 };
