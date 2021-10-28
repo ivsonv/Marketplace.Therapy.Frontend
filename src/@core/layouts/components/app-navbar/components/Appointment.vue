@@ -1,12 +1,10 @@
 <template>
-  <b-button
-    variant="gradient-info"
-    style="margin-right: 20px"
-    to="/pedagogic/appointment/0"
-    v-if="showScheduled"
-  >
-    <feather-icon icon="PlusIcon" class="mr-50" />
-    <span class="align-middle">Agendamento</span>
+  <b-button variant="gradient-info" style="margin-right: 20px" to="/pesquisa">
+    <span class="align-middle">Escolher / agendar o profissional</span>
+
+    <!-- <b-link class="nav-link" @click="toggleVerticalMenuActive">
+        
+      </b-link> -->
   </b-button>
 </template>
 <script>
@@ -18,12 +16,12 @@ export default {
     };
   },
   created() {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    if (userData && userData.roles) {
-      this.showScheduled = userData.roles.some(
-        (s) => s === "permission.appointment.view"
-      );
-    }
+    // const userData = JSON.parse(localStorage.getItem("userData"));
+    // if (userData && userData.roles) {
+    //   this.showScheduled = userData.roles.some(
+    //     (s) => s === "permission.appointment.view"
+    //   );
+    // }
   },
 };
 </script>
