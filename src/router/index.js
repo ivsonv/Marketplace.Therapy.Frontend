@@ -33,9 +33,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, _, next) => {
+
   if (to.meta && !to.meta.notauthentication) {
     if (!localStorage.getItem("userData")) {
-      return next({ name: "auth-login" });
+      return next({ name: "home-view" });
     }
   }
   return next();
