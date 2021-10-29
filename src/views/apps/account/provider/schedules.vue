@@ -1,9 +1,9 @@
 <template>
-  <viewcard--c title="HORÁRIOS DO SEU ATENDIMENTO" :busy="loading">
+  <viewcard--c title="FAIXA DE HORÁRIOS PARA ATENDIMENTO" :busy="loading">
     <b-row>
       <b-col class="d-flex justify-content-end">
         <b-button variant="info" @click="newHour" class="mb-2" size="lg" pill>
-          Criar Novo horário
+          Nova Faixa de horário
         </b-button>
       </b-col>
 
@@ -11,7 +11,9 @@
       <b-modal
         ref="modal-hour"
         hide-footer
-        title="Novo Horário"
+        :title="`${
+          hourNew && hourNew.id > 0 ? 'ALTERAR' : 'NOVA'
+        } FAIXA DE HORÁRIO`"
         centered
         @hide="onHideTransfer"
       >
@@ -43,6 +45,28 @@
               />
             </b-form-group>
           </b-col>
+        </b-row>
+        <b-row>
+          <b-alert variant="info">
+            <h4 class="alert-heading">
+              <p>Observações:</p>
+              <ul>
+                <li>Informe as Faixas de horários que você está disponivel.</li>
+                <li>
+                  A partir do hórario inicial vamos gerar horários de
+                  atendimento com intervalos de 30 minutos
+                </li>
+                <li>
+                  Exemplo >> Faixa 08:00h até 09:30h, horários gerados no site
+                  serão: 08:00h, 08:30h, 09:00 e 09:30h.
+                </li>
+                <li>
+                  Lembrando que você pode cadastrar quantas faixas quiser para
+                  cada semana.
+                </li>
+              </ul>
+            </h4>
+          </b-alert>
         </b-row>
         <div class="d-block">
           <b-button @click="save" variant="info" class="mr-1" size="lg">
@@ -88,6 +112,27 @@
         </div>
       </template>
     </b-table>
+
+    <b-alert variant="info" :show="list.length < 5">
+      <h4 class="alert-heading">
+        <p>Observações:</p>
+        <ul>
+          <li>Informe as Faixas de horários que você está disponivel.</li>
+          <li>
+            A partir do hórario inicial vamos gerar horários de atendimento com
+            intervalos de 30 minutos
+          </li>
+          <li>
+            Exemplo >> Faixa 08:00h até 09:30h, horários gerados no site serão:
+            08:00h, 08:30h, 09:00, 09:30h.
+          </li>
+          <li>
+            Lembrando que você pode cadastrar quantas faixas quiser para cada
+            semana.
+          </li>
+        </ul>
+      </h4>
+    </b-alert>
   </viewcard--c>
 </template>
 
@@ -110,7 +155,7 @@ export default {
       ],
       fields: [
         { key: "day_week", label: "Semana" },
-        { key: "start", label: "Horário" },
+        { key: "start", label: "Faixa Horário" },
         { key: "actions", label: "Ações" },
       ],
       list: [],
