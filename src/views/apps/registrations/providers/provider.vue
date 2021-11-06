@@ -168,7 +168,7 @@
               <!-- -->
               <b-input-group>
                 <b-form-input
-                  :state="!!address.cep"
+                  :state="!!address.zipcode"
                   v-mask="$utils.masked.cep"
                   v-model="address.zipcode"
                   placeholder="cep..."
