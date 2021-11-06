@@ -3,7 +3,7 @@
     <span class="float-md-left d-block d-md-inline-block mt-25">
       C.T © {{ new Date().getFullYear() }}
       <span class="d-none d-sm-inline-block">
-        Criado por VS Tecnologia e Serviços</span
+        - Vital Tecnologia e Serviços</span
       >
     </span>
   </p>

@@ -9,19 +9,29 @@
     @clicked-delete="onDelete"
   >
     <div v-if="!loading">
-      <b-alert class="mb-1" variant="success" :show="record.completed">
-        <h4 class="alert-heading">Seu Cadastro está aprovado.</h4>
+      <b-alert class="mb-1" variant="success" :show="iscompleted">
+        <h4 class="alert-heading">Cadastro está aprovado.</h4>
       </b-alert>
       <div v-if="record.statusCompleted && record.statusCompleted.warnings">
-        <div class="progress-wrapper" style="width: 150px">
-          <b-progress
-            variant="success"
-            v-model="record.statusCompleted.percent"
-            max="100"
-          />
-          <small class="mx-1"
-            >{{ record.statusCompleted.percent }}% concluido</small
-          >
+        <div class="progress-wrapper" v-if="!iscompleted">
+          <b-row>
+            <b-col cols="8">
+              <b-progress
+                variant="success"
+                v-model="record.statusCompleted.percent"
+                max="100"
+              />
+            </b-col>
+            <b-col
+              cols="4"
+              class="d-flex"
+              style="margin-top: -5px; margin-bottom: 10px"
+            >
+              <strong class="mx-1"
+                >{{ record.statusCompleted.percent }}% Concluído</strong
+              >
+            </b-col>
+          </b-row>
         </div>
         <b-alert
           v-for="(_warn, i) in record.statusCompleted.warnings"
@@ -344,11 +354,25 @@
       </b-tab>
       <b-tab title="Dados Pagamentos">
         <h1 class="py-1">Dados Bancários</h1>
-        <p>
-          * Conta para receber o valor dos seus atendimentos online aqui na
-          plataforma.
+        <p v-if="record.splitAccounts && record.splitAccounts.length > 0">
+          <b-avatar :variant="'success'" size="25">
+            <feather-icon size="16" :icon="'CheckIcon'" />
+          </b-avatar>
+          <strong>
+            Conta Sincronizada para receber o valor dos seus atendimentos online
+            aqui na plataforma.
+          </strong>
+        </p>
+        <p v-else>
+          <b-avatar :variant="'danger'" size="25">
+            <feather-icon size="16" :icon="'XIcon'" />
+          </b-avatar>
+          Conta não Sincronizada com a NEXXERA.
         </p>
         <hr class="p-0 m-0 mb-1" />
+        <b-row v-if="record.splitAccounts && record.splitAccounts.length > 0">
+          <b-col> </b-col>
+        </b-row>
         <b-row
           v-for="(bcc, index) in record.bankAccounts"
           :key="`acc-${index}`"
@@ -528,14 +552,16 @@
         </b-row>
       </b-tab>
     </b-tabs>
-    <hr />
-    <b-row>
-      <button--c
-        permission="provider.merchant.create"
-        title="Criar Estabelecimento (Nexxera)"
-        variant="info"
-        @clicked="createMerchant"
-      />
+    <b-row v-if="!record.splitAccounts || record.splitAccounts.length <= 0">
+      <b-col>
+        <hr />
+        <button--c
+          permission="provider.merchant.create"
+          title="Criar Estabelecimento (Nexxera)"
+          variant="info"
+          @clicked="createMerchant"
+        />
+      </b-col>
     </b-row>
   </viewcard--c>
 </template>
@@ -744,6 +770,7 @@ export default {
       _createOrUpdate
         .then(() => {
           this.$utils.toast("Notificação", "Salvo com sucesso.");
+          this.getRecord();
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
@@ -755,6 +782,7 @@ export default {
         .then((res) => {
           this.record = res.content.provider[0];
           this.urlsignatureImage = this.record.signatureurl;
+          this.iscompleted = this.record.completed;
           this.urlImage = this.record.imageurl;
 
           if (this.record.price > 0) {

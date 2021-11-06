@@ -1,16 +1,28 @@
 <template>
   <viewcard--c title="Listagem de Psicólogos" :btnew="btnew">
+    <hr class="m-0 p-0 mb-1" />
     <b-row class="mb-1 d-flex justify-content-start">
       <b-col md="3">
-        <b-form-group label="Situação de Cadastro">
+        <b-form-group label="Cadastro Completo">
           <v-select
-            v-model="situationSelected"
-            :options="situations"
+            v-model="situationsCompletedSelected"
+            :options="situationsCompleted"
             autocomplete="off"
+            :clearable="false"
           />
         </b-form-group>
       </b-col>
-      <b-col md="5">
+      <b-col md="3">
+        <b-form-group label="Situação Split">
+          <v-select
+            v-model="situationsSplitSelected"
+            :options="situationsSplit"
+            autocomplete="off"
+            :clearable="false"
+          />
+        </b-form-group>
+      </b-col>
+      <b-col md="6">
         <b-form-group label="-">
           <b-input-group>
             <b-form-input
@@ -39,6 +51,32 @@
         <template #cell(fantasy_name)="data">
           {{ `${data.item.fantasy_name} ${data.item.company_name}` }}
         </template>
+        <template #cell(completed)="data">
+          <div class="text-nowrap">
+            <b-avatar
+              :variant="data.item.completed ? 'success' : 'danger'"
+              size="25"
+            >
+              <feather-icon
+                size="16"
+                :icon="data.item.completed ? 'CheckIcon' : 'XIcon'"
+              />
+            </b-avatar>
+          </div>
+        </template>
+        <template #cell(split)="data">
+          <div class="text-nowrap">
+            <b-avatar
+              :variant="data.item.split ? 'success' : 'danger'"
+              size="25"
+            >
+              <feather-icon
+                size="16"
+                :icon="data.item.split ? 'CheckIcon' : 'XIcon'"
+              />
+            </b-avatar>
+          </div>
+        </template>
         <template #cell(cnpj)="data">
           <div class="text-nowrap">
             <b-form-input
@@ -52,7 +90,6 @@
               class="d-none"
             />
           </div>
-
           <div class="text-nowrap">
             {{
               data.item.cnpj
@@ -101,29 +138,45 @@ export default {
         { key: "fantasy_name", label: "Nome" },
         { key: "email", label: "E-mail" },
         { key: "cnpj", label: "CPF/CNPJ" },
-        { key: "ds_situation", label: "Situação" },
+        { key: "completed", label: "Completo" },
+        { key: "split", label: "Split" },
         { key: "actions", label: "Ações" },
       ],
       list: [],
-      situations: [],
-      situationSelected: null,
+      situationsSplit: [],
+      situationsSplitSelected: null,
+      situationsCompleted: [],
+      situationsCompletedSelected: null,
     };
   },
   created() {
-    _providerService
-      .showSituations()
-      .then((res) => {
-        this.situations = res;
-      })
-      .catch((error) => this.$utils.toastError("Notificação", error));
+    this.situationsSplit = [
+      { label: "Todos", value: "-1" },
+      { label: "Com Split", value: "1" },
+      { label: "Sem Split", value: "2" },
+    ];
+    this.situationsSplitSelected = { label: "Todos", value: "-1" };
+
+    this.situationsCompleted = [
+      { label: "Todos", value: "-1" },
+      { label: "Completos", value: "1" },
+      { label: "Incompletos", value: "2" },
+    ];
+    this.situationsCompletedSelected = { label: "Todos", value: "-1" };
   },
   mounted() {
     this.getRecords(this.currentePage);
   },
   methods: {
     getRecords(_page) {
-      const _search = `${this.search}|${
-        this.situationSelected ? this.situationSelected.value : "-1"
+      const _search = `${this.search}
+      |${
+        this.situationsSplitSelected ? this.situationsSplitSelected.value : "-1"
+      }
+      |${
+        this.situationsCompletedSelected
+          ? this.situationsCompletedSelected.value
+          : "-1"
       }`;
 
       this.isloading = true;

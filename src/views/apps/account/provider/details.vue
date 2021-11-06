@@ -338,9 +338,20 @@
       </b-tab>
       <b-tab title="PAGAMENTOS">
         <h1 class="py-1">Dados Bancários</h1>
-        <p>
-          * Conta para receber o valor dos seus atendimentos online aqui na
-          plataforma.
+        <p v-if="record.splitAccounts && record.splitAccounts.length > 0">
+          <b-avatar :variant="'success'" size="25">
+            <feather-icon size="16" :icon="'CheckIcon'" />
+          </b-avatar>
+          <strong>
+            Conta Sincronizada para receber o valor dos seus atendimentos online
+            aqui na plataforma.
+          </strong>
+        </p>
+        <p v-else>
+          <b-avatar :variant="'danger'" size="25">
+            <feather-icon size="16" icon="XIcon" />
+          </b-avatar>
+          <strong class="mx-1">No momento ainda não ativamos sua conta.</strong>
         </p>
         <hr class="p-0 m-0 mb-1" />
         <b-row
