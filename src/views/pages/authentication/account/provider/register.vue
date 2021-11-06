@@ -128,14 +128,27 @@
                 v-model="status"
                 name="checkbox-1"
               >
-                Estou de acordo com os<a
-                  href="https://www.psicoajudaonline.com.br/document//psicologo.pdf"
-                  target="_blank"
-                >
-                  Termos e Condições</a
-                >
-                <b-link></b-link>
+                Estou de acordo com os
+                <b-link v-b-modal.modal-xl> Termos e Condições </b-link>
               </b-form-checkbox>
+
+              <b-modal
+                id="modal-xl"
+                ok-only
+                ok-title="OK"
+                centered
+                size="xl"
+                title="Termos e Condições"
+              >
+                <b-card-text>
+                  <b-embed
+                    type="iframe"
+                    aspect="16by9"
+                    :src="pdfurl"
+                    allowfullscreen
+                  />
+                </b-card-text>
+              </b-modal>
             </b-form-group>
           </b-form>
         </validation-observer>
@@ -170,6 +183,7 @@ import useJwt from "@/auth/jwt/useJwt";
 import _authService from "@/services/auth-service";
 import _account from "@/services/account-provider-service";
 import rotas from "@/navigation/vertical/providers";
+
 import {
   BCard,
   BLink,
@@ -182,6 +196,9 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BFormCheckbox,
+  BModal,
+  VBModal,
+  BEmbed,
 } from "bootstrap-vue";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
@@ -202,10 +219,17 @@ export default {
     // validations
     ValidationProvider,
     ValidationObserver,
+    BButton,
+    BModal,
+    BEmbed,
+  },
+  directives: {
+    "b-modal": VBModal,
   },
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      pdfurl: "https://imagem.cliqueterapia.com.br/terms/psicologo.pdf",
       logo: require("@/assets/images/home/LogoMobile.png"),
       record: {
         name: "",

@@ -16,7 +16,8 @@
             max="100"
           />
           <small class="mx-1"
-            >{{ record.statusCompleted.percent }}% concluido</small
+            >{{ record.statusCompleted.percent }}% Dados Obrigatórios
+            Concluído</small
           >
         </div>
         <b-alert
@@ -37,7 +38,7 @@
     </div>
     <hr />
     <b-tabs pills id="tabs-provider" content-class="mt-2">
-      <b-tab title="DADOS PESSOAIS">
+      <b-tab title="1. DADOS PESSOAIS">
         <b-row>
           <b-col md="6">
             <b-form-group label="Nome *">
@@ -45,12 +46,14 @@
                 v-model="record.fantasy_name"
                 placeholder="Nome do Psicólogo"
                 autocomplete="off"
+                :state="!!record.fantasy_name"
               />
             </b-form-group>
           </b-col>
           <b-col md="6">
             <b-form-group label="Sobrenome *">
               <b-form-input
+                :state="!!record.company_name"
                 v-model="record.company_name"
                 placeholder="Nome do Psicólogo"
                 autocomplete="off"
@@ -73,6 +76,7 @@
           <b-col md="6">
             <b-form-group label="Email *">
               <b-form-input
+                :state="!!record.email"
                 v-model="record.email"
                 placeholder="E-mail"
                 autocomplete="off"
@@ -83,6 +87,7 @@
           <b-col cols="6" md="4">
             <b-form-group label="Telefone (Whatssap)">
               <b-form-input
+                :state="!!record.phone"
                 v-mask="$utils.masked.phone"
                 v-model="record.phone"
                 placeholder="Telefone"
@@ -93,6 +98,7 @@
           <b-col cols="6" md="2">
             <b-form-group label="CRP *">
               <b-form-input
+                :state="!!record.crp"
                 v-model="record.crp"
                 placeholder="CRP"
                 autocomplete="off"
@@ -103,6 +109,7 @@
           <b-col cols="6" md="3">
             <b-form-group label="CPF *">
               <b-form-input
+                :state="!!record.cpf"
                 v-mask="$utils.masked.cpf"
                 v-model="record.cpf"
                 placeholder="cpf..."
@@ -147,6 +154,7 @@
               <!-- -->
               <b-input-group>
                 <b-form-input
+                  :state="!!address.zipcode"
                   v-mask="$utils.masked.cep"
                   v-model="address.zipcode"
                   placeholder="cep..."
@@ -171,6 +179,7 @@
           <b-col md="3">
             <b-form-group label="UF *">
               <v-select
+                :class="`${optionsUfSelected ? 'state-green' : 'state-danger'}`"
                 v-model="optionsUfSelected"
                 :options="optionsUf"
                 autocomplete="off"
@@ -182,6 +191,7 @@
           <b-col md="6">
             <b-form-group label="Cidade *">
               <b-form-input
+                :state="!!address.city"
                 v-model="address.city"
                 placeholder="cidade..."
                 autocomplete="off"
@@ -192,6 +202,7 @@
             <b-form-group label="Bairro *">
               <b-form-input
                 v-model="address.neighborhood"
+                :state="!!address.neighborhood"
                 placeholder="bairro..."
                 autocomplete="off"
               />
@@ -201,6 +212,7 @@
             <b-form-group label="Logradouro *">
               <b-form-input
                 v-model="address.address"
+                :state="!!address.address"
                 placeholder="Logradouro..."
                 autocomplete="off"
               />
@@ -210,14 +222,16 @@
             <b-form-group label="Complemento *">
               <b-form-input
                 v-model="address.complement"
+                :state="!!address.complement"
                 placeholder="Complemento..."
                 autocomplete="off"
               />
             </b-form-group>
           </b-col>
           <b-col md="2">
-            <b-form-group label="Número">
+            <b-form-group label="Número *">
               <b-form-input
+                :state="!!address.number"
                 v-model="address.number"
                 placeholder="Número..."
                 autocomplete="off"
@@ -226,7 +240,7 @@
           </b-col>
         </b-row>
       </b-tab>
-      <b-tab title="PROFISSIONAL">
+      <b-tab title="2. PROFISSIONAL">
         <div class="row">
           <b-col cols="12" class="text-center">
             <b-form-group class="d-flex justify-content-center">
@@ -260,6 +274,7 @@
           <b-col md="6">
             <b-form-group label="RESUMO SOBRE VOCÊ">
               <b-form-textarea
+                :state="!!record.description"
                 rows="7"
                 v-model="record.description"
                 placeholder="Em poucas palavras, fale sobre da sua experiência. Aqui, você pode colocar a linha que atua e como pode ajuda o seus pacientes..."
@@ -293,6 +308,11 @@
             <b-form-group label="ESPECIALIDADES">
               <small>Até 3 Opções</small>
               <v-select
+                :class="`${
+                  optionsTopicsSelectd && optionsTopicsSelectd.length > 0
+                    ? 'state-green'
+                    : 'state-danger'
+                }`"
                 v-model="optionsTopicsSelectd"
                 :options="optionsTopics"
                 multiple
@@ -303,6 +323,12 @@
             <b-form-group label="EXPERIÊNCIAS">
               <small>Até 8 Opções</small>
               <v-select
+                :class="`${
+                  optionsTopicsExperienceSelectd &&
+                  optionsTopicsExperienceSelectd.length > 0
+                    ? 'state-green'
+                    : 'state-danger'
+                }`"
                 v-model="optionsTopicsExperienceSelectd"
                 :options="optionsTopicsExperience"
                 multiple
@@ -336,22 +362,25 @@
           </div>
         </div>
       </b-tab>
-      <b-tab title="PAGAMENTOS">
+      <b-tab title="3. PAGAMENTOS">
         <h1 class="py-1">Dados Bancários</h1>
         <p v-if="record.splitAccounts && record.splitAccounts.length > 0">
           <b-avatar :variant="'success'" size="25">
             <feather-icon size="16" :icon="'CheckIcon'" />
           </b-avatar>
           <strong>
-            Conta Sincronizada para receber o valor dos seus atendimentos online
-            aqui na plataforma.
+            Sua Conta está SINCRONIZADA para receber o valor dos seus
+            atendimentos online aqui na plataforma.
           </strong>
         </p>
         <p v-else>
           <b-avatar :variant="'danger'" size="25">
             <feather-icon size="16" icon="XIcon" />
           </b-avatar>
-          <strong class="mx-1">No momento ainda não ativamos sua conta.</strong>
+          <strong class="mx-1"
+            >No momento ainda não Sincronizamos sua conta para recebimento das
+            suas consultas realizadas na plataforma.</strong
+          >
         </p>
         <hr class="p-0 m-0 mb-1" />
         <b-row
@@ -361,6 +390,7 @@
           <b-col md="6">
             <b-form-group label="Banco">
               <v-select
+                :class="optionsBankSelected ? 'state-green' : 'state-danger'"
                 v-model="optionsBankSelected"
                 :loading="isLoadingBank"
                 :options="bcc.options"
@@ -382,8 +412,11 @@
             </b-form-group>
           </b-col>
           <b-col md="6">
-            <b-form-group label="Tipo de Conta">
+            <b-form-group label="Tipo de Conta *">
               <v-select
+                :class="
+                  optionsTypeAccountSelected ? 'state-green' : 'state-danger'
+                "
                 v-model="optionsTypeAccountSelected"
                 :options="optionsAccountTypes"
                 autocomplete="off"
@@ -393,6 +426,7 @@
           <b-col md="4">
             <b-form-group label="Agencia *">
               <b-form-input
+                :state="!!bcc.agency_number"
                 v-model="bcc.agency_number"
                 placeholder="agencia..."
                 autocomplete="off"
@@ -401,7 +435,7 @@
             </b-form-group>
           </b-col>
           <b-col md="2">
-            <b-form-group label="Dig.Agencia *">
+            <b-form-group label="Dig.Agencia">
               <b-form-input
                 v-model="bcc.agency_digit"
                 placeholder="digito agencia..."
@@ -413,6 +447,7 @@
           <b-col md="4">
             <b-form-group label="N° da Conta">
               <b-form-input
+                :state="!!bcc.account_number"
                 v-model="bcc.account_number"
                 placeholder="número da conta..."
                 autocomplete="off"
@@ -423,6 +458,7 @@
           <b-col md="2">
             <b-form-group label="Dig. Conta *">
               <b-form-input
+                :state="!!bcc.account_digit"
                 v-model="bcc.account_digit"
                 placeholder="Digito da conta..."
                 autocomplete="off"
@@ -431,13 +467,12 @@
             </b-form-group>
           </b-col>
           <b-col
-            md="6"
-            v-if="
-              bcc.optionsBankSelected && bcc.optionsBankSelected.value === '104'
-            "
+            v-if="optionsBankSelected && optionsBankSelected.value === '104'"
+            md="4"
           >
             <b-form-group label="Operação">
               <b-form-input
+                :state="!!bcc.operation"
                 v-model="bcc.operation"
                 placeholder="Número..."
                 autocomplete="off"
@@ -449,7 +484,7 @@
         <hr class="p-0 m-0 mb-1" />
         <b-row>
           <b-col cols="6" md="3">
-            <b-form-group label="Valor da Sessão (50 minutos)">
+            <b-form-group label="Valor da Sessão (50 minutos) *">
               <b-form-input
                 v-mask="$utils.masked.money"
                 v-model="record.price"
@@ -488,6 +523,11 @@
           </b-col>
           <b-col md="12">
             <b-form-group label="ASSINATURA">
+              <b-alert class="mb-1" variant="warning" show>
+                <h4 class="alert-heading">
+                  Formatos aceitos: .jpg, .PNG, Tamanho máximo aceito: 1MB
+                </h4>
+              </b-alert>
               <img
                 @click="$refs.fileInputSig[0].click()"
                 :src="urlsignatureImage"
@@ -964,5 +1004,13 @@ export default {
 }
 #thumbnail-perfil:hover {
   opacity: 0.5;
+}
+
+.state-green .vs__dropdown-toggle {
+  border-color: var(--success);
+}
+
+.state-danger .vs__dropdown-toggle {
+  border-color: var(--danger);
 }
 </style>

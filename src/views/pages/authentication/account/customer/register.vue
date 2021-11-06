@@ -127,22 +127,6 @@
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
-
-            <!-- <b-form-group class="d-flex justify-content-center mt-2">
-              <b-form-checkbox
-                id="register-privacy-policy"
-                v-model="status"
-                name="checkbox-1"
-              >
-                Estou de acordo com os<a
-                  href="https://www.psicoajudaonline.com.br/document//psicologo.pdf"
-                  target="_blank"
-                >
-                  Termos e Condições</a
-                >
-                <b-link></b-link>
-              </b-form-checkbox>
-            </b-form-group> -->
           </b-form>
         </validation-observer>
 

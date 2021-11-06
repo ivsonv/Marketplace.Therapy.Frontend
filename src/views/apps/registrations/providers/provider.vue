@@ -28,7 +28,8 @@
               style="margin-top: -5px; margin-bottom: 10px"
             >
               <strong class="mx-1"
-                >{{ record.statusCompleted.percent }}% Concluído</strong
+                >{{ record.statusCompleted.percent }}% Dados Obrigatórios
+                Concluído</strong
               >
             </b-col>
           </b-row>
@@ -52,11 +53,12 @@
 
     <hr />
     <b-tabs pills id="tabs-provider" content-class="mt-2">
-      <b-tab title="Dados pessoais">
+      <b-tab title="1. Dados Pessoais">
         <b-row>
           <b-col md="6">
             <b-form-group label="Nome *">
               <b-form-input
+                :state="!!record.fantasy_name"
                 v-model="record.fantasy_name"
                 placeholder="Nome do Psicólogo"
                 autocomplete="off"
@@ -66,6 +68,7 @@
           <b-col md="6">
             <b-form-group label="Sobrenome *">
               <b-form-input
+                :state="!!record.company_name"
                 v-model="record.company_name"
                 placeholder="Nome do Psicólogo"
                 autocomplete="off"
@@ -88,6 +91,7 @@
           <b-col md="6">
             <b-form-group label="Email *">
               <b-form-input
+                :state="!!record.email"
                 v-model="record.email"
                 placeholder="E-mail"
                 autocomplete="off"
@@ -98,6 +102,7 @@
           <b-col cols="6" md="4">
             <b-form-group label="Telefone">
               <b-form-input
+                :state="!!record.phone"
                 v-mask="$utils.masked.phone"
                 v-model="record.phone"
                 placeholder="Telefone"
@@ -108,6 +113,7 @@
           <b-col cols="6" md="2">
             <b-form-group label="CRP">
               <b-form-input
+                :state="!!record.crp"
                 v-model="record.crp"
                 placeholder="CRP"
                 autocomplete="off"
@@ -117,6 +123,7 @@
           <b-col cols="6" md="3">
             <b-form-group label="CPF *">
               <b-form-input
+                :state="!!record.cpf"
                 v-mask="$utils.masked.cpf"
                 v-model="record.cpf"
                 placeholder="cpf..."
@@ -161,6 +168,7 @@
               <!-- -->
               <b-input-group>
                 <b-form-input
+                  :state="!!address.cep"
                   v-mask="$utils.masked.cep"
                   v-model="address.zipcode"
                   placeholder="cep..."
@@ -185,6 +193,7 @@
           <b-col md="3">
             <b-form-group label="UF *">
               <v-select
+                :class="`${optionsUfSelected ? 'state-green' : 'state-danger'}`"
                 v-model="optionsUfSelected"
                 :options="optionsUf"
                 autocomplete="off"
@@ -196,6 +205,7 @@
           <b-col md="6">
             <b-form-group label="Cidade *">
               <b-form-input
+                :state="!!address.city"
                 v-model="address.city"
                 placeholder="cidade..."
                 autocomplete="off"
@@ -205,6 +215,7 @@
           <b-col md="6">
             <b-form-group label="Bairro *">
               <b-form-input
+                :state="!!address.neighborhood"
                 v-model="address.neighborhood"
                 placeholder="bairro..."
                 autocomplete="off"
@@ -214,6 +225,7 @@
           <b-col md="6">
             <b-form-group label="Logradouro *">
               <b-form-input
+                :state="!!address.address"
                 v-model="address.address"
                 placeholder="Logradouro..."
                 autocomplete="off"
@@ -223,6 +235,7 @@
           <b-col md="4">
             <b-form-group label="Complemento *">
               <b-form-input
+                :state="!!address.complement"
                 v-model="address.complement"
                 placeholder="Complemento..."
                 autocomplete="off"
@@ -232,6 +245,7 @@
           <b-col md="2">
             <b-form-group label="Número">
               <b-form-input
+                :state="!!address.number"
                 v-model="address.number"
                 placeholder="Número..."
                 autocomplete="off"
@@ -240,7 +254,7 @@
           </b-col>
         </b-row>
       </b-tab>
-      <b-tab title="Dados Profissionais">
+      <b-tab title="2. Dados Profissionais">
         <div class="row">
           <b-col cols="12" class="text-center">
             <b-form-group class="d-flex justify-content-center">
@@ -248,8 +262,11 @@
                 <img
                   class="img-fluid rounded-shadow cursor-pointer"
                   id="thumbnail-perfil"
-                  v-if="urlImage"
-                  :src="urlImage"
+                  :src="
+                    urlImage
+                      ? urlImage
+                      : require('@/assets/images/pages/sem-foto.png')
+                  "
                 />
                 <!-- <b-button
                   class="d-flex align-items-center my-1 ml-2"
@@ -276,6 +293,7 @@
           <b-col md="6">
             <b-form-group label="RESUMO SOBRE VOCÊ">
               <b-form-textarea
+                :state="!!record.description"
                 rows="7"
                 v-model="record.description"
                 placeholder="Em poucas palavras, fale sobre da sua experiência. Aqui, você pode colocar a linha que atua e como pode ajuda o seus pacientes..."
@@ -290,6 +308,7 @@
           <b-col md="6">
             <b-form-group label="APRESENTAÇÃO PESSOAL (BIOGRÁFIA)">
               <b-form-textarea
+                :state="!!record.biography"
                 rows="7"
                 v-model="record.biography"
                 placeholder="Nesta fase, o paciente quer saber um pouco mais sobre você além do profissional. Explique o objetivo da sua linha de atuação, perfil nas redes e sua trajetória de forma mais detalhada. Crie um momento acolhedor com as palavras..."
@@ -309,6 +328,9 @@
             <b-form-group label="ESPECIALIDADES">
               <small>Até 3 Opções</small>
               <v-select
+                :class="`${
+                  optionsTopicsSelectd ? 'state-green' : 'state-danger'
+                }`"
                 v-model="optionsTopicsSelectd"
                 :options="optionsTopics"
                 multiple
@@ -319,6 +341,11 @@
             <b-form-group label="EXPERIÊNCIAS">
               <small>Até 8 Opções</small>
               <v-select
+                :class="`${
+                  optionsTopicsExperienceSelectd
+                    ? 'state-green'
+                    : 'state-danger'
+                }`"
                 v-model="optionsTopicsExperienceSelectd"
                 :options="optionsTopicsExperience"
                 multiple
@@ -352,7 +379,7 @@
           </div>
         </div>
       </b-tab>
-      <b-tab title="Dados Pagamentos">
+      <b-tab title="3. Dados Pagamentos">
         <h1 class="py-1">Dados Bancários</h1>
         <p v-if="record.splitAccounts && record.splitAccounts.length > 0">
           <b-avatar :variant="'success'" size="25">
@@ -378,8 +405,11 @@
           :key="`acc-${index}`"
         >
           <b-col md="6">
-            <b-form-group label="Banco">
+            <b-form-group label="Banco *">
               <v-select
+                :class="`${
+                  optionsBankSelected ? 'state-green' : 'state-danger'
+                }`"
                 v-model="optionsBankSelected"
                 :loading="isLoadingBank"
                 :options="bcc.options"
@@ -403,6 +433,9 @@
           <b-col md="6">
             <b-form-group label="Tipo de Conta">
               <v-select
+                :class="`${
+                  optionsTypeAccountSelected ? 'state-green' : 'state-danger'
+                }`"
                 v-model="optionsTypeAccountSelected"
                 :options="optionsAccountTypes"
                 autocomplete="off"
@@ -412,6 +445,7 @@
           <b-col md="4">
             <b-form-group label="Agencia *">
               <b-form-input
+                :state="!!bcc.agency_number"
                 v-model="bcc.agency_number"
                 placeholder="agencia..."
                 autocomplete="off"
@@ -420,7 +454,7 @@
             </b-form-group>
           </b-col>
           <b-col md="2">
-            <b-form-group label="Dig.Agencia *">
+            <b-form-group label="Dig.Agencia">
               <b-form-input
                 v-model="bcc.agency_digit"
                 placeholder="digito agencia..."
@@ -432,6 +466,7 @@
           <b-col md="4">
             <b-form-group label="N° da Conta">
               <b-form-input
+                :state="!!bcc.account_number"
                 v-model="bcc.account_number"
                 placeholder="número da conta..."
                 autocomplete="off"
@@ -442,6 +477,7 @@
           <b-col md="2">
             <b-form-group label="Dig. Conta *">
               <b-form-input
+                :state="!!bcc.account_digit"
                 v-model="bcc.account_digit"
                 placeholder="Digito da conta..."
                 autocomplete="off"
@@ -457,6 +493,7 @@
           >
             <b-form-group label="Operação">
               <b-form-input
+                :state="!!bcc.operation"
                 v-model="bcc.operation"
                 placeholder="Número..."
                 autocomplete="off"
@@ -1024,5 +1061,13 @@ export default {
 }
 #thumbnail-perfil:hover {
   opacity: 0.5;
+}
+
+.state-green .vs__dropdown-toggle {
+  border-color: var(--success);
+}
+
+.state-danger .vs__dropdown-toggle {
+  border-color: var(--danger);
 }
 </style>
