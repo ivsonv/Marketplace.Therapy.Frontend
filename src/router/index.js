@@ -8,6 +8,7 @@ import defaults from './routes/defaults'
 import home from './routes/home'
 import providers from './routes/providers'
 import customers from './routes/customer'
+import dashboard from './routes/dashboard'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', redirect: { name: 'home-view' } },
     ...home,
+    ...dashboard,
     ...registrations,
     ...authetication,
     ...defaults,

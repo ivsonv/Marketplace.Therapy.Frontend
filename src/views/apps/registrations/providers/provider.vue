@@ -34,20 +34,22 @@
             </b-col>
           </b-row>
         </div>
-        <b-alert
-          v-for="(_warn, i) in record.statusCompleted.warnings"
-          variant="warning"
-          class="mb-1"
-          :key="i"
-          show
-        >
-          <h4 class="alert-heading">
-            {{ _warn.label }}
-          </h4>
-          <div v-if="_warn.value" class="alert-body">
-            <span>{{ _warn.value }}.</span>
-          </div>
-        </b-alert>
+        <a href="#tabs-provider">
+          <b-alert
+            v-for="(_warn, i) in record.statusCompleted.warnings"
+            variant="warning"
+            class="mb-1"
+            :key="i"
+            show
+          >
+            <h4 class="alert-heading">
+              {{ _warn.label }}
+            </h4>
+            <div v-if="_warn.value" class="alert-body">
+              <span>{{ _warn.value }}.</span>
+            </div>
+          </b-alert>
+        </a>
       </div>
     </div>
 
@@ -991,11 +993,11 @@ export default {
             item.address = res.content.address.address;
             item.city = res.content.address.city;
             item.uf = res.content.address.uf;
-            if (item.uf) item.uf = item.uf.toUpperCase();
+            if (item.uf) item.uf = item.uf.toUpperCase().trim();
 
             //
             if (this.optionsUf.some((s) => s.value === item.uf)) {
-              item.optionsUfSelected = this.optionsUf.filter(
+              this.optionsUfSelected = this.optionsUf.filter(
                 (f) => f.value === item.uf
               )[0];
             }
