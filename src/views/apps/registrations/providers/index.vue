@@ -3,7 +3,7 @@
     <hr class="m-0 p-0 mb-1" />
     <b-row class="mb-1 d-flex justify-content-start">
       <b-col md="3">
-        <b-form-group label="Cadastro Completo">
+        <b-form-group label="Status de Cadastro">
           <v-select
             v-model="situationsCompletedSelected"
             :options="situationsCompleted"
@@ -13,7 +13,7 @@
         </b-form-group>
       </b-col>
       <b-col md="3">
-        <b-form-group label="Situação Split">
+        <b-form-group label="Situação Meio de Pagamento">
           <v-select
             v-model="situationsSplitSelected"
             :options="situationsSplit"
@@ -52,7 +52,7 @@
           {{ `${data.item.fantasy_name} ${data.item.company_name}` }}
         </template>
         <template #cell(completed)="data">
-          <div class="text-nowrap">
+          <div class="text-center">
             <b-avatar
               :variant="data.item.completed ? 'success' : 'danger'"
               size="25"
@@ -65,7 +65,7 @@
           </div>
         </template>
         <template #cell(split)="data">
-          <div class="text-nowrap">
+          <div class="text-center">
             <b-avatar
               :variant="data.item.split ? 'success' : 'danger'"
               size="25"
@@ -125,10 +125,7 @@ import _providerService from "@/services/providers-service";
 export default {
   data() {
     return {
-      btnew: {
-        permission: "provider.create",
-        to: "/registrations/provider/0",
-      },
+      btnew: {},
       isloading: false,
       currentePage: 1,
       search: null,
@@ -138,9 +135,13 @@ export default {
         { key: "fantasy_name", label: "Nome" },
         { key: "email", label: "E-mail" },
         { key: "cnpj", label: "CPF/CNPJ" },
-        { key: "completed", label: "Completo" },
-        { key: "split", label: "Split" },
-        { key: "actions", label: "Ações" },
+        { key: "completed", label: "Status Cadastro", thClass: "text-center" },
+        {
+          key: "split",
+          label: "Status Meio Pagamento",
+          thClass: "text-center",
+        },
+        { key: "actions", label: "Ações", thClass: "text-center" },
       ],
       list: [],
       situationsSplit: [],
@@ -152,8 +153,8 @@ export default {
   created() {
     this.situationsSplit = [
       { label: "Todos", value: "-1" },
-      { label: "Com Split", value: "1" },
-      { label: "Sem Split", value: "2" },
+      { label: "Integrado (NEXXERA)", value: "1" },
+      { label: "Não Integrado (NEXXERA)", value: "2" },
     ];
     this.situationsSplitSelected = { label: "Todos", value: "-1" };
 

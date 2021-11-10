@@ -981,14 +981,30 @@ export default {
         .finally(() => (this.loading = false));
     },
     onFileChange(e) {
-      e.preventDefault();
-      this.fileImageSelected = e.target.files[0];
-      this.urlImage = URL.createObjectURL(e.target.files[0]);
+      var FileSize = e.target.files[0].size / 1024 / 1024; // em MB
+      if (FileSize > 1) {
+        this.$utils.toastError(
+          "OPS!!",
+          "TAMANHO MÁXIMO PERMITIDO DA IMAGEM E DE 1 MB"
+        );
+      } else {
+        e.preventDefault();
+        this.fileImageSelected = e.target.files[0];
+        this.urlImage = URL.createObjectURL(e.target.files[0]);
+      }
     },
     onFileChangeSignature(e) {
-      e.preventDefault();
-      this.fileSignatureSelected = e.target.files[0];
-      this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
+      var FileSize = e.target.files[0].size / 1024 / 1024; // in MB
+      if (FileSize > 1) {
+        this.$utils.toastError(
+          "OPS!!",
+          "TAMANHO MÁXIMO PERMITIDO DA IMAGEM E DE 1 MB"
+        );
+      } else {
+        e.preventDefault();
+        this.fileSignatureSelected = e.target.files[0];
+        this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
+      }
     },
   },
 };
