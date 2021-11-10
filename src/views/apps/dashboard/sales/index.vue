@@ -179,7 +179,7 @@ export default {
     };
   },
   created() {
-    //this.init();
+    this.init();
   },
   mounted() {
     this.getRecords(this.currentePage);
@@ -234,9 +234,9 @@ export default {
       this.getRecords(this.currentePage);
     },
     onClickSelected(record, _) {
-      this.$router.push({
-        path: `/registrations/provider/${record.id}`,
-      });
+      // this.$router.push({
+      //   path: `/registrations/provider/${record.id}`,
+      // });
     },
   },
 };

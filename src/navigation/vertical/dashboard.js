@@ -9,7 +9,7 @@ export default [{
       roles: ['dashboard.view']
     },
     {
-      title: 'Pedidos',
+      title: 'Agendamentos',
       route: 'dashboard-sales-list',
       icon: 'ShoppingBagIcon',
       roles: ['dashboard.view']

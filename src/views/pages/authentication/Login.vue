@@ -2,13 +2,6 @@
   <div class="auth-wrapper auth-v2">
     <div id="bodyCaller"></div>
     <b-row class="auth-inner m-0">
-      <!-- Brand logo-->
-      <b-link class="brand-logo d-none d-lg-flex">
-        <img :src="logo" />
-        <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
-      </b-link>
-      <!-- /Brand logo-->
-
       <!-- Left Text-->
       <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
         <div
@@ -31,8 +24,8 @@
               flex-direction: column;
             "
           >
-            <img :src="logo" class="mb-2" />
-            <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
+            <img width="100" :src="logo" class="mb-2" />
+            <h2 class="brand-text text-primary ml-1">ADMINISTRAÇÃO</h2>
           </div>
 
           <!-- form -->
@@ -58,13 +51,13 @@
               </b-form-group>
 
               <!-- forgot password -->
-              <b-form-group>
-                <div class="d-flex justify-content-between">
+              <b-form-group label="Senha" label-for="login-password">
+                <!-- <div class="d-flex justify-content-between">
                   <label for="login-password">Senha</label>
                   <b-link :to="{ name: 'auth-forgot-password' }">
                     <small>Esqueceu a Senha?</small>
                   </b-link>
-                </div>
+                </div> -->
                 <validation-provider
                   #default="{ errors }"
                   name="Password"
