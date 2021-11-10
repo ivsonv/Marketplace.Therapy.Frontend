@@ -1,5 +1,5 @@
 <template>
-  <viewcard--c title="Agendamentos" :busy="isloading">
+  <viewcard--c title="Agendamentos">
     <hr class="m-0 p-0 mb-1" />
     <b-row class="mb-1 d-flex justify-content-start">
       <b-col cols="12" lg="4">
@@ -29,8 +29,8 @@
       <b-col cols="12" lg="4">
         <b-form-group label="Situação Pedido">
           <v-select
-            v-model="situationsSplitSelected"
-            :options="situationsSplit"
+            v-model="statusSelected"
+            :options="statusList"
             autocomplete="off"
             :clearable="false"
           />
@@ -39,8 +39,8 @@
       <b-col cols="12" lg="4">
         <b-form-group label="Situação Pagamento">
           <v-select
-            v-model="situationsSplitSelected"
-            :options="situationsSplit"
+            v-model="payStatusSelected"
+            :options="payStatusList"
             autocomplete="off"
             :clearable="false"
           />
@@ -58,7 +58,9 @@
     </b-row>
     <b-row class="mx-25 mb-1 d-flex justify-content-end">
       <div>
-        <b-button variant="gradient-info"> PESQUISAR </b-button>
+        <b-button variant="gradient-info" @click="getFilter">
+          PESQUISAR
+        </b-button>
       </div>
     </b-row>
     <view--c permission="provider.view" :busy="isloading">
@@ -143,7 +145,7 @@
 </template>
 
 <script>
-import _providerService from "@/services/providers-service";
+import _dashboardService from "@/services/dashboard-service";
 import { BFormDatepicker } from "bootstrap-vue";
 export default {
   components: {
@@ -158,10 +160,11 @@ export default {
       size: 20,
       fields: [
         { key: "id", label: "Cód." },
-        { key: "email", label: "E-mail" },
-        { key: "cnpj", label: "CPF/CNPJ" },
-        { key: "completed", label: "Completo" },
-        { key: "split", label: "Split" },
+        { key: "dsstatus", label: "status" },
+        { key: "payment.ds", label: "Pagamento" },
+        { key: "price", label: "Preço" },
+        { key: "booking_date", label: "Data" },
+        { key: "created_at", label: "CriadoEm" },
         { key: "actions", label: "Ações" },
       ],
       list: [],
@@ -186,39 +189,48 @@ export default {
   },
   methods: {
     init() {
-      this.situationsSplit = [
+      this.statusList = [
         { label: "Todos", value: "-1" },
-        { label: "Com Split", value: "1" },
-        { label: "Sem Split", value: "2" },
+        { label: "Pendente", value: "0" },
+        { label: "Confirmado", value: "1" },
+        { label: "Cancelado", value: "2" },
+        { label: "Não Autorizado", value: "3" },
       ];
-      this.situationsSplitSelected = { label: "Todos", value: "-1" };
+      this.statusSelected = this.statusList[0];
 
-      this.situationsCompleted = [
+      this.payStatusList = [
         { label: "Todos", value: "-1" },
-        { label: "Completos", value: "1" },
-        { label: "Incompletos", value: "2" },
+        { label: "Pendente", value: "0" },
+        { label: "Confirmado (PAGO)", value: "1" },
+        { label: "Cancelado", value: "2" },
+        { label: "Não Autorizado", value: "3" },
       ];
-      this.situationsCompletedSelected = { label: "Todos", value: "-1" };
+      this.payStatusSelected = this.payStatusList[0];
     },
 
     getRecords(_page) {
-      const _search = `${this.search}
-      |${
-        this.situationsSplitSelected ? this.situationsSplitSelected.value : "-1"
-      }
-      |${
-        this.situationsCompletedSelected
-          ? this.situationsCompletedSelected.value
-          : "-1"
-      }`;
+      let payload = {
+        data: {
+          ...this.filter,
+          payment_status:
+            this.payStatusSelected.value !== "-1"
+              ? this.payStatusSelected.value
+              : null,
+          status:
+            this.statusSelected.value !== "-1"
+              ? this.statusSelected.value
+              : null,
+        },
+      };
+      console.log(payload);
 
       this.isloading = true;
-      _providerService
-        .show(_page, _search)
+      _dashboardService
+        .reports(_page, payload)
         .then((res) => {
           if (res.content) {
-            this.more = res.content.provider.length >= this.size;
-            this.list.push(...res.content.provider);
+            this.more = res.content.length >= this.size;
+            this.list.push(...res.content);
             this.currentePage = _page;
           }
         })
@@ -228,7 +240,7 @@ export default {
     getLoadMore() {
       this.getRecords(this.currentePage + 1);
     },
-    filter() {
+    getFilter() {
       this.currentePage = 1;
       this.list = [];
       this.getRecords(this.currentePage);
