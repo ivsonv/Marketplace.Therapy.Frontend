@@ -8,7 +8,13 @@
             >Agende uma consulta online de qualquer dispositivo no conforto da
             sua casa ou onde estiver.</strong
           >
-          <b-button variant="primary"> Comece Agora </b-button>
+          <b-button
+            variant="primary"
+            :to="{ name: 'merchants-view' }"
+            style="max-width: 158px"
+          >
+            Comece Agora
+          </b-button>
         </section>
       </div>
       <div class="col-lg-3">
