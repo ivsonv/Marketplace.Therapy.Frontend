@@ -12,15 +12,17 @@ $gray-800: #1e1e1e !default; // $gray-dark
 $gray-900: #2a2e30 !default;
 $black: #22292f !default; // 231f48 22292f
 
-$purple: #6f42c1 !default; //$primary
+$purple: #662D91 !default; //$primary
+$indigo: #803EFF !default; //$primary
 $green: #76c043 !default; //$success
-$blue: #007bff !default; //$info
+$blue: #244266 !default; //$info
 $orange: #FFAC10 !default; //$warning
-$red: #dc3545 !default; //$danger
+$red: #EA1F5D !default; //$danger
+$teal: #00edd6 !default; //$teal
 
-$primary: #9aa1b0 !default;
+$primary: $purple !default;
 $secondary: #82868b !default;
-$info: $blue !default;
+$info: #4279E8 !default;
 $warning: $orange !default;
 $light: $gray-50 !default;
 $dark: #343a40 !default;
@@ -73,7 +75,7 @@ $spacers: map-merge(
 // Body
 //
 // Settings for the `<body>` element.
-$body-bg: #f8f8f8 !default;
+$body-bg: #fff !default;
 $body-color: #6e6b7b !default;
 
 // Links
@@ -111,8 +113,8 @@ $box-shadow: 0 4px 24px 0 rgba($black, 0.1) !default;
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif: 'Montserrat', Helvetica, Arial, serif !default;
-$font-family-monospace: 'Montserrat', Helvetica, Arial, serif !default;
+$font-family-sans-serif: 'Poppins', sans-serif !default;
+$font-family-monospace: 'Poppins', sans-serif !default;
 
 // stylelint-enable value-keyword-case
 $font-size-base: 1rem !default;

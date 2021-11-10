@@ -196,7 +196,7 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      logo: require("@/assets/images/home/LogoMobile.png"),
+      logo: require("@/assets/images/logo/logo.png"),
       record: {
         name: "",
         email: "",

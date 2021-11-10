@@ -1,39 +1,18 @@
 <template>
   <div class="main-view">
-    <!-- HEADER -->
-    <div class="d-flex justify-content-center">
-      <header--v />
-    </div>
-
-    <!-- BODY -->
-    <section id="Inicio">
-      <div class="boxInicio mb-5 pb-5">
-        <h1>A qualquer hora, em qualquer lugar.</h1>
-        <p>
-          Agende uma consulta online de qualquer dispositivo
-          <br />no conforto da sua casa ou onde estiver.
-        </p>
-      </div>
-      <a>
-        <b-button
-          @click="goSearch"
-          size="lg"
-          variant="warning"
-          class="rounded"
-          pill
-        >
-          Agendar agora
-        </b-button>
-      </a>
-    </section>
+    <header--v />
+    <home--v />
   </div>
 </template>
 
 <script>
 import HomeHeader from "./components/home-header";
+import HomeStart from "./components/home-start.vue";
+
 export default {
   components: {
     "header--v": HomeHeader,
+    "home--v": HomeStart,
   },
   data() {
     return {
@@ -54,56 +33,5 @@ export default {
 <style lang="scss">
 .main-view {
   min-height: 100vh;
-}
-
-#Inicio {
-  margin: 0;
-  height: 95vh;
-  display: flex;
-  color: white;
-  position: relative;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
-  background-size: cover;
-  background-position: bottom;
-  background-image: url("~@/assets/images/home/headerHome.png");
-  @media screen and (max-width: 770px) {
-    height: 90vh;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-  .boxInicio {
-    text-align: center;
-    @media screen and (max-width: 474px) {
-      br {
-        display: none;
-      }
-    }
-    h1 {
-      font-size: 60px;
-      font-weight: 600;
-      color: var(--success);
-      margin-bottom: 15px;
-      @media screen and (max-width: 770px) {
-        font-size: 40px;
-      }
-    }
-    p {
-      font-size: 28px;
-      line-height: 28px;
-      @media screen and (max-width: 770px) {
-        font-size: 20px;
-        line-height: 20px;
-      }
-    }
-  }
-  a {
-    width: 178px;
-    button {
-      position: absolute;
-      bottom: -20px;
-    }
-  }
 }
 </style>

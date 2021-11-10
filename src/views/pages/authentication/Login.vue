@@ -169,7 +169,7 @@ export default {
       password: "",
       userEmail: "",
       sideImg: require("@/assets/images/pages/login-v2.svg"),
-      logo: require("@/assets/images/home/LogoMobile.png"),
+      logo: require("@/assets/images/logo/logo.png"),
       loading: false,
       required,
       email,

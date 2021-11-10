@@ -230,7 +230,7 @@ export default {
   data() {
     return {
       pdfurl: "https://imagem.cliqueterapia.com.br/terms/psicologo.pdf",
-      logo: require("@/assets/images/home/LogoMobile.png"),
+      logo: require("@/assets/images/logo/logo.png"),
       record: {
         name: "",
         email: "",

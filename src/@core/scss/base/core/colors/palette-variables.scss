@@ -95,6 +95,7 @@ $warning-color: (
   'accent-3': #fff6f3,
   'accent-4': #ffe3da
 );
+
 $danger-color: (
   'lighten-5': lighten(theme-color('danger'), 25%),
   'lighten-4': lighten(theme-color('danger'), 20%),
@@ -111,6 +112,7 @@ $danger-color: (
   'accent-3': #ffecee,
   'accent-4': #ffd3d7
 );
+
 
 $colors: (
   'white': $white-color,

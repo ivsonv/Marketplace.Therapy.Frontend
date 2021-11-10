@@ -595,7 +595,7 @@ export default {
       border-bottom: 1px solid #76c043;
       p {
         font-size: 20px;
-        font-family: "Faustina", serif;
+        font-family: "Poppins", sans-serif;
       }
       span {
         color: #76c043;
