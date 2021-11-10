@@ -370,7 +370,7 @@ body {
     }
     .was-validated .custom-control-input:valid ~ .custom-control-label::before,
     .custom-control-input.is-valid ~ .custom-control-label::before {
-      border-color: $success !important;
+      border-color: $primary !important;
     }
 
     // ------------------------------------------------
@@ -378,7 +378,7 @@ body {
     // ------------------------------------------------
     .was-validated .custom-select:valid,
     .custom-select.is-valid {
-      border-color: $success;
+      border-color: $primary;
     }
     .was-validated .custom-select:invalid,
     .custom-select.is-invalid {

@@ -16,21 +16,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="main-view"> <section id="Inicio">
-      <div class="boxInicio mb-5 pb-5">
-        <h1>A qualquer hora, em qualquer lugar.</h1>
-        <p>
-          Agende uma consulta online de qualquer dispositivo
-          <br />no conforto da sua casa ou onde estiver.
-        </p>
-      </div>
-      <a>
-        <b-button size="lg" variant="warning" class="rounded" pill>
-          Agendar agora
-        </b-button>
-      </a>
-    </section>
-  </div>  -->
 </template>
 <script>
 export default {

@@ -30,10 +30,10 @@
                   (isVerticalMenuCollapsed && isMouseHovered)
                 "
               >
-                <b-img :src="appLogoImage" alt="logo" />
+                <b-img width="70" :src="appLogoImage" alt="logo" />
               </span>
               <span class="brand-logo" v-else>
-                <b-img :src="appLogoImage" alt="logo" />
+                <b-img width="70" :src="appLogoImage" alt="logo" />
                 <!-- {{ appName }} -->
               </span>
             </b-link>
@@ -66,7 +66,7 @@
 
     <vue-perfect-scrollbar
       :settings="perfectScrollbarSettings"
-      class="main-menu-content scroll-area"
+      class="main-menu-content scroll-area pt-1"
       tagname="ul"
       @ps-scroll-y="
         (evt) => {

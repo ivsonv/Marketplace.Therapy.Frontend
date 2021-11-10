@@ -1,86 +1,83 @@
 <template>
-  <div class="auth-wrapper auth-v1 px-1">
-    <div class="auth-inner py-2">
-      <!-- Register v1 -->
-      <b-card>
-        <div class="text-center">
-          <img :src="logo" />
-        </div>
-        <br />
+  <div>
+    <header--v />
+    <div class="auth-wrapper auth-v1 px-1">
+      <div class="auth-inner py-2">
+        <!-- Register v1 -->
+        <b-card>
+          <b-card-title class="mb-1 text-center">
+            <h1>Um novo jeito de cuidar de voce.</h1>
+          </b-card-title>
 
-        <b-card-title class="mb-1 text-center">
-          Um novo jeito de cuidar de voce. 🚀
-        </b-card-title>
+          <!-- form -->
+          <validation-observer ref="registerForm">
+            <b-form
+              class="auth-register-form mt-2"
+              @submit.prevent="validationForm"
+            >
+              <b-form-group label="Nome Completo" label-for="namecomplete">
+                <validation-provider
+                  #default="{ errors }"
+                  name="Nome Completo"
+                  rules="required"
+                >
+                  <b-form-input
+                    id="namecomplete"
+                    v-model="record.name"
+                    :state="errors.length > 0 ? false : null"
+                    placeholder="Digite nome completo..."
+                    autocomplete="off"
+                    size="lg"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
 
-        <!-- form -->
-        <validation-observer ref="registerForm">
-          <b-form
-            class="auth-register-form mt-2"
-            @submit.prevent="validationForm"
-          >
-            <b-form-group label="Nome Completo" label-for="namecomplete">
-              <validation-provider
-                #default="{ errors }"
-                name="Nome Completo"
-                rules="required"
-              >
-                <b-form-input
-                  id="namecomplete"
-                  v-model="record.name"
-                  :state="errors.length > 0 ? false : null"
-                  placeholder="Digite nome completo..."
+              <!-- email -->
+              <b-form-group label="Email" label-for="email">
+                <validation-provider
+                  #default="{ errors }"
+                  name="Email"
+                  rules="required|email"
                   autocomplete="off"
-                  size="lg"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
+                >
+                  <b-form-input
+                    id="email"
+                    v-model="record.email"
+                    :state="errors.length > 0 ? false : null"
+                    placeholder="Digite seu e-mail..."
+                    autocomplete="off"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
 
-            <!-- email -->
-            <b-form-group label="Email" label-for="email">
-              <validation-provider
-                #default="{ errors }"
-                name="Email"
-                rules="required|email"
-                autocomplete="off"
-              >
+              <b-form-group label="Confirmar E-mail" label-for="emailconfirm">
+                <validation-provider
+                  #default="{ errors }"
+                  name="confirmar-email"
+                  rules="required|email"
+                >
+                  <b-form-input
+                    id="confirmar-email"
+                    v-model="record.emailconfirm"
+                    :state="errors.length > 0 ? false : null"
+                    placeholder="Confirme seu e-mail..."
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+
+              <b-form-group label="CPF">
                 <b-form-input
-                  id="email"
-                  v-model="record.email"
-                  :state="errors.length > 0 ? false : null"
-                  placeholder="Digite seu e-mail..."
+                  v-mask="$utils.masked.cpf"
+                  v-model="record.cpf"
+                  placeholder="cpf..."
                   autocomplete="off"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
+              </b-form-group>
 
-            <b-form-group label="Confirmar E-mail" label-for="emailconfirm">
-              <validation-provider
-                #default="{ errors }"
-                name="confirmar-email"
-                rules="required|email"
-              >
-                <b-form-input
-                  id="confirmar-email"
-                  v-model="record.emailconfirm"
-                  :state="errors.length > 0 ? false : null"
-                  placeholder="Confirme seu e-mail..."
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-
-            <b-form-group label="CPF">
-              <b-form-input
-                v-mask="$utils.masked.cpf"
-                v-model="record.cpf"
-                placeholder="cpf..."
-                autocomplete="off"
-              />
-            </b-form-group>
-
-            <!-- <b-form-group label="Contato (Whatsapp)" label-for="whatsapp">
+              <!-- <b-form-group label="Contato (Whatsapp)" label-for="whatsapp">
               <validation-provider
                 #default="{ errors }"
                 name="Whatsapp"
@@ -96,59 +93,60 @@
               </validation-provider>
             </b-form-group> -->
 
-            <!-- password -->
-            <b-form-group label="Password" label-for="password">
-              <validation-provider
-                #default="{ errors }"
-                name="Password"
-                rules="required"
-              >
-                <b-input-group
-                  class="input-group-merge"
-                  :class="errors.length > 0 ? 'is-invalid' : null"
+              <!-- password -->
+              <b-form-group label="Password" label-for="password">
+                <validation-provider
+                  #default="{ errors }"
+                  name="Password"
+                  rules="required"
                 >
-                  <b-form-input
-                    id="password"
-                    v-model="record.password"
-                    :type="passwordFieldType"
-                    :state="errors.length > 0 ? false : null"
-                    class="form-control-merge"
-                    name="register-password"
-                    placeholder="············"
-                  />
-                  <b-input-group-append is-text>
-                    <feather-icon
-                      :icon="passwordToggleIcon"
-                      class="cursor-pointer"
-                      @click="togglePasswordVisibility"
+                  <b-input-group
+                    class="input-group-merge"
+                    :class="errors.length > 0 ? 'is-invalid' : null"
+                  >
+                    <b-form-input
+                      id="password"
+                      v-model="record.password"
+                      :type="passwordFieldType"
+                      :state="errors.length > 0 ? false : null"
+                      class="form-control-merge"
+                      name="register-password"
+                      placeholder="············"
                     />
-                  </b-input-group-append>
-                </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-form>
-        </validation-observer>
+                    <b-input-group-append is-text>
+                      <feather-icon
+                        :icon="passwordToggleIcon"
+                        class="cursor-pointer"
+                        @click="togglePasswordVisibility"
+                      />
+                    </b-input-group-append>
+                  </b-input-group>
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-form>
+          </validation-observer>
 
-        <b-card-text class="text-center mt-2">
-          <span>Já tem cadastro? </span>
-          <b-link @click="goLogin">
-            <span>Faça login</span>
-          </b-link>
-        </b-card-text>
-        <div class="text-center">
-          <b-button
-            size="lg"
-            variant="warning"
-            pill
-            @click="validationForm"
-            v-if="!loading"
-          >
-            Criar Conta
-          </b-button>
-          <spinner--c v-else />
-        </div>
-      </b-card>
+          <b-card-text class="text-center mt-2">
+            <span>Já tem cadastro? </span>
+            <b-link @click="goLogin">
+              <span>Faça login</span>
+            </b-link>
+          </b-card-text>
+          <div class="text-center">
+            <b-button
+              size="lg"
+              variant="primary"
+              pill
+              @click="validationForm"
+              v-if="!loading"
+            >
+              Criar Conta
+            </b-button>
+            <spinner--c v-else />
+          </div>
+        </b-card>
+      </div>
     </div>
   </div>
 </template>
@@ -175,9 +173,10 @@ import {
 } from "bootstrap-vue";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
-
+import HomeHeader from "../../../home/components/home-header.vue";
 export default {
   components: {
+    "header--v": HomeHeader,
     BCard,
     BLink,
     BCardTitle,

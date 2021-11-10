@@ -1,5 +1,6 @@
 <template>
   <div class="main-view">
+    <header--v />
     <h1 v-if="loading">Buscando... <spinner--c /></h1>
 
     <div v-if="!loading">
@@ -129,7 +130,7 @@
             <div class="col">
               <b-badge
                 v-for="(exper, iexper) in provider.experiences"
-                variant="warning"
+                variant="danger"
                 :key="iexper"
                 class="bagde-expertises"
                 pill
@@ -156,7 +157,7 @@
               <b-badge
                 v-for="(_exp, _iexp) in provider.expertises"
                 class="bagde-expertises"
-                variant="warning"
+                variant="danger"
                 :key="_iexp"
                 pill
               >
@@ -358,7 +359,7 @@ export default {
     color: #000;
   }
   strong {
-    color: var(--success);
+    color: var(--primary);
   }
 }
 

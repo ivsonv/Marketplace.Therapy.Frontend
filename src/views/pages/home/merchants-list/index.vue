@@ -1,9 +1,6 @@
 <template>
   <div class="main-view">
-    <!-- HEADER -->
-    <div class="d-flex justify-content-center">
-      <header--v />
-    </div>
+    <header--v />
 
     <section id="headerListProfissional" style="margin-top: 110px">
       <img
@@ -33,45 +30,6 @@
               </b-input-group-append>
             </b-input-group>
           </div>
-        </div>
-        <div class="px-2 px-lg-0" style="width: 100%">
-          <b-card class="mt-2" style="width: 100%">
-            <div class="row text-left">
-              <div class="col-12 col-lg-6">
-                <b-form-group label="Motivos">
-                  <v-select
-                    v-model="experienceSelected"
-                    :options="experiences"
-                    autocomplete="off"
-                    multiple
-                  />
-                </b-form-group>
-              </div>
-              <div class="col-12 col-lg-4">
-                <b-form-group label="Idioma">
-                  <v-select
-                    v-model="languageSelected"
-                    :options="languages"
-                    autocomplete="off"
-                  />
-                </b-form-group>
-              </div>
-              <div class="col-12 col-lg-4">
-                <b-form-group label="">
-                  <!-- <v-select
-                  v-model="experienceSelected"
-                  :options="experiences"
-                  autocomplete="off"
-                /> -->
-                </b-form-group>
-              </div>
-            </div>
-            <div style="position: absolute; right: 0; left: 0">
-              <b-button size="lg" variant="warning" class="rounded" pill>
-                Pesquisar
-              </b-button>
-            </div>
-          </b-card>
         </div>
       </div>
       <img
@@ -244,7 +202,7 @@
               </div>
             </div>
             <a @click="goDetails(data)">
-              <b-button size="lg" variant="warning" class="rounded" pill>
+              <b-button size="lg" variant="primary" class="rounded" pill>
                 Marcar consulta
               </b-button>
             </a>
@@ -348,7 +306,11 @@ export default {
   h1 {
     font-size: 40px;
     font-weight: 600;
-    color: #76c043;
+    color: var(--blue);
+    background: var(--teal);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
     @media screen and (max-width: 767px) {
       margin: 0 20px 10px;
       font-size: 40px;
@@ -360,6 +322,8 @@ export default {
   p {
     font-size: 28px;
     line-height: 28px;
+    color: var(--purple);
+    font-weight: 400;
     @media screen and (max-width: 770px) {
       font-size: 20px;
       line-height: 20px;
@@ -511,8 +475,8 @@ export default {
     margin-top: 360px;
   }
   h1 {
-    font-size: 34px;
-    color: #76c043;
+    font-size: 54px;
+    color: var(--primary);
     text-align: center;
     margin-bottom: 30px;
   }
@@ -559,7 +523,8 @@ export default {
       }
       span {
         font-size: 17px;
-        color: #76c043;
+        color: var(--blue);
+        font-weight: bold;
       }
       .fileStar {
         display: flex;
@@ -591,14 +556,15 @@ export default {
       padding: 15px 0;
       margin: 30px 0;
       justify-content: space-around;
-      border-top: 1px solid #76c043;
-      border-bottom: 1px solid #76c043;
+      border-top: 1px solid var(--primary);
+      border-bottom: 1px solid var(--primary);
       p {
         font-size: 20px;
         font-family: "Poppins", sans-serif;
       }
       span {
-        color: #76c043;
+        color: var(--primary);
+        font-weight: 800;
       }
     }
   }

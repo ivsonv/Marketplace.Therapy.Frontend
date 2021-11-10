@@ -177,7 +177,7 @@ label {
     &.is-valid {
       ~ .input-group-append {
         .input-group-text {
-          border-color: $success;
+          border-color: $primary;
         }
       }
     }
@@ -185,7 +185,7 @@ label {
   .input-group-prepend {
     ~ .form-control.is-valid {
       .input-group-text & {
-        border-color: $success;
+        border-color: $primary;
       }
     }
   }

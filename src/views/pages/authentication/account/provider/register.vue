@@ -4,7 +4,7 @@
       <!-- Register v1 -->
       <b-card>
         <div class="text-center">
-          <img :src="logo" />
+          <img width="100" :src="logo" />
         </div>
         <br />
 

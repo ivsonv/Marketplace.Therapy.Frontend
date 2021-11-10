@@ -1,5 +1,9 @@
 <template>
-  <b-button variant="gradient-info" style="margin-right: 20px" to="/pesquisa">
+  <b-button
+    variant="gradient-primary"
+    style="margin-right: 20px"
+    to="/pesquisa"
+  >
     <span class="align-middle">Escolher / agendar o profissional</span>
 
     <!-- <b-link class="nav-link" @click="toggleVerticalMenuActive">

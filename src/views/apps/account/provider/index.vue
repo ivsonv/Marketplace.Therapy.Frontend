@@ -53,14 +53,14 @@
         </b-sidebar>
 
         <!-- Filter -->
-        <b-button
+        <!-- <b-button
           class="btn-filter-appoitment btn-icon rounded-circle"
           size="lg"
           :variant="containsFilter ? 'gradient-warning' : 'gradient-info'"
           @click="isActiveFilter = true"
         >
           <feather-icon icon="FilterIcon" size="30" />
-        </b-button>
+        </b-button> -->
 
         <b-sidebar
           sidebar-class="sidebar sidebar-lg"

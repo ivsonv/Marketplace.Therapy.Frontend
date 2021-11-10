@@ -4,39 +4,6 @@
       <b-alert class="mb-1" variant="success" :show="record.completed">
         <h4 class="alert-heading">Seu Cadastro está aprovado.</h4>
       </b-alert>
-      <div v-if="record.statusCompleted && record.statusCompleted.warnings">
-        <div
-          class="progress-wrapper"
-          style="width: 150px"
-          v-if="record.statusCompleted.percent < 100 && !record.completed"
-        >
-          <b-progress
-            variant="success"
-            v-model="record.statusCompleted.percent"
-            max="100"
-          />
-          <small class="mx-1"
-            >{{ record.statusCompleted.percent }}% Dados Obrigatórios
-            Concluído</small
-          >
-        </div>
-        <a href="#tabs-provider">
-          <b-alert
-            v-for="(_warn, i) in record.statusCompleted.warnings"
-            variant="warning"
-            class="mb-1"
-            :key="i"
-            show
-          >
-            <h4 class="alert-heading">
-              {{ _warn.label }}
-            </h4>
-            <div v-if="_warn.value" class="alert-body">
-              <span>{{ _warn.value }}.</span>
-            </div>
-          </b-alert>
-        </a>
-      </div>
     </div>
     <hr />
     <b-tabs pills id="tabs-provider" content-class="mt-2">
@@ -581,6 +548,43 @@
         <b-button size="lg" @click="save" variant="gradient-info">
           Salvar Alterações
         </b-button>
+      </b-col>
+    </b-row>
+    <b-row class="mt-1">
+      <b-col>
+        <div v-if="record.statusCompleted && record.statusCompleted.warnings">
+          <div
+            class="progress-wrapper"
+            style="width: 150px"
+            v-if="record.statusCompleted.percent < 100 && !record.completed"
+          >
+            <b-progress
+              variant="success"
+              v-model="record.statusCompleted.percent"
+              max="100"
+            />
+            <small class="mx-1"
+              >{{ record.statusCompleted.percent }}% Dados Obrigatórios
+              Concluído</small
+            >
+          </div>
+          <a href="#tabs-provider">
+            <b-alert
+              v-for="(_warn, i) in record.statusCompleted.warnings"
+              variant="warning"
+              class="mb-1"
+              :key="i"
+              show
+            >
+              <h4 class="alert-heading">
+                {{ _warn.label }}
+              </h4>
+              <div v-if="_warn.value" class="alert-body">
+                <span>{{ _warn.value }}.</span>
+              </div>
+            </b-alert>
+          </a>
+        </div>
       </b-col>
     </b-row>
   </viewcard--c>

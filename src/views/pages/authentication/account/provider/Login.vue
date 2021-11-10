@@ -1,20 +1,9 @@
 <template>
-  <div class="auth-wrapper auth-v2">
-    <div id="bodyCaller"></div>
+  <div>
+    <header--v />
     <b-row class="auth-inner m-0">
-      <!-- Brand logo-->
-      <b-link to="/" class="brand-logo d-none d-lg-flex">
-        <img :src="logo" />
-        <h2 class="brand-text text-primary ml-1">
-          CLIQUE TERAPIA
-          <br />
-          <small class="text-muted">SOU PSICÓLOGO</small>
-        </h2>
-      </b-link>
-      <!-- /Brand logo-->
-
       <!-- Left Text-->
-      <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
+      <b-col lg="8" class="d-none d-lg-flex align-items-center">
         <div
           class="w-100 d-lg-flex align-items-center justify-content-center px-5"
         >
@@ -35,9 +24,8 @@
               flex-direction: column;
             "
           >
-            <img :src="logo" class="mb-2" />
-            <h2 class="brand-text text-primary ml-1">CLIQUE TERAPIA</h2>
-            <small class="text-muted">SOU PSICÓLOGO</small>
+            <img width="100" :src="logo" class="mb-2" />
+            <h2 class="brand-text text-primary ml-1">SOU PSICÓLOGO</h2>
           </div>
 
           <!-- form -->
@@ -103,8 +91,7 @@
               <div class="d-flex justify-content-center">
                 <b-button
                   type="submit"
-                  variant="warning"
-                  size="lg"
+                  variant="primary"
                   pill
                   :disabled="invalid"
                   v-if="!loading"
@@ -123,7 +110,7 @@
                   <div class="divider">
                     <div class="divider-text">OU</div>
                   </div>
-                  <b-button @click="register" variant="warning" size="lg" pill>
+                  <b-button @click="register" variant="primary" pill>
                     QUERO ME CADASTRAR
                   </b-button>
                 </div>
@@ -140,6 +127,7 @@
 /* eslint-disable global-require */
 import { ValidationProvider, ValidationObserver, localize } from "vee-validate";
 import pt_br from "vee-validate/dist/locale/pt_BR.json";
+import HomeHeader from "../../../home/components/home-header.vue";
 import {
   BLink,
   BFormGroup,
@@ -166,6 +154,7 @@ export default {
     "b-tooltip": VBTooltip,
   },
   components: {
+    "header--v": HomeHeader,
     BLink,
     BFormGroup,
     BFormInput,
