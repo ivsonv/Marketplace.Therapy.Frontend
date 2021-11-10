@@ -338,18 +338,15 @@
             <feather-icon size="16" :icon="'CheckIcon'" />
           </b-avatar>
           <strong>
-            Sua Conta está SINCRONIZADA para receber o valor dos seus
-            atendimentos online aqui na plataforma.
+            Sua Conta está SINCRONIZADA e APROVADA para receber pagamentos da
+            clique terapia.
           </strong>
         </p>
         <p v-else>
           <b-avatar :variant="'danger'" size="25">
             <feather-icon size="16" icon="XIcon" />
           </b-avatar>
-          <strong class="mx-1"
-            >No momento ainda não Sincronizamos sua conta para recebimento das
-            suas consultas realizadas na plataforma.</strong
-          >
+          <strong class="mx-1">No momento ainda NÃO ATIVAMOS sua Conta.</strong>
         </p>
         <hr class="p-0 m-0 mb-1" />
         <b-row

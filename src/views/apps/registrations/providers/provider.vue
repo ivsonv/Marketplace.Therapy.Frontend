@@ -387,10 +387,7 @@
           <b-avatar :variant="'success'" size="25">
             <feather-icon size="16" :icon="'CheckIcon'" />
           </b-avatar>
-          <strong>
-            Conta Sincronizada para receber o valor dos seus atendimentos online
-            aqui na plataforma.
-          </strong>
+          <strong> Conta Está Sincronizada com a NEXXERA.</strong>
         </p>
         <p v-else>
           <b-avatar :variant="'danger'" size="25">
