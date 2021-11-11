@@ -198,7 +198,7 @@
               <b-form-input
                 v-model="address.complement"
                 :state="!!address.complement"
-                placeholder="Complemento..."
+                placeholder="ex: Casa, apto, sala..."
                 autocomplete="off"
               />
             </b-form-group>
