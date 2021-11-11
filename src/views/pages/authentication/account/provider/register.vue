@@ -69,6 +69,8 @@
                   v-model="record.emailconfirm"
                   :state="errors.length > 0 ? false : null"
                   placeholder="Confirme seu e-mail..."
+                  onpaste="return false"
+                  ondrop="return false"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>

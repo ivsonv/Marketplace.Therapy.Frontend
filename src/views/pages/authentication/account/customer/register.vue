@@ -63,6 +63,8 @@
                     v-model="record.emailconfirm"
                     :state="errors.length > 0 ? false : null"
                     placeholder="Confirme seu e-mail..."
+                    onpaste="return false"
+                    ondrop="return false"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -76,22 +78,6 @@
                   autocomplete="off"
                 />
               </b-form-group>
-
-              <!-- <b-form-group label="Contato (Whatsapp)" label-for="whatsapp">
-              <validation-provider
-                #default="{ errors }"
-                name="Whatsapp"
-                rules="required"
-              >
-                <b-form-input
-                  id="Whatsapp"
-                  v-model="record.phone"
-                  v-mask="$utils.masked.phone"
-                  :state="errors.length > 0 ? false : null"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group> -->
 
               <!-- password -->
               <b-form-group label="Password" label-for="password">
