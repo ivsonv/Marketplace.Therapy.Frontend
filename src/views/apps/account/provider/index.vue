@@ -220,6 +220,9 @@ export default {
       },
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     this.showAppointments();
   },

@@ -27,6 +27,9 @@ export default {
       payment_url: "",
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     this.payment();
   },

@@ -99,6 +99,9 @@ export default {
       list: [],
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   methods: {
     getRecords(_page) {
       const payload = {

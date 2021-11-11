@@ -1,159 +1,153 @@
 <template>
-  <div class="auth-wrapper auth-v1">
-    <b-row class="auth-inner m-0">
+  <div>
+    <header--v />
+    <b-row class="auth-inner pt-5">
       <!-- Login-->
-      <b-col cols="12" class="d-flex align-items-center auth-bg px-2 p-5">
-        <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
-          <div
-            class="mb-5"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              flex-direction: column;
-            "
-          >
-            <img :src="logo" />
-            <h2 class="brand-text text-primary mt-3" v-if="!alterarVisible">
-              ESQUECI MINHA SENHA
-            </h2>
-            <h2 class="brand-text text-primary mt-3" v-if="alterarVisible">
-              INFORME SUA NOVA SENHA
-            </h2>
-            <small class="text-muted">Sou Psicólogo</small>
-          </div>
+      <b-col cols="10" sm="8" md="8" lg="3" class="px-2 mx-auto">
+        <div
+          class="mb-5"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          <img width="100" :src="logo" />
+          <h2 class="brand-text text-primary mt-3" v-if="!alterarVisible">
+            ESQUECI MINHA SENHA
+          </h2>
+          <h2 class="brand-text text-primary mt-3" v-if="alterarVisible">
+            INFORME SUA NOVA SENHA
+          </h2>
+          <small class="text-muted">Sou Psicólogo</small>
+        </div>
 
-          <!-- form -->
-          <validation-observer
-            ref="resetForm"
-            #default="{ invalid }"
-            v-if="formReset"
-          >
-            <b-form class="auth-login-form mt-2" @submit.prevent="updateReset">
-              <!-- email -->
-              <b-form-group label="Senha" label-for="login-password">
-                <validation-provider
-                  #default="{ errors }"
-                  name="Senha"
-                  vid="password"
-                  rules="required"
-                >
-                  <b-input-group
-                    class="input-group-merge"
-                    :class="errors.length > 0 ? 'is-invalid' : null"
-                  >
-                    <b-form-input
-                      id="login-password"
-                      v-model="password"
-                      :state="errors.length > 0 ? false : null"
-                      class="form-control-merge"
-                      :type="passwordFieldType"
-                      name="login-password"
-                      placeholder="Senha"
-                    />
-                    <b-input-group-append is-text>
-                      <feather-icon
-                        class="cursor-pointer"
-                        :icon="passwordToggleIcon"
-                        @click="togglePasswordVisibility"
-                      />
-                    </b-input-group-append>
-                  </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
-              </b-form-group>
-              <b-form-group
-                label="Confirmação Senha"
-                label-for="login-password-confirmed"
+        <!-- form -->
+        <validation-observer
+          ref="resetForm"
+          #default="{ invalid }"
+          v-if="formReset"
+        >
+          <b-form class="auth-login-form mt-2" @submit.prevent="updateReset">
+            <!-- email -->
+            <b-form-group label="Senha" label-for="login-password">
+              <validation-provider
+                #default="{ errors }"
+                name="Senha"
+                vid="password"
+                rules="required"
               >
-                <validation-provider
-                  #default="{ errors }"
-                  name="Confirmação Senha"
-                  vid="passwordConfirmed"
-                  rules="required"
-                >
-                  <b-input-group
-                    class="input-group-merge"
-                    :class="errors.length > 0 ? 'is-invalid' : null"
-                  >
-                    <b-form-input
-                      id="login-password-confirmed"
-                      v-model="passwordConfirmed"
-                      :state="errors.length > 0 ? false : null"
-                      class="form-control-merge"
-                      :type="passworConfirmedFieldType"
-                      name="login-password-confirmed"
-                      placeholder="Confirmação Senha"
-                    />
-                    <b-input-group-append is-text>
-                      <feather-icon
-                        class="cursor-pointer"
-                        :icon="passwordConfirmedToggleIcon"
-                        @click="togglePasswordConfirmedVisibility"
-                      />
-                    </b-input-group-append>
-                  </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
-              </b-form-group>
-              <!-- submit buttons -->
-              <b-button
-                v-if="alterarVisible"
-                type="submit"
-                variant="primary"
-                block
-                :disabled="invalid"
-              >
-                <b-spinner type="grow" v-if="loading" />
-                {{ loading ? "" : "ALTERAR" }}
-              </b-button>
-              <b-card-text class="text-center mt-2">
-                <b-link :to="{ name: 'auth-login-psicologo' }">
-                  <feather-icon icon="ChevronLeftIcon" /> Retornar ao login
-                </b-link>
-              </b-card-text>
-            </b-form>
-          </validation-observer>
-
-          <!-- form -->
-          <validation-observer ref="loginForm" #default="{ invalid }" v-else>
-            <b-form class="auth-login-form mt-2" @submit.prevent="reset">
-              <!-- email -->
-              <b-form-group label="E-mail" label-for="login-email">
-                <validation-provider
-                  #default="{ errors }"
-                  name="E-mail"
-                  vid="email"
-                  rules="required"
+                <b-input-group
+                  class="input-group-merge"
+                  :class="errors.length > 0 ? 'is-invalid' : null"
                 >
                   <b-form-input
-                    id="login-email"
-                    v-model="userEmail"
+                    id="login-password"
+                    v-model="password"
                     :state="errors.length > 0 ? false : null"
-                    name="login-email"
-                    placeholder="john@example.com"
+                    class="form-control-merge"
+                    :type="passwordFieldType"
+                    name="login-password"
+                    placeholder="Senha"
                   />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
-              </b-form-group>
-              <!-- submit buttons -->
-              <b-button
-                type="submit"
-                variant="primary"
-                block
-                :disabled="invalid"
+                  <b-input-group-append is-text>
+                    <feather-icon
+                      class="cursor-pointer"
+                      :icon="passwordToggleIcon"
+                      @click="togglePasswordVisibility"
+                    />
+                  </b-input-group-append>
+                </b-input-group>
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+            <b-form-group
+              label="Confirmação Senha"
+              label-for="login-password-confirmed"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Confirmação Senha"
+                vid="passwordConfirmed"
+                rules="required"
               >
-                <b-spinner type="grow" v-if="loading" />
-                {{ loading ? "" : "Enviar" }}
-              </b-button>
-              <b-card-text class="text-center mt-2">
-                <b-link :to="{ name: 'auth-login-psicologo' }">
-                  <feather-icon icon="ChevronLeftIcon" /> Retornar ao login
-                </b-link>
-              </b-card-text>
-            </b-form>
-          </validation-observer>
-        </b-col>
+                <b-input-group
+                  class="input-group-merge"
+                  :class="errors.length > 0 ? 'is-invalid' : null"
+                >
+                  <b-form-input
+                    id="login-password-confirmed"
+                    v-model="passwordConfirmed"
+                    :state="errors.length > 0 ? false : null"
+                    class="form-control-merge"
+                    :type="passworConfirmedFieldType"
+                    name="login-password-confirmed"
+                    placeholder="Confirmação Senha"
+                  />
+                  <b-input-group-append is-text>
+                    <feather-icon
+                      class="cursor-pointer"
+                      :icon="passwordConfirmedToggleIcon"
+                      @click="togglePasswordConfirmedVisibility"
+                    />
+                  </b-input-group-append>
+                </b-input-group>
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+            <!-- submit buttons -->
+            <b-button
+              v-if="alterarVisible"
+              type="submit"
+              variant="primary"
+              block
+              :disabled="invalid"
+            >
+              <b-spinner type="grow" v-if="loading" />
+              {{ loading ? "" : "ALTERAR" }}
+            </b-button>
+            <b-card-text class="text-center mt-2">
+              <b-link :to="{ name: 'auth-login-psicologo' }">
+                <feather-icon icon="ChevronLeftIcon" /> Retornar ao login
+              </b-link>
+            </b-card-text>
+          </b-form>
+        </validation-observer>
+
+        <!-- form -->
+        <validation-observer ref="loginForm" #default="{ invalid }" v-else>
+          <b-form class="auth-login-form mt-2" @submit.prevent="reset">
+            <!-- email -->
+            <b-form-group label="E-mail" label-for="login-provider-email">
+              <validation-provider
+                #default="{ errors }"
+                name="E-mail"
+                vid="email"
+                rules="required"
+              >
+                <b-form-input
+                  id="login-provider-email"
+                  v-model="userEmail"
+                  :state="errors.length > 0 ? false : null"
+                  name="login-provider-email"
+                  placeholder="john@example.com"
+                />
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+            <!-- submit buttons -->
+            <b-button type="submit" variant="primary" block :disabled="invalid">
+              <b-spinner type="grow" v-if="loading" />
+              {{ loading ? "" : "Enviar" }}
+            </b-button>
+            <b-card-text class="text-center mt-2">
+              <b-link :to="{ name: 'auth-login-psicologo' }">
+                <feather-icon icon="ChevronLeftIcon" /> Retornar ao login
+              </b-link>
+            </b-card-text>
+          </b-form>
+        </validation-observer>
       </b-col>
     </b-row>
   </div>
@@ -181,6 +175,7 @@ import {
 import { required, email } from "@validations";
 import store from "@/store/index";
 import _authService from "@/services/auth-service";
+import HomeHeader from "../../../home/components/home-header.vue";
 export default {
   directives: {
     "b-tooltip": VBTooltip,
@@ -200,6 +195,7 @@ export default {
     BAlert,
     ValidationProvider,
     ValidationObserver,
+    "header--v": HomeHeader,
   },
   data() {
     return {
@@ -215,8 +211,11 @@ export default {
       required,
       email,
       userEmail: "",
-      alterarVisible: true,
+      alterarVisible: false,
     };
+  },
+  destroyed() {
+    this.$destroy();
   },
   created() {
     localize("pt_BR", pt_br);

@@ -206,6 +206,9 @@ export default {
       contents: [],
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     this.getProviderHours(null);
     this.getfuso();

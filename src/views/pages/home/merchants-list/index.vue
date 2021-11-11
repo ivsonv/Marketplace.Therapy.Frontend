@@ -231,6 +231,9 @@ export default {
       providers: [],
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     localStorage.removeItem("checkout");
   },

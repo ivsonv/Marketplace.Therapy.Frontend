@@ -208,6 +208,9 @@ export default {
       required,
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   computed: {
     passwordToggleIcon() {
       return this.passwordFieldType === "password" ? "EyeIcon" : "EyeOffIcon";

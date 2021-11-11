@@ -161,6 +161,9 @@ export default {
       list: [],
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     this.getRecords();
   },

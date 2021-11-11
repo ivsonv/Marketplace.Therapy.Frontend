@@ -75,6 +75,9 @@ export default {
   created() {
     this.getAppointment();
   },
+  destroyed() {
+    this.$destroy();
+  },
   methods: {
     getAppointment() {
       this.isloading = true;

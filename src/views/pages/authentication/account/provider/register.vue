@@ -248,6 +248,9 @@ export default {
       return this.passwordFieldType === "password" ? "EyeIcon" : "EyeOffIcon";
     },
   },
+  destroyed() {
+    this.$destroy();
+  },
   methods: {
     validationForm() {
       this.$refs.registerForm.validate().then((success) => {

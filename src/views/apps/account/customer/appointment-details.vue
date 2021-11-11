@@ -74,6 +74,9 @@ export default {
       appointment: null,
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     this.getAppointment();
   },

@@ -183,6 +183,9 @@ export default {
       email,
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     console.log(this.$route.query);
     if (!this.$route.query.goto) {

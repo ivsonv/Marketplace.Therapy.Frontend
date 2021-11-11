@@ -183,6 +183,9 @@ export default {
       email,
     };
   },
+  destroyed() {
+    this.$destroy();
+  },
   created() {
     localStorage.clear();
   },

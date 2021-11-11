@@ -4,9 +4,15 @@
       <b-alert class="mb-1" variant="success" :show="record.completed">
         <h4 class="alert-heading">Seu Cadastro está aprovado.</h4>
       </b-alert>
+      <b-alert class="mb-1" variant="warning" :show="!record.completed">
+        <h4 class="alert-heading">
+          Cadastro em processo de liberação, por favor preencha com o máximo de
+          informações
+        </h4>
+      </b-alert>
     </div>
     <hr />
-    <b-tabs pills id="tabs-provider" content-class="mt-2">
+    <b-tabs v-model="tab_step" pills id="tabs-provider" content-class="mt-2">
       <b-tab title="1. DADOS PESSOAIS">
         <b-row>
           <b-col md="6">
@@ -565,22 +571,23 @@
               Concluído</small
             >
           </div>
-          <a href="#tabs-provider">
-            <b-alert
-              v-for="(_warn, i) in record.statusCompleted.warnings"
-              variant="warning"
-              class="mb-1"
-              :key="i"
-              show
-            >
+
+          <b-alert
+            v-for="(_warn, i) in record.statusCompleted.warnings"
+            variant="warning"
+            class="mb-1 cursor-pointer"
+            :key="i"
+            show
+          >
+            <div @click="onClickWarning(_warn)">
               <h4 class="alert-heading">
                 {{ _warn.label }}
               </h4>
               <div v-if="_warn.value" class="alert-body">
                 <span>{{ _warn.value }}.</span>
               </div>
-            </b-alert>
-          </a>
+            </div>
+          </b-alert>
         </div>
       </b-col>
     </b-row>
@@ -638,10 +645,14 @@ export default {
         uf: "",
         zipcode: "",
       },
+      tab_step: 0,
     };
   },
   created() {
     this.getLoadInit();
+  },
+  destroyed() {
+    this.$destroy();
   },
   methods: {
     async getLoadInit() {
@@ -1001,6 +1012,21 @@ export default {
         e.preventDefault();
         this.fileSignatureSelected = e.target.files[0];
         this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
+      }
+    },
+    onClickWarning(_warn) {
+      debugger;
+      switch (_warn.code) {
+        case "fh":
+          this.$router.push({ name: "account-schedules" });
+          break;
+        default:
+          this.tab_step = _warn.step;
+          // let id = "";
+          // if(_warn.code) {
+
+          // }
+          break;
       }
     },
   },
