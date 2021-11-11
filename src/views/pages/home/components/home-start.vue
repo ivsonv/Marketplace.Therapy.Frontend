@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-6" id="home-start-col-section">
         <section id="home-start-section">
-          <h1 class="mb-1">Psicólogos e terapia online ao seu alcance</h1>
+          <h1 class="mb-1">Psicólogos a qualquer hora, em qualquer lugar.</h1>
           <strong class="mb-1"
             >Agende uma consulta online de qualquer dispositivo no conforto da
             sua casa ou onde estiver.</strong
