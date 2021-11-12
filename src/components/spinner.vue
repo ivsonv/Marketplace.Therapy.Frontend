@@ -8,7 +8,7 @@ export default {
     variant: {
       type: String,
       required: false,
-      default: () => "success",
+      default: () => "primary",
     },
   },
 };

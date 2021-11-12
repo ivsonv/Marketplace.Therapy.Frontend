@@ -1,55 +1,128 @@
 <template>
-  <div class="container py-2">
-    <div class="row justify-content-center">
-      <div class="col-lg-6" id="home-start-col-section">
-        <section id="home-start-section">
-          <h1 class="mb-1">Psicólogos a qualquer hora, em qualquer lugar.</h1>
-          <strong class="mb-1"
+  <div class="container" id="main-page">
+    <section class="home-start-psi">
+      <div id="home-start-section">
+        <h1 class="mb-1">Psicólogos a qualquer hora, em qualquer lugar.</h1>
+        <strong class="mb-1"
+          >Agende uma consulta online de qualquer dispositivo no conforto da sua
+          casa ou onde estiver.</strong
+        >
+        <b-button
+          variant="primary"
+          :to="{ name: 'merchants-view' }"
+          class="home-start-comece-agora-bt"
+          size="lg"
+        >
+          Comece Agora
+        </b-button>
+      </div>
+      <div id="home-start-section-img">
+        <img :src="require('@/assets/images/home/menina-capa.png')" />
+      </div>
+    </section>
+    <section
+      class="
+        home-start-section-indicate
+        d-flex
+        justify-content-center
+        pr-0 pr-lg-5
+      "
+    >
+      <img width="150" :src="require('@/assets/images/logo/logo.gif')" />
+    </section>
+    <section class="home-start-como-funciona mb-5">
+      <h1 class="text-center mb-5 pb-5">
+        Agende sua consulta em apenas 3 passos.
+      </h1>
+
+      <!-- PASSO 1 -->
+      <div class="box-passo mb-5">
+        <div class="passo">
+          <h1>1 - Nós te ajudamos a encontrar um psicólogo online.</h1>
+          <p class="text-justify">
+            Escolha entre os profissionais cadastrados e certificados, o que
+            mais se identifique com seu perfil.
+          </p>
+        </div>
+        <div>
+          <img
+            width="100%"
+            :src="require('@/assets/images/home/passo-1.png')"
+          />
+        </div>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div class="box-passo mb-5 align-items-center">
+        <div class="order-2 order-md-1">
+          <img
+            width="100%"
+            :src="require('@/assets/images/home/passo-2.png')"
+          />
+        </div>
+        <div class="passo order-1 order-md-2">
+          <h1>
+            2 - Selecione a data e horário desejado, realize o pagamento de sua
+            preferência e pronto. <br />Horário confirmado!
+          </h1>
+          <strong class="text-justify">.</strong>
+        </div>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="box-passo align-items-center">
+        <div class="passo">
+          <h1>
+            3 - Agora é hora de aproveitar o seu horário agendado, fazer sua
+            terapia online e cuidar de você!
+          </h1>
+          <strong class="text-justify"></strong>
+        </div>
+        <div>
+          <img
+            width="100%"
+            :src="require('@/assets/images/home/passo-3.png')"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="home-start-comece-agora pb-5">
+      <div class="box-comece-agora">
+        <h1 class="mb-1">Comece agora mesmo a cuidar de você!</h1>
+        <p id="comece-text">
+          <b
             >Agende uma consulta online de qualquer dispositivo no conforto da
-            sua casa ou onde estiver.</strong
+            sua casa ou onde estiver Agende uma consulta online de qualquer
+            dispositivo no conforto da sua casa ou onde estiver.</b
           >
-          <b-button
-            variant="primary"
-            :to="{ name: 'merchants-view' }"
-            style="max-width: 158px"
-          >
-            Comece Agora
-          </b-button>
-        </section>
+        </p>
+        <b-button :to="{ name: 'merchants-view' }" variant="primary" size="lg">
+          Buscar Profissionais
+        </b-button>
       </div>
-      <div class="col-lg-3">
-        <img width="300" :src="require('@/assets/images/logo/logo.png')" />
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 <script>
+import { BLink } from "bootstrap-vue";
 export default {
+  components: {
+    BLink,
+  },
   data() {
     return {
       show: true,
     };
   },
-  created() {},
-  methods: {
-    // onClickToggle() {
-    //   this.show = !this.show;
-    // },
-    // goMerchant() {
-    //   this.$router.push({ name: "auth-login-psicologo" });
-    // },
-    // goCustomer() {
-    //   const auth = `${localStorage.getItem("accessToken")}`;
-    //   if (auth && auth !== "null") {
-    //     this.$router.push({ name: "sou-paciente-appointments" });
-    //   } else {
-    //     this.$router.push({ name: "auth-login-paciente" });
-    //   }
-    // },
-  },
 };
 </script>
 <style>
+.home-start-psi {
+  justify-content: space-between;
+  display: flex;
+  min-height: 100vh;
+}
+
 #home-start-col-section {
   display: flex;
   align-items: center;
@@ -68,6 +141,8 @@ export default {
   padding-top: 4px;
   padding-bottom: 4px;
   font-weight: 600;
+  margin-top: 33%;
+  min-width: 603px;
 }
 
 #home-start-section strong {
@@ -76,7 +151,162 @@ export default {
   font-weight: 400;
 }
 
-#home-start-section button {
-  max-width: 158px;
+.home-start-section-indicate {
+  margin-top: -13%;
+  margin-bottom: 5%;
+}
+
+.home-start-search {
+  background: var(--blue);
+  height: 10%;
+  width: 10%;
+}
+
+.home-start-comece-agora-bt {
+  max-width: 200px;
+}
+
+#home-start-section-img {
+  justify-content: right;
+  align-items: initial;
+  display: flex;
+}
+
+#home-start-section-img img {
+  height: 92%;
+}
+
+.home-start-como-funciona h1 {
+  font-size: 4rem;
+}
+
+.box-passo {
+  justify-content: space-between;
+  display: flex;
+}
+
+.passo {
+  max-width: 50%;
+}
+
+.passo h1 {
+  font-size: 2rem;
+}
+
+.box-comece-agora {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.box-comece-agora h1 {
+  color: var(--white);
+  background: var(--indigo);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 3rem;
+}
+
+#comece-text {
+  max-width: 55%;
+  text-align: justify;
+}
+.home-start-section-indicate {
+  visibility: visible;
+}
+
+@media screen and (max-width: 1550px) {
+  .home-start-section-indicate {
+    visibility: hidden;
+  }
+  #home-start-section-img img {
+    height: 83%;
+  }
+}
+
+@media screen and (max-width: 1383px) {
+  .home-start-section-indicate {
+    visibility: hidden;
+  }
+  #home-start-section-img {
+    justify-content: center;
+  }
+  .home-start-como-funciona h1 {
+    font-size: 2rem;
+  }
+
+  .home-start-como-funciona {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .home-start-psi {
+    flex-direction: column;
+  }
+  #home-start-section h1 {
+    max-width: 550px;
+    margin-top: 5vh;
+  }
+  #comece-text {
+    max-width: 95%;
+  }
+  .box-comece-agora h1 {
+    font-size: 2.1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home-start-section-indicate {
+    visibility: hidden;
+  }
+  #home-start-section-img img {
+    width: 100%;
+  }
+  .box-comece-agora h1 {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+  #home-start-section h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    min-width: initial;
+    width: 108%;
+    margin-left: -4%;
+  }
+  #home-start-section strong {
+    color: var(--purple);
+    text-align: justify;
+    font-weight: 500;
+    width: initial;
+  }
+  .home-start-comece-agora-bt {
+    max-width: initial;
+  }
+
+  .home-start-como-funciona h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #000;
+  }
+
+  .box-passo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .passo {
+    max-width: initial;
+    text-align: justify;
+  }
+  #home-start-section h1 {
+    margin-top: 0.1vh;
+  }
 }
 </style>

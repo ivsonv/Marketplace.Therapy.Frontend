@@ -3,14 +3,14 @@
     <header--v />
 
     <section id="headerListProfissional" style="margin-top: 110px">
-      <img
+      <!-- <img
         class="List_imgOne"
         :src="require('@/assets/images/home/List_imgOne.jpg')"
-      />
-      <img
+      /> -->
+      <!-- <img
         class="List_imgTwo"
         :src="require('@/assets/images/home/List_imgTwo.jpg')"
-      />
+      /> -->
       <div class="menuList">
         <h1>Converse com um psicólogo online sem sair de casa.</h1>
         <p>
@@ -32,14 +32,14 @@
           </div>
         </div>
       </div>
-      <img
+      <!-- <img
         class="List_imgThree"
         :src="require('@/assets/images/home/List_imgThree.jpg')"
-      />
-      <img
+      /> -->
+      <!-- <img
         class="List_imgFour"
         :src="require('@/assets/images/home/List_imgFour.jpg')"
-      />
+      /> -->
     </section>
 
     <!-- profissionais -->

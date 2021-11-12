@@ -1,8 +1,8 @@
 <template>
-  <div class="auth-wrapper auth-v1 px-1">
-    <div class="auth-inner py-2">
+  <div class="auth-wrapper auth-v1">
+    <div class="auth-inner" id="register-psi-auth">
       <!-- Register v1 -->
-      <b-card>
+      <b-card id="register-psi-card">
         <div class="text-center">
           <img width="100" :src="logo" />
         </div>
@@ -164,7 +164,7 @@
         <div class="text-center">
           <b-button
             size="lg"
-            variant="warning"
+            variant="primary"
             pill
             @click="validationForm"
             v-if="!loading"
@@ -333,4 +333,20 @@ export default {
 
 <style lang="scss">
 @import "@core/scss/vue/pages/page-auth.scss";
+
+#register-psi-auth {
+  min-height: initial;
+}
+#register-psi-card {
+  min-height: inherit;
+}
+
+@media screen and (max-width: 700px) {
+  #register-psi-auth {
+    min-height: 100vh;
+  }
+  #register-psi-card {
+    min-height: inherit;
+  }
+}
 </style>

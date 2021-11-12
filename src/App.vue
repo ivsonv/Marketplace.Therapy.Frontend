@@ -3,8 +3,7 @@
     <component :is="layout">
       <router-view />
     </component>
-
-    <!-- <scroll-to-top v-if="enableScrollToTop" /> -->
+    <scroll-to-top v-if="enableScrollToTop" />
   </div>
 </template>
 

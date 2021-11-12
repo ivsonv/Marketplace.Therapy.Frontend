@@ -34,4 +34,17 @@ export default {
 .main-view {
   min-height: 100vh;
 }
+#main-page {
+  max-width: 1300px;
+}
+@media screen and (max-width: 1500px) {
+  #main-page {
+    max-width: 1000px;
+  }
+}
+@media screen and (max-width: 1400px) {
+  #main-page {
+    max-width: 1000px;
+  }
+}
 </style>
