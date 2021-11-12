@@ -352,7 +352,9 @@
           <b-avatar :variant="'danger'" size="25">
             <feather-icon size="16" icon="XIcon" />
           </b-avatar>
-          <strong class="mx-1">No momento ainda NÃO ATIVAMOS sua Conta.</strong>
+          <strong class="mx-1"
+            >Sua conta está em processo de ativação, aguarde.</strong
+          >
         </p>
         <hr class="p-0 m-0 mb-1" />
         <b-row
