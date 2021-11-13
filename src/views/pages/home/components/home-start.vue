@@ -65,7 +65,7 @@
             2 - Selecione a data e horário desejado, realize o pagamento de sua
             preferência e pronto. <br />Horário confirmado!
           </h1>
-          <strong class="text-justify">.</strong>
+          <strong class="text-justify"></strong>
         </div>
       </div>
 
@@ -92,8 +92,7 @@
         <p id="comece-text">
           <b
             >Agende uma consulta online de qualquer dispositivo no conforto da
-            sua casa ou onde estiver Agende uma consulta online de qualquer
-            dispositivo no conforto da sua casa ou onde estiver.</b
+            sua casa ou onde estiver.</b
           >
         </p>
         <b-button :to="{ name: 'merchants-view' }" variant="primary" size="lg">

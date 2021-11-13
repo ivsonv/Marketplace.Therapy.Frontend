@@ -22,7 +22,11 @@
       </b-col>
       <b-col cols="12" lg="4">
         <b-form-group label="Código Transação">
-          <b-form-input placeholder="Código gateway" autocomplete="off" />
+          <b-form-input
+            v-model="filter.transaction_code"
+            placeholder="Código gateway"
+            autocomplete="off"
+          />
         </b-form-group>
       </b-col>
 
@@ -49,9 +53,10 @@
       <b-col cols="12" lg="4">
         <b-form-group label="Código Pedido">
           <b-form-input
-            type="number"
             placeholder="Código pedido"
+            v-model="filter.id"
             autocomplete="off"
+            type="number"
           />
         </b-form-group>
       </b-col>
@@ -174,6 +179,7 @@ export default {
         transaction_code: null,
         payment_status: null,
         status: null,
+        id: null,
       },
       statusList: [],
       statusSelected: null,
@@ -209,32 +215,36 @@ export default {
     },
 
     getRecords(_page) {
-      let payload = {
-        data: {
-          ...this.filter,
-          payment_status:
-            this.payStatusSelected.value !== "-1"
-              ? this.payStatusSelected.value
-              : null,
-          status:
-            this.statusSelected.value !== "-1"
-              ? this.statusSelected.value
-              : null,
-        },
-      };
+      if (this.filter.id > 0) {
+        this.onClickSelected({ id: this.filter.id }, null);
+      } else {
+        let payload = {
+          data: {
+            ...this.filter,
+            payment_status:
+              this.payStatusSelected.value !== "-1"
+                ? this.payStatusSelected.value
+                : null,
+            status:
+              this.statusSelected.value !== "-1"
+                ? this.statusSelected.value
+                : null,
+          },
+        };
 
-      this.isloading = true;
-      _dashboardService
-        .reports(_page, payload)
-        .then((res) => {
-          if (res.content) {
-            this.more = res.content.length >= this.size;
-            this.list.push(...res.content);
-            this.currentePage = _page;
-          }
-        })
-        .catch((error) => this.$utils.toastError("Notificação", error))
-        .finally(() => (this.isloading = false));
+        this.isloading = true;
+        _dashboardService
+          .reports(_page, payload)
+          .then((res) => {
+            if (res.content) {
+              this.more = res.content.length >= this.size;
+              this.list.push(...res.content);
+              this.currentePage = _page;
+            }
+          })
+          .catch((error) => this.$utils.toastError("Notificação", error))
+          .finally(() => (this.isloading = false));
+      }
     },
     getLoadMore() {
       this.getRecords(this.currentePage + 1);

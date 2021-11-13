@@ -1,5 +1,5 @@
 <template>
-  <viewcard--c title="Visão Geral">
+  <viewcard--c title="Visão Geral (EM CONSTRUÇÃO)">
     <!-- <b-row class="mb-1 d-flex justify-content-start">
       <b-col md="3">
         <b-form-group label="Cadastro Completo">

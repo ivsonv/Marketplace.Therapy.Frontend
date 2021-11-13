@@ -36,7 +36,7 @@
                 <small class="text-muted">| PACIENTE</small>
               </p>
               <p class="card-text mb-25 text-secondary">
-                <span class="font-weight-bold">Terapia realizada em:</span>
+                <span class="font-weight-bold">Psicoterapia realizada em:</span>
                 <br />
                 <span class=""
                   >{{ appointment.start }} ás
@@ -132,9 +132,17 @@
       </b-col>
 
       <!-- Right Col: Card -->
-      <b-col cols="12" md="4" xl="3" class="invoice-actions">
+      <b-col cols="12" md="4" xl="3" class="invoice-actions mb-5">
         <b-button variant="info" class="mb-75" block @click="printInvoice">
           IMPRIMIR
+        </b-button>
+        <b-button
+          variant="secondary"
+          class="mb-75"
+          block
+          @click="$router.go(-1)"
+        >
+          VOLTAR
         </b-button>
       </b-col>
     </b-row>
