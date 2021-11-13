@@ -36,7 +36,7 @@
                 <small class="text-muted">| PACIENTE</small>
               </p>
               <p class="card-text mb-25 text-secondary">
-                <span class="font-weight-bold">Sessão realizada em:</span>
+                <span class="font-weight-bold">Terapia realizada em:</span>
                 <br />
                 <span class=""
                   >{{ appointment.start }} ás

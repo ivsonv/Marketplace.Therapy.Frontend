@@ -125,7 +125,7 @@ import _providerService from "@/services/providers-service";
 export default {
   data() {
     return {
-      btnew: {},
+      btnew: null,
       isloading: false,
       currentePage: 1,
       search: null,

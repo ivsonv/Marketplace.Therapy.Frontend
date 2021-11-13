@@ -9,6 +9,7 @@ import home from './routes/home'
 import providers from './routes/providers'
 import customers from './routes/customer'
 import dashboard from './routes/dashboard'
+import controls from './routes/controls'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,7 @@ const router = new VueRouter({
     ...defaults,
     ...providers,
     ...customers,
+    ...controls,
     {
       path: '*',
       redirect: 'error-404',

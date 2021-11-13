@@ -30,16 +30,6 @@ export default [
     component: () => import('@/views/apps/registrations/topics/topic.vue'),
   },
   {
-    path: '/registrations/providers',
-    name: 'registrations-providers-list',
-    component: () => import('@/views/apps/registrations/providers/index.vue'),
-  },
-  {
-    path: '/registrations/provider/:id',
-    name: 'registrations-providers-salvar',
-    component: () => import('@/views/apps/registrations/providers/provider.vue'),
-  },
-  {
     path: '/registrations/banks',
     name: 'registrations-banks-list',
     component: () => import('@/views/apps/registrations/banks/index.vue'),

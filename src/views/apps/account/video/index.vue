@@ -1,6 +1,6 @@
 <template>
   <div class="main-view">
-    <h1 v-if="loading">caregando...<spinner--c /></h1>
+    <h1 v-if="loading">carregando...<spinner--c /></h1>
     <h2 v-if="msg">{{ msg }}</h2>
     <video-twilio-client
       v-if="videotwilioclient"
@@ -9,8 +9,11 @@
     />
     <video-sdk-client
       v-if="videosdkclient"
-      :room_id="room_id"
+      :customer="this.$route.params.paciente === 'sim'"
+      :room_traveled="room_traveled"
       :room_name="room_name"
+      :room_id="room_id"
+      :app_id="app_id"
     />
   </div>
 </template>
@@ -27,8 +30,10 @@ export default {
   },
   data() {
     return {
+      app_id: 0,
       room_id: 0,
       room_name: "",
+      room_traveled: 0,
       videosdkclient: false,
       videotwilioclient: false,
       loading: false,
@@ -48,8 +53,10 @@ export default {
       this.loading = true;
       _conference
         .then((res) => {
+          this.room_traveled = res.content.appointment.room_traveled;
           this.room_name = res.content.appointment.room_name;
           this.room_id = res.content.appointment.room_id;
+          this.app_id = this.$route.params.id;
           this.videosdkclient = true;
         })
         .catch((error) => {

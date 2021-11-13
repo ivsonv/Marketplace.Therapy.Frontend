@@ -110,6 +110,34 @@
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
+              <b-form-group class="d-flex justify-content-center mt-2">
+                <b-form-checkbox
+                  id="register-privacy-policy"
+                  v-model="status"
+                  name="checkbox-1"
+                >
+                  Estou de acordo com os
+                  <b-link v-b-modal.modal-xl> Termos e Condições </b-link>
+                </b-form-checkbox>
+
+                <b-modal
+                  id="modal-xl"
+                  ok-only
+                  ok-title="OK"
+                  centered
+                  size="xl"
+                  title="Termos e Condições"
+                >
+                  <b-card-text>
+                    <b-embed
+                      type="iframe"
+                      aspect="16by9"
+                      :src="pdfurl"
+                      allowfullscreen
+                    />
+                  </b-card-text>
+                </b-modal>
+              </b-form-group>
             </b-form>
           </validation-observer>
 
@@ -156,6 +184,7 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BFormCheckbox,
+  BEmbed,
 } from "bootstrap-vue";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
@@ -177,10 +206,12 @@ export default {
     // validations
     ValidationProvider,
     ValidationObserver,
+    BEmbed,
   },
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      pdfurl: "https://imagem.cliqueterapia.com.br/terms/paciente.pdf",
       logo: require("@/assets/images/logo/logo.png"),
       record: {
         name: "",
@@ -191,6 +222,7 @@ export default {
         cpf: "",
       },
       loading: false,
+      status: false,
       required,
     };
   },
@@ -206,6 +238,14 @@ export default {
     validationForm() {
       this.$refs.registerForm.validate().then((success) => {
         if (success) {
+          if (!this.status) {
+            this.$utils.toastError(
+              "Notificação",
+              "Você deve concordar com os termos."
+            );
+            return;
+          }
+
           if (
             this.record.email.toLowerCase().trim() !==
             this.record.emailconfirm.toLowerCase().trim()

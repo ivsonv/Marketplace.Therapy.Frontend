@@ -44,6 +44,9 @@ export default {
   conference: (id) => {
     return _http.get(`/api/account-provider/appointment/${id}/conference`)
   },
+  finish: (id) => {
+    return _http.get(`/api/account-provider/appointment/${id}/conference/finish`)
+  },
   reports: (payload) => {
     return _http.post(`/api/account-provider/reports`, payload)
   }

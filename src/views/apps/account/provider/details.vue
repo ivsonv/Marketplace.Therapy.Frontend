@@ -1024,10 +1024,6 @@ export default {
           break;
         default:
           this.tab_step = _warn.step;
-          // let id = "";
-          // if(_warn.code) {
-
-          // }
           break;
       }
     },

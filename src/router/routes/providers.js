@@ -47,6 +47,11 @@ export default [
     component: () => import('@/views/apps/account/provider/schedule-invoice.vue'),
   },
   {
+    path: '/account/appointment/:id/finish',
+    name: 'sou-provider-appointments-finish',
+    component: () => import('@/views/apps/account/provider/appointment-assessment.vue'),
+  },
+  {
     path: '/account/appointment/:id/:paciente/video',
     name: 'sou-provider-agendamento-video',
     component: () => import('@/views/apps/account/video/index.vue'),

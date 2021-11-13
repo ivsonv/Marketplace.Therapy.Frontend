@@ -27,6 +27,11 @@ export default [
     component: () => import('@/views/apps/account/customer/index.vue'),
   },
   {
+    path: '/sou-paciente/agendamento/:id/finalizado',
+    name: 'sou-paciente-appointments-finish',
+    component: () => import('@/views/apps/account/customer/appointment-assessment.vue'),
+  },
+  {
     path: '/sou-paciente/agendamento/:id/recibo',
     name: 'sou-paciente-agendamento-invoice',
     component: () => import('@/views/apps/account/customer/appointment-invoice.vue'),

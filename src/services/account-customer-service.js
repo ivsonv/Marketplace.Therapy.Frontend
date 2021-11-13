@@ -17,6 +17,9 @@ export default {
   conference: (id) => {
     return _http.get(`/api/account-customer/appointment/${id}/conference`)
   },
+  finish: (id) => {
+    return _http.get(`/api/account-customer/appointment/${id}/conference/finish`)
+  },
   find: () => {
     return _http.get(`/api/account-customer`)
   }

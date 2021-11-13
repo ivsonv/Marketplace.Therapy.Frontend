@@ -3,7 +3,7 @@
     <b-card>
       <template #header>
         <h4 class="mb-0">
-          {{ title }}
+          <span class="text-uppercase">{{ title }}</span>
           <small v-if="subtitle" class="d-block">{{ subtitle }}</small>
         </h4>
         <b-row v-if="btnew || btsave || btdelete || btback">
