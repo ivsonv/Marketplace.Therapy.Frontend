@@ -13,4 +13,9 @@ export default [
     path: '/dashboard/sales/:id',
     name: 'dashboard-sales-details',
     component: () => import('@/views/apps/dashboard/sales/sale-details.vue')
+  },
+  {
+    path: '/dashboard/sales/:id/invoice',
+    name: 'dashboard-sales-invoice',
+    component: () => import('@/views/apps/dashboard/sales/sale-invoice.vue')
   }]

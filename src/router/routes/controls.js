@@ -6,7 +6,7 @@ export default [
   },
   {
     path: '/controls/provider/:id',
-    name: 'registrations-providers-salvar',
+    name: 'registrations-providers-save',
     component: () => import('@/views/apps/controls/providers/provider.vue'),
   },
   {

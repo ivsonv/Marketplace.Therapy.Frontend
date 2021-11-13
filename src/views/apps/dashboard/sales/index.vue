@@ -22,7 +22,7 @@
       </b-col>
       <b-col cols="12" lg="4">
         <b-form-group label="Código Transação">
-          <b-form-input placeholder="Código Getaway" autocomplete="off" />
+          <b-form-input placeholder="Código gateway" autocomplete="off" />
         </b-form-group>
       </b-col>
 
@@ -222,7 +222,6 @@ export default {
               : null,
         },
       };
-      console.log(payload);
 
       this.isloading = true;
       _dashboardService
@@ -246,9 +245,10 @@ export default {
       this.getRecords(this.currentePage);
     },
     onClickSelected(record, _) {
-      // this.$router.push({
-      //   path: `/registrations/provider/${record.id}`,
-      // });
+      this.$router.push({
+        name: "dashboard-sales-details",
+        params: { id: record.id },
+      });
     },
   },
 };

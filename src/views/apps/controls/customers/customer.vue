@@ -199,6 +199,12 @@
               <template #cell(actions)="data">
                 <div class="text-nowrap">
                   <feather-icon
+                    @click="goAppointmentDetails(data.item)"
+                    icon="MaximizeIcon"
+                    class="mx-1"
+                    size="22"
+                  />
+                  <feather-icon
                     @click="goInvoice(data.item)"
                     icon="FileTextIcon"
                     class="mx-1"
@@ -232,6 +238,7 @@ export default {
       optionsUf: [],
       optionsUfSelected: null,
       fields: [
+        { key: "id", label: "Código" },
         { key: "provider.name", label: "Psicologo" },
         { key: "payment.ds", label: "Pagamento" },
         { key: "price", label: "Valor" },
@@ -417,11 +424,17 @@ export default {
           .finally(() => (this.loading = false));
       }
     },
+    goAppointmentDetails(item) {
+      this.$router.push({
+        name: "dashboard-sales-details",
+        params: { id: item.id },
+      });
+    },
     goInvoice(item) {
-      // this.$router.push({
-      //   name: "sou-provider-agendamento-invoice",
-      //   params: { id: item.id },
-      // });
+      this.$router.push({
+        name: "dashboard-sales-invoice",
+        params: { id: item.id },
+      });
     },
   },
 };
