@@ -203,7 +203,7 @@ export default {
     },
     onClickSelected(record, _) {
       this.$router.push({
-        path: `/registrations/provider/${record.id}`,
+        path: `/controls/provider/${record.id}`,
       });
     },
   },
