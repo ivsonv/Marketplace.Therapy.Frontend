@@ -208,6 +208,7 @@ export default {
   },
   destroyed() {
     this.$destroy();
+    this.setMetadataDefault();
   },
   created() {
     this.getProviderHours(null);
@@ -332,9 +333,41 @@ export default {
       }
     },
     setMetadata() {
-      document.title = this.provider.name;
-      document.head.querySelector("meta[name=description]").content =
+      document.title =
+        this.provider.name + " - Psicólogo Online | Clique Terapia";
+      let desc =
+        "Agende agora uma consulta por video chamada com " +
+        this.provider.name +
+        ".";
+      if (this.provider.expertises && this.provider.expertises.length > 0) {
+        desc += " Especialista em ";
+
+        for (let index = 0; index < this.provider.expertises.length; index++) {
+          if (index > 0) desc += ", ";
+          desc += this.provider.expertises[index].name;
+        }
+      }
+      document.head.querySelector("meta[name=description]").content = desc;
+      document.getElementsByName("og:description")[0].content =
         this.provider.introduction;
+      document.getElementsByName("og:image")[0].content = this.provider.image;
+      document.getElementsByName("og:url")[0].content = window.location.href;
+      document.getElementsByName("og:type")[0].content = "Psicólogo";
+      document.getElementById("canonical").href = window.location.href;
+    },
+    setMetadataDefault() {
+      document.title = "Psicólogos online sem sair de casa | Clique Terapia";
+      document.getElementsByName("og:image")[0].content =
+        "https://imagem.cliqueterapia.com.br/terms/logo.png";
+      document.getElementsByName("og:url")[0].content =
+        "https://www.cliqueterapia.com.br";
+      document.getElementById("canonical").href =
+        "https://www.cliqueterapia.com.br";
+      document.head.querySelector("meta[name=description]").content =
+        "Encontre um psicólogo online e cuide da sua saúde emocional sem sair de casa. Temos psicólogos de todas as especialidades. Comece agora";
+      document.getElementsByName("og:description")[0].content =
+        "Encontre um psicólogo online e cuide da sua saúde emocional sem sair de casa. Temos psicólogos de todas as especialidades. Comece agora";
+      document.getElementsByName("og:type")[0].content = "website";
     },
   },
 };
