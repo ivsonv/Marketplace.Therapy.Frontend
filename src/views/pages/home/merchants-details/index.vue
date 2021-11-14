@@ -358,7 +358,7 @@ export default {
     setMetadataDefault() {
       document.title = "Psicólogos online sem sair de casa | Clique Terapia";
       document.getElementsByName("og:image")[0].content =
-        "https://imagem.cliqueterapia.com.br/terms/logo.png";
+        "https://imagem.cliqueterapia.com.br/terms/logo-def.png";
       document.getElementsByName("og:url")[0].content =
         "https://www.cliqueterapia.com.br";
       document.getElementById("canonical").href =
