@@ -350,6 +350,8 @@ export default {
       document.head.querySelector("meta[name=description]").content = desc;
       document.getElementsByName("og:description")[0].content =
         this.provider.introduction;
+      document.getElementsByName("og:image:secure_url")[0].content =
+        this.provider.image;
       document.getElementsByName("og:image")[0].content = this.provider.image;
       document.getElementsByName("og:url")[0].content = window.location.href;
       document.getElementsByName("og:type")[0].content = "Psicólogo";
@@ -358,7 +360,9 @@ export default {
     setMetadataDefault() {
       document.title = "Psicólogos online sem sair de casa | Clique Terapia";
       document.getElementsByName("og:image")[0].content =
-        "https://imagem.cliqueterapia.com.br/terms/logo-def.png";
+        process.env.BASE_URL + "logo.jpg";
+      document.getElementsByName("og:image:secure_url")[0].content =
+        process.env.BASE_URL + "logo.jpg";
       document.getElementsByName("og:url")[0].content =
         "https://www.cliqueterapia.com.br";
       document.getElementById("canonical").href =
