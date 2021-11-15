@@ -31,9 +31,7 @@
       <img width="150" :src="require('@/assets/images/logo/logo.gif')" />
     </section>
     <section class="home-start-como-funciona mb-5">
-      <h1 class="text-center mb-5 pb-5">
-        Agende sua consulta em apenas 3 passos.
-      </h1>
+      <h1 class="text-center mb-5">Agende sua consulta em apenas 3 passos.</h1>
 
       <!-- PASSO 1 -->
       <div class="box-passo mb-5">
@@ -43,20 +41,24 @@
             Escolha entre os profissionais cadastrados e certificados, o que
             mais se identifique com seu perfil.
           </p>
+          <img
+            id="seta-1"
+            :src="require('@/assets/images/home/passo-seta-1.png')"
+          />
         </div>
         <div>
           <img
-            width="100%"
+            style="max-width: 500px; width: 100%"
             :src="require('@/assets/images/home/passo-1.png')"
           />
         </div>
       </div>
 
       <!-- PASSO 2 -->
-      <div class="box-passo mb-5 align-items-center">
+      <div class="box-passo mb-5 mb-lg-0">
         <div class="order-2 order-md-1">
           <img
-            width="100%"
+            style="max-width: 500px; width: 100%"
             :src="require('@/assets/images/home/passo-2.png')"
           />
         </div>
@@ -65,7 +67,11 @@
             2 - Selecione a data e horário desejado, realize o pagamento de sua
             preferência e pronto. <br />Horário confirmado!
           </h1>
-          <strong class="text-justify"></strong>
+          <p class="text-justify"></p>
+          <img
+            id="seta-2"
+            :src="require('@/assets/images/home/passo-seta-2.png')"
+          />
         </div>
       </div>
 
@@ -80,7 +86,7 @@
         </div>
         <div>
           <img
-            width="100%"
+            style="max-width: 500px; width: 100%"
             :src="require('@/assets/images/home/passo-3.png')"
           />
         </div>
@@ -117,7 +123,6 @@ export default {
 </script>
 <style>
 .home-start-psi {
-  justify-content: space-between;
   display: flex;
   min-height: 100vh;
 }
@@ -140,8 +145,9 @@ export default {
   padding-top: 4px;
   padding-bottom: 4px;
   font-weight: 600;
-  margin-top: 33%;
-  min-width: 603px;
+  margin-top: 20%;
+  min-width: 850px;
+  font-size: 40px;
 }
 
 #home-start-section strong {
@@ -166,7 +172,7 @@ export default {
 }
 
 #home-start-section-img {
-  justify-content: right;
+  justify-content: left;
   align-items: initial;
   display: flex;
 }
@@ -177,6 +183,8 @@ export default {
 
 .home-start-como-funciona h1 {
   font-size: 4rem;
+  font-weight: 600;
+  color: #000;
 }
 
 .box-passo {
@@ -213,23 +221,22 @@ export default {
   max-width: 55%;
   text-align: justify;
 }
+
 .home-start-section-indicate {
   visibility: visible;
 }
 
 @media screen and (max-width: 1550px) {
   .home-start-section-indicate {
-    visibility: hidden;
+    margin-top: -20%;
+    margin-bottom: 1%;
   }
   #home-start-section-img img {
-    height: 83%;
+    height: 79%;
   }
 }
 
 @media screen and (max-width: 1383px) {
-  .home-start-section-indicate {
-    visibility: hidden;
-  }
   #home-start-section-img {
     justify-content: center;
   }
@@ -257,12 +264,14 @@ export default {
   .box-comece-agora h1 {
     font-size: 2.1rem;
   }
+  .home-start-section-indicate {
+    content-visibility: hidden;
+    margin-top: initial;
+    margin-bottom: initial;
+  }
 }
 
 @media screen and (max-width: 600px) {
-  .home-start-section-indicate {
-    visibility: hidden;
-  }
   #home-start-section-img img {
     width: 100%;
   }
@@ -306,6 +315,18 @@ export default {
   }
   #home-start-section h1 {
     margin-top: 0.1vh;
+  }
+  #seta-1 {
+    display: none;
+  }
+  #seta-2 {
+    display: none;
+  }
+  .home-start-psi {
+    min-height: 0vh;
+  }
+  .home-start-section-indicate {
+    content-visibility: hidden;
   }
 }
 </style>
