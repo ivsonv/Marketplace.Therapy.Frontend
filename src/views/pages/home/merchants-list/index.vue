@@ -1,51 +1,105 @@
 <template>
   <div class="main-view">
     <header--v />
-
-    <section id="headerListProfissional" style="margin-top: 110px">
-      <!-- <img
-        class="List_imgOne"
-        :src="require('@/assets/images/home/List_imgOne.jpg')"
-      /> -->
-      <!-- <img
-        class="List_imgTwo"
-        :src="require('@/assets/images/home/List_imgTwo.jpg')"
-      /> -->
-      <div class="menuList">
-        <h1>Converse com um psicólogo online sem sair de casa.</h1>
-        <p>
-          A qualquer hora, em qualquer lugar.
-          <br />Dados seguros, privacidade total.
-        </p>
-        <div class="row" id="search_name">
-          <div class="col-12 mt-3">
-            <b-input-group>
-              <b-form-input
-                placeholder="pesquise por especialidade, motivo ou nome..."
-                autocomplete="off"
-                size="lg"
-              />
-              <b-input-group-append>
-                <b-button variant="success" size="lg"> Pesquisar </b-button>
-              </b-input-group-append>
-            </b-input-group>
+    <section class="merchant-list-main">
+      <div class="row m-0 p-0">
+        <div class="col-12 col-lg-3 m-0 p-0 pt-3 d-none d-lg-block">
+          <img
+            height="400"
+            :src="require('@/assets/images/home/especialista-search.png')"
+            title="Nossos especialistas"
+          />
+        </div>
+        <div class="col-12 col-lg-8 d-flex align-items-center">
+          <div class="merchant-list-search">
+            <h1>Converse com um psicólogo online sem sair de casa.</h1>
+            <p>
+              A qualquer hora, em qualquer lugar.
+              <br />Dados seguros, privacidade total.
+            </p>
+            <div class="row" id="search_name">
+              <div class="col-12 mt-3 mb-3">
+                <b-input-group>
+                  <b-form-input
+                    placeholder="especialidade, motivo ou nome..."
+                    autocomplete="off"
+                  />
+                  <b-input-group-append class="d-none d-lg-block rounded">
+                    <b-button variant="primary"> Pesquisar </b-button>
+                  </b-input-group-append>
+                  <b-input-group-append class="d-block d-lg-none">
+                    <b-button variant="primary">
+                      <feather-icon icon="SearchIcon" />
+                    </b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- <img
-        class="List_imgThree"
-        :src="require('@/assets/images/home/List_imgThree.jpg')"
-      /> -->
-      <!-- <img
-        class="List_imgFour"
-        :src="require('@/assets/images/home/List_imgFour.jpg')"
-      /> -->
+    </section>
+
+    <section class="merchant-list-filter"></section>
+
+    <section
+      id="main-page"
+      class="merchant-list-psi justify-content-center pt-1"
+      v-if="providers"
+    >
+      <h1 v-if="loading">buscando... <spinner--c /></h1>
+      <h1 v-else-if="providers.length <= 0">Nenhum especialista encontrado</h1>
+
+      <!-- psis -->
+      <div class="row justify-content-center">
+        <div
+          class="col-12 col-lg-5 mb-1"
+          v-for="(data, index) in providers"
+          :key="'psi-' + index"
+        >
+          <viewcard--c>
+            <div class="profile-psi" @click="goDetails(data)">
+              <div class="psi">
+                <div class="psi-image">
+                  <img :src="data.image" />
+                </div>
+                <div class="psi-infos">
+                  <h1 class="text-uppercase">{{ data.name }}</h1>
+                  <span>CRP – {{ data.crp }} </span> | {{ data.state }}
+                  <div class="psi-info-price">
+                    <p>
+                      R$ {{ data.price.toFixed(0) }}
+                      <small class="text-muted">| 50 Minutos</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-2" style="margin: auto">
+                {{
+                  data.introduction && data.introduction.length > 160
+                    ? data.introduction.substring(0, 159) + "..."
+                    : data.introduction
+                }}
+              </p>
+              <a class="mt-3" style="margin: auto">
+                <b-button variant="primary" class="d-flex align-items-center">
+                  <feather-icon
+                    class="mr-1 cursor-pointer"
+                    icon="HeartIcon"
+                    size="16"
+                  />
+                  Quero Conhecer Mais
+                </b-button>
+              </a>
+            </div>
+          </viewcard--c>
+        </div>
+      </div>
     </section>
 
     <!-- profissionais -->
-    <section id="bodyListProfissional" class="container-fluid" v-if="providers">
+    <!-- <section id="bodyListProfissional" class="container-fluid" v-if="providers">
       <h1 v-if="loading">Carregando... <spinner--c /></h1>
-      <h1 v-else-if="providers.length > 0">Nossos Especialistas</h1>
       <h1 v-else-if="providers.length <= 0">Nenhum especialista encontrado</h1>
       <div class="row" id="profissionaislist">
         <div
@@ -68,13 +122,13 @@
                   class="fileStar"
                 >
                   <a :href="data.urlvideo" target="_blank">
-                    <!-- <img
+                     <img
                       style="width: 20px; height: 20px"
                       src="../assets/img/youtube.svg"
-                    /> -->
+                    />
                   </a>
                 </div>
-                <!-- <div class="fileStar">
+                 <div class="fileStar">
                   <svg
                     id="star-regular"
                     class="start"
@@ -180,7 +234,7 @@
                       transform="translate(-255.612 -1377.338)"
                     />
                   </svg>
-                </div>-->
+                </div>
                 <p>
                   {{
                     data.introduction && data.introduction.length > 189
@@ -209,7 +263,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -287,6 +341,96 @@ export default {
 .main-view {
   min-height: 100vh;
 }
+.merchant-list-main {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 237, 214, 1) 0%,
+    rgb(192, 255, 244, 1) 100%
+  );
+}
+
+.merchant-list-search {
+  text-align: center;
+  h1 {
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+  }
+  p {
+    font-size: 28px;
+    line-height: 28px;
+    color: #000;
+    font-weight: 400;
+    padding-top: 10px;
+    @media screen and (max-width: 770px) {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+}
+
+.profile-psi {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  p {
+    width: 80%;
+    text-align: justify;
+    margin-top: 15px;
+  }
+}
+
+.psi {
+  display: flex;
+  margin: auto;
+}
+.psi-infos {
+  margin-left: 30px;
+  span {
+    color: var(--purple);
+    font-weight: 700;
+  }
+}
+
+.psi-info-price {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.psi-image img {
+  border-radius: 50%;
+  height: 215px;
+  width: 215px;
+}
+
+@media screen and (max-width: 600px) {
+  .psi {
+    flex-direction: column;
+  }
+
+  .psi-image {
+    text-align: center;
+  }
+
+  .psi-infos h1 {
+    text-align: center !important;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .merchant-list-search {
+    p {
+      font-size: 16px;
+    }
+    h1 {
+      font-size: 20px;
+    }
+  }
+}
 
 #headerListProfissional {
   height: 60vh;
@@ -295,43 +439,6 @@ export default {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  .menuList {
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  @media screen and (max-width: 474px) {
-    br {
-      display: none;
-    }
-  }
-  h1 {
-    font-size: 40px;
-    font-weight: 600;
-    color: var(--blue);
-    background: var(--teal);
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 4px;
-    @media screen and (max-width: 767px) {
-      margin: 0 20px 10px;
-      font-size: 40px;
-    }
-    @media screen and (max-width: 510px) {
-      margin: 50px 20px 10px;
-    }
-  }
-  p {
-    font-size: 28px;
-    line-height: 28px;
-    color: var(--purple);
-    font-weight: 400;
-    @media screen and (max-width: 770px) {
-      font-size: 20px;
-      line-height: 20px;
-    }
-  }
   #search_name {
     width: 95vw;
     @media screen and (min-width: 850px) {
@@ -372,202 +479,108 @@ export default {
       position: absolute;
     }
   }
-  .List_imgOne {
-    width: 290px;
-    left: -100px;
-    margin-top: -120px;
-    position: absolute;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    @media screen and (max-width: 1330px) {
-      left: -200px;
-    }
-    @media screen and (max-width: 1100px) {
-      left: -230px;
-    }
+  #bodyListProfissional {
     @media screen and (max-width: 990px) {
-      display: none;
-    }
-  }
-  .List_imgTwo {
-    width: 290px;
-    right: -100px;
-    margin-top: -120px;
-    position: absolute;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    @media screen and (max-width: 1330px) {
-      right: -200px;
-    }
-    @media screen and (max-width: 1100px) {
-      right: -230px;
-    }
-    @media screen and (max-width: 990px) {
-      display: none;
-    }
-  }
-  .List_imgThree {
-    left: -100px;
-    width: 400px;
-    margin-top: 190px;
-    position: absolute;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    @media screen and (max-width: 1330px) {
-      left: -250px;
-    }
-    @media screen and (max-width: 1100px) {
-      left: -275px;
-    }
-    @media screen and (max-width: 990px) {
-      left: -50px;
-      opacity: 0.6;
-      width: 270px;
-      margin-top: 400px;
+      margin-top: 260px;
     }
     @media screen and (max-width: 510px) {
-      margin-top: 450px;
+      margin-top: 330px;
     }
     @media screen and (max-width: 340px) {
-      margin-top: 480px;
+      margin-top: 360px;
     }
-    @media screen and (max-width: 510px) {
-      display: none;
-    }
-  }
-  .List_imgFour {
-    width: 400px;
-    right: -100px;
-    margin-top: 190px;
-    position: absolute;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    @media screen and (max-width: 1330px) {
-      right: -250px;
-    }
-    @media screen and (max-width: 1100px) {
-      right: -275px;
-    }
-    @media screen and (max-width: 990px) {
-      opacity: 0.6;
-      right: -50px;
-      width: 270px;
-      margin-top: 400px;
-    }
-    @media screen and (max-width: 510px) {
-      display: none;
-    }
-  }
-}
-#bodyListProfissional {
-  @media screen and (max-width: 990px) {
-    margin-top: 260px;
-  }
-  @media screen and (max-width: 510px) {
-    margin-top: 330px;
-  }
-  @media screen and (max-width: 340px) {
-    margin-top: 360px;
-  }
-  h1 {
-    font-size: 54px;
-    color: var(--primary);
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .itemProfissonal {
-    padding: 50px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 4px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    background: #ffffff;
-    @media screen and (max-width: 990px) {
+    h1 {
+      font-size: 54px;
+      color: var(--primary);
+      text-align: center;
       margin-bottom: 30px;
     }
-    .infoProfissonal {
+    .itemProfissonal {
+      padding: 50px;
       display: flex;
-      @media screen and (max-width: 1150px) {
-        flex-direction: column;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 4px;
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
+      -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
+      background: #ffffff;
+      @media screen and (max-width: 990px) {
+        margin-bottom: 30px;
       }
-      .fhotoProfissonal {
-        width: auto;
-        height: 215px;
-        border-radius: 10px 0 0 0;
-        margin: -20px 20px 0 -20px;
+      .infoProfissonal {
+        display: flex;
         @media screen and (max-width: 1150px) {
-          width: 100% !important;
-          border-radius: 0;
-          margin: auto auto 15px;
+          flex-direction: column;
         }
-        @media screen and (max-width: 400px) {
-          width: 100%;
-          height: 100%;
+        .fhotoProfissonal {
+          width: auto;
+          height: 215px;
+          border-radius: 10px 0 0 0;
+          margin: -20px 20px 0 -20px;
+          @media screen and (max-width: 1150px) {
+            width: 100% !important;
+            border-radius: 0;
+            margin: auto auto 15px;
+          }
+          @media screen and (max-width: 400px) {
+            width: 100%;
+            height: 100%;
+          }
         }
-      }
-      h1 {
-        margin: 0;
-        font-size: 22px;
-        color: #142344;
-        text-align: left;
-        margin-bottom: 3px;
-      }
-      span {
-        font-size: 17px;
-        color: var(--blue);
-        font-weight: bold;
-      }
-      .fileStar {
-        display: flex;
-        margin: 10px 0 15px;
-        .start {
-          fill: #ffac10;
-          margin-right: 3px;
+        h1 {
+          margin: 0;
+          font-size: 22px;
+          color: #142344;
+          text-align: left;
+          margin-bottom: 3px;
         }
-        .startOff {
-          fill: grey;
-          margin-right: 3px;
+        span {
+          font-size: 17px;
+          color: var(--blue);
+          font-weight: bold;
         }
-      }
-      a {
-        display: flex;
-        cursor: pointer;
-        color: #ffac10;
-        transition: 0.2s;
-        justify-content: flex-end;
-        &:hover {
-          color: #ffd07a;
+        .fileStar {
+          display: flex;
+          margin: 10px 0 15px;
+          .start {
+            fill: #ffac10;
+            margin-right: 3px;
+          }
+          .startOff {
+            fill: grey;
+            margin-right: 3px;
+          }
+        }
+        a {
+          display: flex;
+          cursor: pointer;
+          color: #ffac10;
           transition: 0.2s;
+          justify-content: flex-end;
+          &:hover {
+            color: #ffd07a;
+            transition: 0.2s;
+          }
         }
       }
-    }
-    .detailProfissonal {
-      width: 100%;
-      display: flex;
-      padding: 15px 0;
-      margin: 30px 0;
-      justify-content: space-around;
-      border-top: 1px solid var(--primary);
-      border-bottom: 1px solid var(--primary);
-      p {
-        font-size: 20px;
-        font-family: "Poppins", sans-serif;
-      }
-      span {
-        color: var(--primary);
-        font-weight: 800;
+      .detailProfissonal {
+        width: 100%;
+        display: flex;
+        padding: 15px 0;
+        margin: 30px 0;
+        justify-content: space-around;
+        border-top: 1px solid var(--primary);
+        border-bottom: 1px solid var(--primary);
+        p {
+          font-size: 20px;
+          font-family: "Poppins", sans-serif;
+        }
+        span {
+          color: var(--primary);
+          font-weight: 800;
+        }
       }
     }
   }
