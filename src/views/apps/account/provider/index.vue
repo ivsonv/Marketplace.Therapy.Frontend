@@ -175,7 +175,7 @@ export default {
 
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],
-        initialView: "dayGridMonth",
+        initialView: "listMonth",
         eventTextColor: "#ffffff",
         eventOrder: "start",
         eventDisplay: "list-item",

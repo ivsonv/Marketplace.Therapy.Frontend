@@ -209,6 +209,7 @@
                 placeholder="ex: Casa, apto, sala..."
                 v-model="address.complement"
                 autocomplete="off"
+                max="100"
               />
             </b-form-group>
           </b-col>

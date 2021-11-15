@@ -86,7 +86,7 @@ export default class HttpService {
 
         console.log(JSON.stringify(err))
         if (err.message == "Network Error") {
-            throw "Sua internet parece está muito lenta... REQUISIÇÃO FALHOU."
+            throw "Verifique sua internet... REQUISIÇÃO FALHOU."
         }
         else {
             throw err
