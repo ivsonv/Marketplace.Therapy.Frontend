@@ -24,6 +24,9 @@
                 </h3>
               </div>
               <p class="card-text p-0 m-0 text-secondary">
+                <span class="font-weight-bold d-block"
+                  >Serviços de atendimento em psicoterapia</span
+                >
                 <strong>
                   {{
                     appointment.customer.cpf.replace(
@@ -36,7 +39,7 @@
                 <small class="text-muted">| PACIENTE</small>
               </p>
               <p class="card-text mb-25 text-secondary">
-                <span class="font-weight-bold">Psicoterapia realizada em:</span>
+                <span class="font-weight-bold">Data da Consulta:</span>
                 <br />
                 <span class=""
                   >{{ appointment.start }} ás
@@ -44,8 +47,6 @@
                 >
               </p>
             </div>
-
-            <!-- Header: Right Content -->
             <div class="mt-md-0 mt-2">
               <h4 class="invoice-title m-0 mb-75">Detalhes Pagamento</h4>
               <table width="100%">
