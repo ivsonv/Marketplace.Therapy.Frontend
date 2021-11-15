@@ -193,22 +193,21 @@
               />
             </b-form-group>
           </b-col>
-          <b-col md="4">
-            <b-form-group label="Complemento *">
-              <b-form-input
-                v-model="address.complement"
-                :state="!!address.complement"
-                placeholder="ex: Casa, apto, sala..."
-                autocomplete="off"
-              />
-            </b-form-group>
-          </b-col>
           <b-col md="2">
             <b-form-group label="Número *">
               <b-form-input
                 :state="!!address.number"
                 v-model="address.number"
                 placeholder="Número..."
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group label="Complemento *">
+              <b-form-input
+                placeholder="ex: Casa, apto, sala..."
+                v-model="address.complement"
                 autocomplete="off"
               />
             </b-form-group>

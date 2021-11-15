@@ -110,7 +110,43 @@
                     :state="errors.length > 0 ? false : null"
                     class="form-control-merge"
                     name="register-password"
-                    placeholder="············"
+                    placeholder="****"
+                  />
+                  <b-input-group-append is-text>
+                    <feather-icon
+                      :icon="passwordToggleIcon"
+                      class="cursor-pointer"
+                      @click="togglePasswordVisibility"
+                    />
+                  </b-input-group-append>
+                </b-input-group>
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+
+            <b-form-group
+              label="Confirmar Password"
+              label-for="confirmarpassword"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="confirmar-password"
+                rules="required"
+              >
+                <b-input-group
+                  class="input-group-merge"
+                  :class="errors.length > 0 ? 'is-invalid' : null"
+                >
+                  <b-form-input
+                    id="password"
+                    v-model="record.passwordconfirm"
+                    :type="passwordFieldType"
+                    :state="errors.length > 0 ? false : null"
+                    class="form-control-merge"
+                    name="register-password"
+                    placeholder="****"
+                    onpaste="return false"
+                    ondrop="return false"
                   />
                   <b-input-group-append is-text>
                     <feather-icon
@@ -238,6 +274,7 @@ export default {
         email: "",
         emailconfirm: "",
         password: "",
+        passwordconfirm: "",
         phone: "",
       },
       loading: false,
@@ -275,6 +312,18 @@ export default {
             );
             return;
           }
+
+          if (
+            this.record.password.toLowerCase().trim() !==
+            this.record.passwordconfirm.toLowerCase().trim()
+          ) {
+            this.$utils.toastError(
+              "Notificação",
+              "Senha digitados não são iguais."
+            );
+            return;
+          }
+
           const onename = this.record.name.split(" ")[0];
           const payload = {
             company_name: this.record.name.replace(onename, ""),

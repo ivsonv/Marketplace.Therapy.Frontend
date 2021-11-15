@@ -234,22 +234,21 @@
               />
             </b-form-group>
           </b-col>
-          <b-col md="4">
-            <b-form-group label="Complemento *">
-              <b-form-input
-                :state="!!address.complement"
-                v-model="address.complement"
-                placeholder="Complemento..."
-                autocomplete="off"
-              />
-            </b-form-group>
-          </b-col>
           <b-col md="2">
             <b-form-group label="Número">
               <b-form-input
                 :state="!!address.number"
                 v-model="address.number"
                 placeholder="Número..."
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group label="Complemento *">
+              <b-form-input
+                v-model="address.complement"
+                placeholder="Complemento..."
                 autocomplete="off"
               />
             </b-form-group>
