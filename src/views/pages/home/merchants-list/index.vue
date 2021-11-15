@@ -42,18 +42,14 @@
 
     <section class="merchant-list-filter"></section>
 
-    <section
-      id="main-page"
-      class="merchant-list-psi justify-content-center pt-1"
-      v-if="providers"
-    >
+    <section id="main-page" class="merchant-list-psipt-1" v-if="providers">
       <h1 v-if="loading">buscando... <spinner--c /></h1>
       <h1 v-else-if="providers.length <= 0">Nenhum especialista encontrado</h1>
 
       <!-- psis -->
       <div class="row justify-content-center">
         <div
-          class="col-12 col-lg-5 mb-1"
+          class="col-12 col-lg-6 mb-1"
           v-for="(data, index) in providers"
           :key="'psi-' + index"
         >
