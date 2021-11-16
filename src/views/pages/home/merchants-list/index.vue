@@ -42,25 +42,22 @@
 
     <section class="merchant-list-filter"></section>
 
-    <section
-      id="main-page"
-      class="merchant-list-psi pt-1"
-      style="display: contents"
-      v-if="providers"
-    >
-      <h1 v-if="loading">buscando... <spinner--c /></h1>
-      <h1 v-else-if="providers.length <= 0">Nenhum especialista encontrado</h1>
+    <section class="merchant-list-psi pt-1" v-if="providers" id="main-page">
+      <h1 class="text-center" v-if="loading">buscando... <spinner--c /></h1>
+      <h1 class="text-center" v-else-if="providers.length <= 0">
+        Nenhum especialista encontrado
+      </h1>
 
       <!-- psis -->
-      <div class="row justify-content-center">
-        <div
-          class="col-12 col-lg-6 mb-1"
-          v-for="(data, index) in providers"
-          :key="'psi-' + index"
-        >
-          <viewcard--c>
-            <div class="profile-psi" @click="goDetails(data)">
-              <div class="psi">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-12 col-lg-6 mb-1"
+            v-for="(data, index) in providers"
+            :key="'psi-' + index"
+          >
+            <div class="profile-psi shadow" @click="goDetails(data)">
+              <div class="psi my-3">
                 <div class="psi-image">
                   <img :src="data.image" />
                 </div>
@@ -75,14 +72,14 @@
                   </div>
                 </div>
               </div>
-              <p class="mt-2" style="margin: auto">
+              <p class="pt-2" style="margin: auto">
                 {{
                   data.introduction && data.introduction.length > 160
                     ? data.introduction.substring(0, 159) + "..."
                     : data.introduction
                 }}
               </p>
-              <a class="mt-3" style="margin: auto">
+              <a class="my-2" style="margin: auto">
                 <b-button variant="primary" class="d-flex align-items-center">
                   <feather-icon
                     class="mr-1 cursor-pointer"
@@ -93,7 +90,7 @@
                 </b-button>
               </a>
             </div>
-          </viewcard--c>
+          </div>
         </div>
       </div>
     </section>
@@ -380,8 +377,7 @@ export default {
   cursor: pointer;
   p {
     width: 80%;
-    text-align: justify;
-    margin-top: 15px;
+    margin-top: 12px;
   }
 }
 
@@ -390,7 +386,7 @@ export default {
   margin: auto;
 }
 .psi-infos {
-  margin-left: 30px;
+  margin-left: 20px;
   span {
     color: var(--purple);
     font-weight: 700;
@@ -418,7 +414,6 @@ export default {
   }
 
   .psi-infos h1 {
-    text-align: center !important;
     font-size: 20px;
     margin-top: 10px;
   }
@@ -431,159 +426,9 @@ export default {
       font-size: 20px;
     }
   }
-}
 
-#headerListProfissional {
-  height: 60vh;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  #search_name {
-    width: 95vw;
-    @media screen and (min-width: 850px) {
-      width: 60vw;
-    }
-    @media screen and (min-width: 1000px) {
-      width: 50vw;
-    }
-  }
-
-  .boxSearch {
-    width: 100%;
-    display: flex;
-    margin-top: 60px;
-    border-radius: 10px;
-    position: relative;
-    flex-direction: column;
-    text-align: initial;
-    padding: 20px 20px 50px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-    @media screen and (max-width: 767px) {
-      min-width: 290px;
-      width: 90%;
-    }
-    .divSearch {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      @media screen and (max-width: 767px) {
-        width: 100%;
-        flex-direction: column;
-      }
-    }
-    button {
-      bottom: -29px;
-      position: absolute;
-    }
-  }
-  #bodyListProfissional {
-    @media screen and (max-width: 990px) {
-      margin-top: 260px;
-    }
-    @media screen and (max-width: 510px) {
-      margin-top: 330px;
-    }
-    @media screen and (max-width: 340px) {
-      margin-top: 360px;
-    }
-    h1 {
-      font-size: 54px;
-      color: var(--primary);
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .itemProfissonal {
-      padding: 50px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      border-radius: 4px;
-      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-      -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-      -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
-      background: #ffffff;
-      @media screen and (max-width: 990px) {
-        margin-bottom: 30px;
-      }
-      .infoProfissonal {
-        display: flex;
-        @media screen and (max-width: 1150px) {
-          flex-direction: column;
-        }
-        .fhotoProfissonal {
-          width: auto;
-          height: 215px;
-          border-radius: 10px 0 0 0;
-          margin: -20px 20px 0 -20px;
-          @media screen and (max-width: 1150px) {
-            width: 100% !important;
-            border-radius: 0;
-            margin: auto auto 15px;
-          }
-          @media screen and (max-width: 400px) {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        h1 {
-          margin: 0;
-          font-size: 22px;
-          color: #142344;
-          text-align: left;
-          margin-bottom: 3px;
-        }
-        span {
-          font-size: 17px;
-          color: var(--blue);
-          font-weight: bold;
-        }
-        .fileStar {
-          display: flex;
-          margin: 10px 0 15px;
-          .start {
-            fill: #ffac10;
-            margin-right: 3px;
-          }
-          .startOff {
-            fill: grey;
-            margin-right: 3px;
-          }
-        }
-        a {
-          display: flex;
-          cursor: pointer;
-          color: #ffac10;
-          transition: 0.2s;
-          justify-content: flex-end;
-          &:hover {
-            color: #ffd07a;
-            transition: 0.2s;
-          }
-        }
-      }
-      .detailProfissonal {
-        width: 100%;
-        display: flex;
-        padding: 15px 0;
-        margin: 30px 0;
-        justify-content: space-around;
-        border-top: 1px solid var(--primary);
-        border-bottom: 1px solid var(--primary);
-        p {
-          font-size: 20px;
-          font-family: "Poppins", sans-serif;
-        }
-        span {
-          color: var(--primary);
-          font-weight: 800;
-        }
-      }
-    }
+  .psi-info {
+    margin-left: initial;
   }
 }
 </style>
