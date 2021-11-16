@@ -61,6 +61,7 @@
                   :to="{ name: 'merchants-view' }"
                   class="mb-2 text-center"
                   id="b-link-destaque"
+                  @click="onclickMenu"
                 >
                   <span>Buscar Profissionais</span>
                 </b-link>
@@ -103,12 +104,15 @@ export default {
       show: true,
     };
   },
-  created() {},
   methods: {
     onClickToggle() {
       const menuSection = document.querySelector(".menu-section");
       document.body.style.overflow = this.show ? "hidden" : "initial";
       menuSection.classList.toggle("on", this.show);
+      this.show = !this.show;
+    },
+    onclickMenu() {
+      document.body.style.overflow = "initial";
       this.show = !this.show;
     },
   },
