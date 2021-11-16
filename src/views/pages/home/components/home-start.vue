@@ -268,6 +268,7 @@ export default {
     content-visibility: hidden;
     margin-top: initial;
     margin-bottom: initial;
+    display: none;
   }
 }
 
@@ -327,6 +328,7 @@ export default {
   }
   .home-start-section-indicate {
     content-visibility: hidden;
+    display: none;
   }
 }
 </style>

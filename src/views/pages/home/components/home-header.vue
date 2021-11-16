@@ -53,25 +53,37 @@
                 <div class="three"></div>
               </div>
               <nav v-if="!show">
-                <b-link class="mb-1" :to="{ name: 'merchants-view' }">
-                  <strong>Buscar Profissionais</strong>
+                <img
+                  id="home-header-nav-img"
+                  :src="require('@/assets/images/logo/logo10.png')"
+                />
+                <b-link
+                  :to="{ name: 'merchants-view' }"
+                  class="mb-2 text-center"
+                  id="b-link-destaque"
+                >
+                  <span>Buscar Profissionais</span>
                 </b-link>
-                <b-link class="mb-1" :to="{ name: 'auth-login-psicologo' }">
-                  <strong>Para Psicólogos</strong>
+                <b-link
+                  class="mb-2 text-center"
+                  style="color: var(--white)"
+                  :to="{ name: 'auth-login-psicologo' }"
+                >
+                  <strong class="text-center">Para Psicólogos</strong>
                 </b-link>
                 <b-button
                   :to="{ name: 'auth-login-paciente' }"
-                  variant="outline-primary"
+                  variant="primary"
                   class="mb-1"
                 >
                   Entrar
                 </b-button>
-                <b-button
+                <b-link
                   :to="{ name: 'auth-quero-cadastrar-paciente' }"
-                  variant="primary"
+                  id="btn-mobile-cadastra-se"
                 >
                   Cadastra-se grátis
-                </b-button>
+                </b-link>
               </nav>
             </div>
           </div>
@@ -95,10 +107,8 @@ export default {
   methods: {
     onClickToggle() {
       const menuSection = document.querySelector(".menu-section");
-
       document.body.style.overflow = this.show ? "hidden" : "initial";
       menuSection.classList.toggle("on", this.show);
-
       this.show = !this.show;
     },
   },
@@ -120,10 +130,33 @@ export default {
   width: 250px;
 }
 
+#home-header-nav-img {
+  left: 0;
+  top: 0;
+  position: absolute;
+  right: 0;
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+#b-link-destaque {
+  background: var(--teal);
+  color: var(--blue);
+  padding: 10px;
+  font-weight: 700;
+}
+
+#btn-mobile-cadastra-se {
+  background: var(--indigo);
+  color: var(--white);
+  padding: 10px;
+  text-align: center;
+}
+
 .one,
 .two,
 .three {
-  background-color: var(--purple);
+  background-color: var(--primary);
   height: 5px;
   width: 100%;
   margin: 6px auto;
@@ -142,7 +175,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #f2f2f2;
+  background-color: var(--primary);
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -163,6 +196,7 @@ export default {
 
 .menu-section.on .menu-toggle .one {
   transform: rotate(45deg) translate(7px, 7px);
+  background-color: var(--white);
 }
 
 .menu-section.on .menu-toggle .two {
@@ -171,6 +205,7 @@ export default {
 
 .menu-section.on .menu-toggle .three {
   transform: rotate(-45deg) translate(8px, -9px);
+  background-color: var(--white);
 }
 
 .home-header-mobile {
