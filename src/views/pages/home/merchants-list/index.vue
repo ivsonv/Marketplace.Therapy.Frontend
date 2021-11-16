@@ -42,14 +42,18 @@
 
     <section class="merchant-list-filter"></section>
 
-    <section class="merchant-list-psi pt-1" v-if="providers" id="main-page">
+    <section
+      class="merchant-list-psi pt-1 container"
+      v-if="providers"
+      id="main-page"
+    >
       <h1 class="text-center" v-if="loading">buscando... <spinner--c /></h1>
       <h1 class="text-center" v-else-if="providers.length <= 0">
         Nenhum especialista encontrado
       </h1>
 
       <!-- psis -->
-      <div class="container">
+      <div>
         <div class="row">
           <div
             class="col-12 col-lg-6 mb-1"
