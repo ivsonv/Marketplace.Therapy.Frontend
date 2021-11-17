@@ -1,6 +1,7 @@
 <template>
   <div>
     <header--v />
+
     <div class="auth-wrapper auth-v1 px-1">
       <div class="auth-inner py-2">
         <!-- Register v1 -->
@@ -162,6 +163,8 @@
         </b-card>
       </div>
     </div>
+
+    <footer--v />
   </div>
 </template>
 
@@ -189,9 +192,12 @@ import {
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import HomeHeader from "../../../home/components/home-header.vue";
+import HomeFooter from "../../../home/components/home-footer.vue";
+
 export default {
   components: {
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
     BCard,
     BLink,
     BCardTitle,

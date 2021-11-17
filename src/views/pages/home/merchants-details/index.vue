@@ -188,11 +188,13 @@
 </template>
 
 <script>
-import HomeHeader from "../components/home-header";
+import HomeHeader from "../components/home-header.vue";
+import HomeFooter from "../components/home-footer.vue";
 import _ecommerce from "@/services/ecommerce-service";
 export default {
   components: {
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
   },
   data() {
     return {

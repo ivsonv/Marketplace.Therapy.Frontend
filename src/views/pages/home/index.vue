@@ -2,15 +2,18 @@
   <div class="main-view">
     <header--v />
     <home--v />
+    <footer--v />
   </div>
 </template>
 
 <script>
-import HomeHeader from "./components/home-header";
+import HomeHeader from "./components/home-header.vue";
+import HomeFooter from "./components/home-footer.vue";
 import HomeStart from "./components/home-start.vue";
 
 export default {
   components: {
+    "footer--v": HomeFooter,
     "header--v": HomeHeader,
     "home--v": HomeStart,
   },

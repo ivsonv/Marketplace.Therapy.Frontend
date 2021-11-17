@@ -1,6 +1,7 @@
 <template>
   <div>
     <header--v />
+
     <b-row class="auth-inner pt-5">
       <b-col cols="10" sm="8" md="8" lg="3" class="px-2 mx-auto">
         <div
@@ -174,6 +175,7 @@ import { required, email } from "@validations";
 import store from "@/store/index";
 import _authService from "@/services/auth-service";
 import HomeHeader from "../../../home/components/home-header.vue";
+import HomeFooter from "../../../home/components/home-footer.vue";
 export default {
   directives: {
     "b-tooltip": VBTooltip,
@@ -194,6 +196,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
   },
   data() {
     return {

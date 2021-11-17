@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="main-view">
     <header--v />
+
     <b-row class="auth-inner m-0">
       <!-- Left Text-->
       <b-col lg="8" class="d-none d-lg-flex align-items-center">
@@ -128,6 +129,7 @@
 import { ValidationProvider, ValidationObserver, localize } from "vee-validate";
 import pt_br from "vee-validate/dist/locale/pt_BR.json";
 import HomeHeader from "../../../home/components/home-header.vue";
+import HomeFooter from "../../../home/components/home-footer.vue";
 import {
   BLink,
   BFormGroup,
@@ -155,6 +157,7 @@ export default {
   },
   components: {
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
     BLink,
     BFormGroup,
     BFormInput,

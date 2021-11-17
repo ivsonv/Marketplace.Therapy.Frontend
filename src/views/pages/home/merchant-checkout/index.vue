@@ -14,11 +14,13 @@
 
 <script>
 import HomeHeader from "../components/home-header";
+import HomeFooter from "../components/home-footer.vue";
 import _paymentService from "@/services/payment-service";
 import { BEmbed } from "bootstrap-vue";
 export default {
   components: {
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
     BEmbed,
   },
   data() {

@@ -48,7 +48,7 @@
       id="main-page"
     >
       <h1 class="text-center" v-if="loading">buscando... <spinner--c /></h1>
-      <h1 class="text-center" v-else-if="providers.length <= 0">
+      <h1 class="text-center my-5" v-else-if="providers.length <= 0">
         Nenhum especialista encontrado
       </h1>
 
@@ -99,182 +99,18 @@
       </div>
     </section>
 
-    <!-- profissionais -->
-    <!-- <section id="bodyListProfissional" class="container-fluid" v-if="providers">
-      <h1 v-if="loading">Carregando... <spinner--c /></h1>
-      <h1 v-else-if="providers.length <= 0">Nenhum especialista encontrado</h1>
-      <div class="row" id="profissionaislist">
-        <div
-          class="col-lg-6 mb-1 d-flex justify-content-center"
-          v-for="(data, index) in providers"
-          :key="'con' + index"
-        >
-          <div class="itemProfissonal">
-            <div class="infoProfissonal">
-              <img
-                class="fhotoProfissonal"
-                :src="data.image"
-                style="border-radius: 50%"
-              />
-              <div>
-                <h1 class="text-uppercase">{{ data.name }}</h1>
-                <span>CRP – {{ data.crp }} | {{ data.state }} </span>
-                <div
-                  v-if="data.urlvideo && data.urlvideo.includes('https://')"
-                  class="fileStar"
-                >
-                  <a :href="data.urlvideo" target="_blank">
-                     <img
-                      style="width: 20px; height: 20px"
-                      src="../assets/img/youtube.svg"
-                    />
-                  </a>
-                </div>
-                 <div class="fileStar">
-                  <svg
-                    id="star-regular"
-                    class="start"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="19.519"
-                    height="18.682"
-                    viewBox="0 0 19.519 18.682"
-                  >
-                    <path
-                      id="star-regular-2"
-                      data-name="star-regular"
-                      d="M39.018,6.245l-5.33-.777L31.306.637a1.168,1.168,0,0,0-2.094,0l-2.382,4.83-5.33.777a1.168,1.168,0,0,0-.646,1.992l3.856,3.758L23.8,17.3a1.167,1.167,0,0,0,1.693,1.229l4.768-2.506,4.768,2.506A1.168,1.168,0,0,0,36.72,17.3l-.912-5.308,3.856-3.758a1.168,1.168,0,0,0-.646-1.992Zm-5.089,5.137.865,5.049-4.535-2.382-4.535,2.382.865-5.049-3.67-3.575,5.071-.737,2.269-4.6,2.269,4.6,5.071.737Z"
-                      transform="translate(-20.5 0.013)"
-                    />
-                    <path
-                      id="Caminho_108"
-                      data-name="Caminho 108"
-                      d="M262.43,1383.865l2.75-5.615,3.247,5.615,5.844.764s-3.7,3.552-3.858,3.7.344,6.3.344,6.3l-5.576-2.253-5,2.75.229-6.226-3.972-4.278Z"
-                      transform="translate(-255.612 -1377.338)"
-                    />
-                  </svg>
-                  <svg
-                    id="star-regular"
-                    class="start"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="19.519"
-                    height="18.682"
-                    viewBox="0 0 19.519 18.682"
-                  >
-                    <path
-                      id="star-regular-2"
-                      data-name="star-regular"
-                      d="M39.018,6.245l-5.33-.777L31.306.637a1.168,1.168,0,0,0-2.094,0l-2.382,4.83-5.33.777a1.168,1.168,0,0,0-.646,1.992l3.856,3.758L23.8,17.3a1.167,1.167,0,0,0,1.693,1.229l4.768-2.506,4.768,2.506A1.168,1.168,0,0,0,36.72,17.3l-.912-5.308,3.856-3.758a1.168,1.168,0,0,0-.646-1.992Zm-5.089,5.137.865,5.049-4.535-2.382-4.535,2.382.865-5.049-3.67-3.575,5.071-.737,2.269-4.6,2.269,4.6,5.071.737Z"
-                      transform="translate(-20.5 0.013)"
-                    />
-                    <path
-                      id="Caminho_108"
-                      data-name="Caminho 108"
-                      d="M262.43,1383.865l2.75-5.615,3.247,5.615,5.844.764s-3.7,3.552-3.858,3.7.344,6.3.344,6.3l-5.576-2.253-5,2.75.229-6.226-3.972-4.278Z"
-                      transform="translate(-255.612 -1377.338)"
-                    />
-                  </svg>
-                  <svg
-                    id="star-regular"
-                    class="start"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="19.519"
-                    height="18.682"
-                    viewBox="0 0 19.519 18.682"
-                  >
-                    <path
-                      id="star-regular-2"
-                      data-name="star-regular"
-                      d="M39.018,6.245l-5.33-.777L31.306.637a1.168,1.168,0,0,0-2.094,0l-2.382,4.83-5.33.777a1.168,1.168,0,0,0-.646,1.992l3.856,3.758L23.8,17.3a1.167,1.167,0,0,0,1.693,1.229l4.768-2.506,4.768,2.506A1.168,1.168,0,0,0,36.72,17.3l-.912-5.308,3.856-3.758a1.168,1.168,0,0,0-.646-1.992Zm-5.089,5.137.865,5.049-4.535-2.382-4.535,2.382.865-5.049-3.67-3.575,5.071-.737,2.269-4.6,2.269,4.6,5.071.737Z"
-                      transform="translate(-20.5 0.013)"
-                    />
-                    <path
-                      id="Caminho_108"
-                      data-name="Caminho 108"
-                      d="M262.43,1383.865l2.75-5.615,3.247,5.615,5.844.764s-3.7,3.552-3.858,3.7.344,6.3.344,6.3l-5.576-2.253-5,2.75.229-6.226-3.972-4.278Z"
-                      transform="translate(-255.612 -1377.338)"
-                    />
-                  </svg>
-                  <svg
-                    id="star-regular"
-                    class="start"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="19.519"
-                    height="18.682"
-                    viewBox="0 0 19.519 18.682"
-                  >
-                    <path
-                      id="star-regular-2"
-                      data-name="star-regular"
-                      d="M39.018,6.245l-5.33-.777L31.306.637a1.168,1.168,0,0,0-2.094,0l-2.382,4.83-5.33.777a1.168,1.168,0,0,0-.646,1.992l3.856,3.758L23.8,17.3a1.167,1.167,0,0,0,1.693,1.229l4.768-2.506,4.768,2.506A1.168,1.168,0,0,0,36.72,17.3l-.912-5.308,3.856-3.758a1.168,1.168,0,0,0-.646-1.992Zm-5.089,5.137.865,5.049-4.535-2.382-4.535,2.382.865-5.049-3.67-3.575,5.071-.737,2.269-4.6,2.269,4.6,5.071.737Z"
-                      transform="translate(-20.5 0.013)"
-                    />
-                    <path
-                      id="Caminho_108"
-                      data-name="Caminho 108"
-                      d="M262.43,1383.865l2.75-5.615,3.247,5.615,5.844.764s-3.7,3.552-3.858,3.7.344,6.3.344,6.3l-5.576-2.253-5,2.75.229-6.226-3.972-4.278Z"
-                      transform="translate(-255.612 -1377.338)"
-                    />
-                  </svg>
-                  <svg
-                    id="star-regular"
-                    class="startOff"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="19.519"
-                    height="18.682"
-                    viewBox="0 0 19.519 18.682"
-                  >
-                    <path
-                      id="star-regular-2"
-                      data-name="star-regular"
-                      d="M39.018,6.245l-5.33-.777L31.306.637a1.168,1.168,0,0,0-2.094,0l-2.382,4.83-5.33.777a1.168,1.168,0,0,0-.646,1.992l3.856,3.758L23.8,17.3a1.167,1.167,0,0,0,1.693,1.229l4.768-2.506,4.768,2.506A1.168,1.168,0,0,0,36.72,17.3l-.912-5.308,3.856-3.758a1.168,1.168,0,0,0-.646-1.992Zm-5.089,5.137.865,5.049-4.535-2.382-4.535,2.382.865-5.049-3.67-3.575,5.071-.737,2.269-4.6,2.269,4.6,5.071.737Z"
-                      transform="translate(-20.5 0.013)"
-                    />
-                    <path
-                      id="Caminho_108"
-                      data-name="Caminho 108"
-                      d="M262.43,1383.865l2.75-5.615,3.247,5.615,5.844.764s-3.7,3.552-3.858,3.7.344,6.3.344,6.3l-5.576-2.253-5,2.75.229-6.226-3.972-4.278Z"
-                      transform="translate(-255.612 -1377.338)"
-                    />
-                  </svg>
-                </div>
-                <p>
-                  {{
-                    data.introduction && data.introduction.length > 189
-                      ? data.introduction.substring(0, 188) + "..."
-                      : data.introduction
-                  }}
-                </p>
-                <a @click="goDetails(data)">Ver perfil completo</a>
-              </div>
-            </div>
-            <div class="detailProfissonal">
-              <div>
-                <p>Sessão</p>
-                <span>R$ {{ data.price.toFixed(0) }}</span>
-              </div>
-              <div>
-                <p>Tempo</p>
-                <span>50 minutos</span>
-              </div>
-            </div>
-            <a @click="goDetails(data)">
-              <b-button size="lg" variant="primary" class="rounded" pill>
-                Marcar consulta
-              </b-button>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section> -->
+    <footer--v v-if="providers.length > 0" class="shadow" />
   </div>
 </template>
 
 <script>
-import HomeHeader from "../components/home-header";
+import HomeHeader from "../components/home-header.vue";
+import HomeFooter from "../components/home-footer.vue";
 import _ecommerce from "@/services/ecommerce-service";
 export default {
   components: {
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
   },
   data() {
     return {

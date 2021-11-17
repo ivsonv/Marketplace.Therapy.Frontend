@@ -11,7 +11,10 @@
             <img :src="require('@/assets/images/logo/logo4.png')" />
           </b-button>
           <div id="home-header-links">
-            <b-link class="mr-2" :to="{ name: 'merchants-view' }">
+            <b-link
+              class="mr-2 b-link-destaque"
+              :to="{ name: 'merchants-view' }"
+            >
               <strong>Buscar Profissionais</strong>
             </b-link>
             <b-link class="mr-2" :to="{ name: 'auth-login-psicologo' }">
@@ -59,8 +62,7 @@
                 />
                 <b-link
                   :to="{ name: 'merchants-view' }"
-                  class="mb-2 text-center"
-                  id="b-link-destaque"
+                  class="b-link-destaque mb-2 text-center"
                   @click="onclickMenu"
                 >
                   <span>Buscar Profissionais</span>
@@ -143,11 +145,12 @@ export default {
   margin-left: 25px;
 }
 
-#b-link-destaque {
+.b-link-destaque {
   background: var(--teal);
   color: var(--blue);
   padding: 10px;
   font-weight: 700;
+  border-radius: 3px;
 }
 
 #btn-mobile-cadastra-se {
@@ -155,6 +158,10 @@ export default {
   color: var(--white);
   padding: 10px;
   text-align: center;
+}
+
+#home-header-links {
+  font-size: 16px;
 }
 
 .one,
