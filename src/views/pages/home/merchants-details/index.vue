@@ -44,67 +44,115 @@
               </div>
             </h1>
             <h2 v-if="loadinghours">Buscando horários... <spinner--c /></h2>
+
             <div class="form-group" v-if="dates">
-              <!-- SEMANAS -->
-              <div class="row">
-                <div class="col-2 cursor-pointer">
-                  <feather-icon
-                    icon="ArrowLeftCircleIcon"
-                    size="22"
-                    @click="previushours"
-                  />
+              <!-- DESKTOP -->
+              <div class="d-none d-lg-block">
+                <!-- SEMANAS -->
+                <div class="row">
+                  <div class="col-2 cursor-pointer">
+                    <feather-icon
+                      icon="ArrowLeftCircleIcon"
+                      size="22"
+                      @click="previushours"
+                    />
+                  </div>
+                  <div class="col-lg-2">
+                    <small class="d-block">{{ dates[0].ds_week }}</small>
+                    <strong>{{ dates[0].ds_date }}</strong>
+                  </div>
+                  <div class="col-lg-2">
+                    <small class="d-block">{{ dates[1].ds_week }}</small>
+                    <strong>{{ dates[1].ds_date }}</strong>
+                  </div>
+                  <div class="col-lg-2">
+                    <small class="d-block">{{ dates[2].ds_week }}</small>
+                    <strong>{{ dates[2].ds_date }}</strong>
+                  </div>
+                  <div class="col-lg-2">
+                    <small class="d-block">{{ dates[3].ds_week }}</small>
+                    <strong>{{ dates[3].ds_date }}</strong>
+                  </div>
+                  <div class="col-2 cursor-pointer">
+                    <feather-icon
+                      icon="ArrowRightCircleIcon"
+                      size="22"
+                      @click="nexthours"
+                    />
+                  </div>
                 </div>
-                <div class="col-lg-2">
-                  <small class="d-block">{{ dates[0].ds_week }}</small>
-                  <strong>{{ dates[0].ds_date }}</strong>
-                </div>
-                <div class="col-lg-2">
-                  <small class="d-block">{{ dates[1].ds_week }}</small>
-                  <strong>{{ dates[1].ds_date }}</strong>
-                </div>
-                <div class="col-lg-2">
-                  <small class="d-block">{{ dates[2].ds_week }}</small>
-                  <strong>{{ dates[2].ds_date }}</strong>
-                </div>
-                <div class="col-lg-2">
-                  <small class="d-block">{{ dates[3].ds_week }}</small>
-                  <strong>{{ dates[3].ds_date }}</strong>
-                </div>
-                <div class="col-2 cursor-pointer">
-                  <feather-icon
-                    icon="ArrowRightCircleIcon"
-                    size="22"
-                    @click="nexthours"
-                  />
+                <hr />
+
+                <!--HORARIOS -->
+                <div class="display-hours-details">
+                  <div
+                    class="row"
+                    v-for="(item, i) in qtdDisplayDates"
+                    :key="i"
+                  >
+                    <div class="col-2" />
+                    <div class="col-lg-2" @click="selectHour(0, i)">
+                      <div class="box-hour-avail">
+                        <strong>{{ gethours(0, i) }}</strong>
+                      </div>
+                    </div>
+                    <div class="col-lg-2" @click="selectHour(1, i)">
+                      <div class="box-hour-avail">
+                        <strong>{{ gethours(1, i) }}</strong>
+                      </div>
+                    </div>
+                    <div class="col-lg-2" @click="selectHour(2, i)">
+                      <div class="box-hour-avail">
+                        <strong>{{ gethours(2, i) }}</strong>
+                      </div>
+                    </div>
+                    <div class="col-lg-2" @click="selectHour(3, i)">
+                      <div class="box-hour-avail">
+                        <strong>{{ gethours(3, i) }}</strong>
+                      </div>
+                    </div>
+                    <div class="col-2" />
+                  </div>
                 </div>
               </div>
-              <hr />
 
-              <!--HORARIOS -->
-              <div class="display-hours-details">
-                <div class="row" v-for="(item, i) in qtdDisplayDates" :key="i">
-                  <div class="col-2" />
-                  <div class="col-lg-2" @click="selectHour(0, i)">
-                    <div class="box-hour-avail">
-                      <strong>{{ gethours(0, i) }}</strong>
+              <!-- MOBILE -->
+              <div class="d-block d-lg-none">
+                <!-- SEMANAS -->
+                <div class="row">
+                  <div class="col-2 cursor-pointer">
+                    <feather-icon
+                      icon="ArrowLeftCircleIcon"
+                      size="22"
+                      @click="previushoursMobile"
+                    />
+                  </div>
+                  <div class="col-8">
+                    <small class="d-block">{{ dates[0].ds_week }}</small>
+                    <strong>{{ dates[0].ds_date }}</strong>
+                  </div>
+                  <div class="col-2 cursor-pointer">
+                    <feather-icon
+                      icon="ArrowRightCircleIcon"
+                      size="22"
+                      @click="nexthoursMobile"
+                    />
+                  </div>
+                </div>
+
+                <!--HORARIOS -->
+                <div class="display-hours-details">
+                  <div
+                    class="row"
+                    v-for="(item, i) in qtdDisplayDates"
+                    :key="i"
+                  >
+                    <div class="col-4" @click="selectHour(0, i)">
+                      <div class="box-hour-avail">
+                        <strong>{{ gethours(0, i) }}</strong>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-lg-2" @click="selectHour(1, i)">
-                    <div class="box-hour-avail">
-                      <strong>{{ gethours(1, i) }}</strong>
-                    </div>
-                  </div>
-                  <div class="col-lg-2" @click="selectHour(2, i)">
-                    <div class="box-hour-avail">
-                      <strong>{{ gethours(2, i) }}</strong>
-                    </div>
-                  </div>
-                  <div class="col-lg-2" @click="selectHour(3, i)">
-                    <div class="box-hour-avail">
-                      <strong>{{ gethours(3, i) }}</strong>
-                    </div>
-                  </div>
-                  <div class="col-2" />
                 </div>
               </div>
             </div>
@@ -119,13 +167,13 @@
       <!-- Details -->
       <section
         id="section-profile-details"
-        class="mx-2 px-lg-5"
+        class="px-lg-5 pb-5"
         v-if="provider"
       >
         <div class="col-12 col-lg-7">
           <div class="row my-25" v-if="provider.experiences">
             <div class="col-12 mb-1">
-              <span class="title-details">Temas que trabalho</span>
+              <h1 class="title-details">Temas que trabalho</h1>
             </div>
             <div class="col">
               <b-badge
@@ -140,8 +188,8 @@
             </div>
           </div>
           <div class="row my-2" v-if="provider.introduction">
-            <div class="col-12">
-              <span class="title-details">Descrição</span>
+            <div class="col-12 d-block d-lg-none">
+              <h1 class="title-details">Descrição</h1>
             </div>
             <div class="col-12 text-justify text-default">
               <span>
@@ -151,7 +199,7 @@
           </div>
           <div class="row my-2" v-if="provider.expertises">
             <div class="col-12">
-              <span class="title-details">Especialidades</span>
+              <h1 class="title-details">Especialidades</h1>
             </div>
             <div class="col">
               <b-badge
@@ -167,7 +215,7 @@
           </div>
           <div class="row my-2" v-if="provider.biography">
             <div class="col-12">
-              <span class="title-details">Biografia</span>
+              <h1 class="title-details">Biografia</h1>
             </div>
             <div class="col-12 text-justify text-default">
               <span> {{ provider.biography }} </span>
@@ -175,7 +223,9 @@
           </div>
           <div class="row my-2">
             <div class="col-12">
-              <span class="title-details">Política de Remarcação</span>
+              <h1 class="title-details remark-mobile">
+                Política de Remarcação
+              </h1>
             </div>
             <div class="col-12">
               Remarcações podem ocorrer em até 24 hora(s).
@@ -326,9 +376,29 @@ export default {
         this.getProviderHours(_date);
       }
     },
+    nexthoursMobile() {
+      const _date = this.dates[1].date;
+
+      // já buscou antes
+      const _cm = this.contents.filter((f) => f.dates[0].date === _date)[0];
+      if (_cm) {
+        this.qtdDisplayDates = _cm.displayDates;
+        this.dates = _cm.dates;
+      } else {
+        this.getProviderHours(_date);
+      }
+    },
     previushours() {
       const _date = this.dates[0].date;
       const _cm = this.contents.filter((f) => f.dates[3].date === _date)[0];
+      if (_cm) {
+        this.qtdDisplayDates = _cm.displayDates;
+        this.dates = _cm.dates;
+      }
+    },
+    previushoursMobile() {
+      const _date = this.dates[0].date;
+      const _cm = this.contents.filter((f) => f.dates[1].date === _date)[0];
       if (_cm) {
         this.qtdDisplayDates = _cm.displayDates;
         this.dates = _cm.dates;
@@ -425,8 +495,8 @@ export default {
 }
 
 .divisor-hour {
-  width: 30px;
-  border: 1px solid var(--success);
+  width: 60px;
+  border: 1px solid var(--primary);
 }
 
 .fuso-required {
@@ -474,7 +544,19 @@ export default {
     text-align: center;
   }
   #section-profile-details {
-    margin-top: 220px;
+    margin-top: 100px;
+  }
+
+  .personal {
+    p {
+      font-size: 25px;
+    }
+  }
+  .remark-mobile {
+    font-size: 25px;
+  }
+  .text-default {
+    max-width: 100%;
   }
 }
 </style>

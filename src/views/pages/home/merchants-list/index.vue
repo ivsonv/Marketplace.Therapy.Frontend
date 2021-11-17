@@ -47,7 +47,9 @@
       v-if="providers"
       id="main-page"
     >
-      <h1 class="text-center" v-if="loading">buscando... <spinner--c /></h1>
+      <h1 class="text-center text-muted" v-if="loading">
+        buscando... <spinner--c />
+      </h1>
       <h1 class="text-center my-5" v-else-if="providers.length <= 0">
         Nenhum especialista encontrado
       </h1>
