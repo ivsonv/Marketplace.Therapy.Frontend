@@ -36,7 +36,7 @@
     <div class="row shadow py-1">
       <div class="col-12 text-center">
         <strong>
-          CLIQUE TERAPIA © {{ new Date().getFullYear() }}
+          Copyright © {{ new Date().getFullYear() }}
           <span class="d-none d-sm-inline-block">
             Todos os direitos reservados</span
           >

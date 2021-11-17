@@ -1,8 +1,10 @@
 <template>
   <p class="clearfix mb-0">
     <span class="float-md-left d-block d-md-inline-block mt-25">
-      C.T © {{ new Date().getFullYear() }}
-      <span class="d-none d-sm-inline-block"> - Clique Terapia</span>
+      Copyright © {{ new Date().getFullYear() }}
+      <span class="d-none d-sm-inline-block">
+        - Todos os direitos reservados</span
+      >
     </span>
   </p>
 </template>

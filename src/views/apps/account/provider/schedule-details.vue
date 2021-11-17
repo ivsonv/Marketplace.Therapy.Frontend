@@ -30,7 +30,7 @@
 
       <!-- ações -->
       <hr />
-      <div class="row">
+      <div class="row" v-if="appointment">
         <div class="col-12">
           <b-button variant="info" size="sm" @click="goInitConference">
             <!-- VideoOffIcon -->
@@ -39,7 +39,13 @@
               Inicia video
             </p>
           </b-button>
-          <b-button variant="danger" size="sm" class="ml-1" @click="goCancel">
+          <b-button
+            v-if="appointment.dsStatus === 'confirmed'"
+            variant="danger"
+            size="sm"
+            class="ml-1"
+            @click="goCancel"
+          >
             <!-- VideoOffIcon -->
             <feather-icon icon="XIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">Cancelar</p>
