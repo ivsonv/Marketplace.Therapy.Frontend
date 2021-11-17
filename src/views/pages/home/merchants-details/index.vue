@@ -53,7 +53,7 @@
                   <div class="col-2 cursor-pointer">
                     <feather-icon
                       icon="ArrowLeftCircleIcon"
-                      size="22"
+                      size="40"
                       @click="previushours"
                     />
                   </div>
@@ -76,7 +76,7 @@
                   <div class="col-2 cursor-pointer">
                     <feather-icon
                       icon="ArrowRightCircleIcon"
-                      size="22"
+                      size="40"
                       @click="nexthours"
                     />
                   </div>
@@ -123,7 +123,7 @@
                   <div class="col-2 cursor-pointer">
                     <feather-icon
                       icon="ArrowLeftCircleIcon"
-                      size="22"
+                      size="30"
                       @click="previushoursMobile"
                     />
                   </div>
@@ -134,7 +134,7 @@
                   <div class="col-2 cursor-pointer">
                     <feather-icon
                       icon="ArrowRightCircleIcon"
-                      size="22"
+                      size="30"
                       @click="nexthoursMobile"
                     />
                   </div>
