@@ -15,5 +15,8 @@ export default {
   },
   invoice: (id) => {
     return _http.get(`/api/dashboard/appointment/${id}/invoice`)
+  },
+  overview: () => {
+    return _http.get(`/api/dashboard/overview`)
   }
 }

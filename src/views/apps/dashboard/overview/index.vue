@@ -1,131 +1,187 @@
 <template>
-  <viewcard--c title="Visão Geral (EM CONSTRUÇÃO)">
-    <!-- <b-row class="mb-1 d-flex justify-content-start">
-      <b-col md="3">
-        <b-form-group label="Cadastro Completo">
-          <v-select
-            v-model="situationsCompletedSelected"
-            :options="situationsCompleted"
-            autocomplete="off"
-            :clearable="false"
-          />
-        </b-form-group>
+  <section id="dashboard-ecommerce">
+    <h1 v-if="loading">carregando...<spinner--c /></h1>
+    <b-row v-else class="match-height">
+      <b-col cols="12" lg="7">
+        <b-card v-if="lst" no-body class="card-company-table">
+          <b-table
+            :items="lst"
+            :fields="fields"
+            responsive
+            class="mb-0"
+          ></b-table>
+        </b-card>
       </b-col>
-      <b-col md="3">
-        <b-form-group label="Situação Split">
-          <v-select
-            v-model="situationsSplitSelected"
-            :options="situationsSplit"
-            autocomplete="off"
-            :clearable="false"
-          />
-        </b-form-group>
+      <b-col cols="12" md="6" lg="5">
+        <b-card no-body class="card-statistics">
+          <b-card-header>
+            <b-card-title>Visão Geral</b-card-title>
+            <b-card-text class="mr-25 mb-0 text-uppercase"></b-card-text>
+          </b-card-header>
+
+          <b-card-body class="statistics-body">
+            <b-row>
+              <b-col
+                v-for="(item, i) in lstcc"
+                :key="i"
+                cols="6"
+                :class="item.customClass"
+              >
+                <b-media no-body>
+                  <b-media-aside class="mr-2">
+                    <b-avatar size="48" :variant="item.color">
+                      <feather-icon size="24" :icon="item.icon" />
+                    </b-avatar>
+                  </b-media-aside>
+                  <b-media-body class="my-auto">
+                    <h4 class="font-weight-bolder mb-0">
+                      {{ item.title }}
+                    </h4>
+                    <b-card-text class="font-small-3 mb-0">
+                      {{ item.subtitle }}
+                    </b-card-text>
+                  </b-media-body>
+                </b-media>
+              </b-col>
+            </b-row>
+          </b-card-body>
+        </b-card>
       </b-col>
-      <b-col md="6">
-        <b-form-group label="-">
-          <b-input-group>
-            <b-form-input
-              placeholder="pesquise por nome, email cpf/cnpj..."
-              autocomplete="off"
-              v-model="search"
-            />
-            <b-input-group-append>
-              <b-button variant="gradient-info" @click="filter">
-                Pesquisar
-              </b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    </b-row> -->
-  </viewcard--c>
+    </b-row>
+  </section>
 </template>
 
 <script>
-import _providerService from "@/services/providers-service";
+import _dashboardService from "@/services/dashboard-service";
+import {
+  BCard,
+  BCardHeader,
+  BCardTitle,
+  BCardText,
+  BCardBody,
+  BRow,
+  BCol,
+  BMedia,
+  BMediaAside,
+  BAvatar,
+  BMediaBody,
+} from "bootstrap-vue";
+
 export default {
+  components: {
+    BRow,
+    BCol,
+    BCard,
+    BCardHeader,
+    BCardTitle,
+    BCardText,
+    BCardBody,
+    BMedia,
+    BAvatar,
+    BMediaAside,
+    BMediaBody,
+  },
   data() {
     return {
-      btnew: {
-        permission: "provider.create",
-        to: "/registrations/provider/0",
-      },
-      isloading: false,
-      currentePage: 1,
-      search: null,
-      more: false,
-      size: 20,
-      fields: [
-        { key: "fantasy_name", label: "Nome" },
-        { key: "email", label: "E-mail" },
-        { key: "cnpj", label: "CPF/CNPJ" },
-        { key: "completed", label: "Completo" },
-        { key: "split", label: "Split" },
-        { key: "actions", label: "Ações" },
+      loading: false,
+      lstcc: [
+        {
+          icon: "UserIcon",
+          customClass: "mb-2 mb-xl-0",
+          color: "light-primary",
+          title: "150",
+          subtitle: "Clientes",
+        },
+        {
+          icon: "UserIcon",
+          customClass: "mb-2 mb-xl-0",
+          color: "light-info",
+          title: "150",
+          subtitle: "Psicólogos",
+        },
       ],
-      list: [],
-      situationsSplit: [],
-      situationsSplitSelected: null,
-      situationsCompleted: [],
-      situationsCompletedSelected: null,
+      lst: [],
+      fields: [
+        { key: "mes", label: "Mês" },
+        { key: "price_sales", label: "Vendas" },
+        { key: "price_sales_revenue", label: "Comissão" },
+        { key: "total_appointment", label: "Atendimentos" },
+        { key: "total_appointment_canceled", label: "Atend. Cancelados" },
+      ],
     };
   },
   created() {
-    this.situationsSplit = [
-      { label: "Todos", value: "-1" },
-      { label: "Com Split", value: "1" },
-      { label: "Sem Split", value: "2" },
-    ];
-    this.situationsSplitSelected = { label: "Todos", value: "-1" };
-
-    this.situationsCompleted = [
-      { label: "Todos", value: "-1" },
-      { label: "Completos", value: "1" },
-      { label: "Incompletos", value: "2" },
-    ];
-    this.situationsCompletedSelected = { label: "Todos", value: "-1" };
-  },
-  mounted() {
-    //this.getRecords(this.currentePage);
+    this.getoverview();
   },
   methods: {
-    getRecords(_page) {
-      const _search = `${this.search}
-      |${
-        this.situationsSplitSelected ? this.situationsSplitSelected.value : "-1"
-      }
-      |${
-        this.situationsCompletedSelected
-          ? this.situationsCompletedSelected.value
-          : "-1"
-      }`;
+    getoverview() {
+      this.loading = true;
+      _dashboardService
+        .overview()
+        .then((_res) => {
+          this.lst = _res.content;
 
-      this.isloading = true;
-      _providerService
-        .show(_page, _search)
-        .then((res) => {
-          if (res.content) {
-            this.more = res.content.provider.length >= this.size;
-            this.list.push(...res.content.provider);
-            this.currentePage = _page;
-          }
+          // _res.content.forEach((fe) => {
+          //   let item = {
+          //     mes: fe.mes,
+          //     data: [],
+          //   };
+
+          //   // faturamento total
+          //   item.data.push({
+          //     icon: "TrendingUpIcon",
+          //     color: "light-info",
+          //     title: fe.price_sales,
+          //     subtitle: "Vendas",
+          //     customClass: "mb-2 mb-xl-0",
+          //   });
+
+          //   // Comissão
+          //   item.data.push({
+          //     icon: "DollarSignIcon",
+          //     color: "light-success",
+          //     title: fe.price_sales_revenue,
+          //     subtitle: "Comissão",
+          //     customClass: "",
+          //   });
+
+          //   // Atendimentos
+          //   item.data.push({
+          //     icon: "ShoppingBagIcon",
+          //     color: "light-primary",
+          //     title: fe.total_appointment,
+          //     subtitle: "Atendimentos",
+          //     customClass: "mb-2 mb-xl-0",
+          //   });
+
+          //   // Atendimentos cancelados
+          //   item.data.push({
+          //     icon: "ShoppingBagIcon",
+          //     color: "light-danger",
+          //     title: fe.total_appointment_canceled,
+          //     subtitle: "Cancelados",
+          //     customClass: "mb-2 mb-xl-0",
+          //   });
+
+          //   this.lst.push(item);
+          // });
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
-        .finally(() => (this.isloading = false));
-    },
-    getLoadMore() {
-      this.getRecords(this.currentePage + 1);
-    },
-    filter() {
-      this.currentePage = 1;
-      this.list = [];
-      this.getRecords(this.currentePage);
-    },
-    onClickSelected(record, _) {
-      this.$router.push({
-        path: `/registrations/provider/${record.id}`,
-      });
+        .finally(() => (this.loading = false));
     },
   },
 };
 </script>
+
+<style lang="scss">
+@import "@core/scss/vue/pages/dashboard-ecommerce.scss";
+@import "@core/scss/vue/libs/chart-apex.scss";
+@import "~@core/scss/base/bootstrap-extended/include";
+@import "~@core/scss/base/components/variables-dark";
+
+.card-company-table ::v-deep td .b-avatar.badge-light-company {
+  .dark-layout & {
+    background: $theme-dark-body-bg !important;
+  }
+}
+</style>
