@@ -2,10 +2,12 @@
   <div class="container" id="main-page">
     <section class="home-start-psi">
       <div id="home-start-section">
-        <h1 class="mb-1">Psicólogos a qualquer hora, em qualquer lugar.</h1>
+        <h1 class="mb-1">
+          Atendimento psicológico a qualquer hora, em qualquer lugar.
+        </h1>
         <strong class="mb-1"
-          >Agende uma consulta online de qualquer dispositivo no conforto da sua
-          casa ou onde estiver.</strong
+          >Agende uma consulta on-line por meio de qualquer dispositivo no
+          conforto da sua casa ou de onde estiver.</strong
         >
         <b-button
           variant="primary"
@@ -13,7 +15,7 @@
           class="home-start-comece-agora-bt"
           size="lg"
         >
-          Comece Agora
+          Comece agora!
         </b-button>
       </div>
       <div id="home-start-section-img">
@@ -39,7 +41,7 @@
           <h1>1 - Nós te ajudamos a encontrar um psicólogo online.</h1>
           <p class="text-justify">
             Escolha entre os profissionais cadastrados e certificados, o que
-            mais se identifique com seu perfil.
+            mais se identifica com seu perfil.
           </p>
           <img
             id="seta-1"
@@ -64,8 +66,8 @@
         </div>
         <div class="passo order-1 order-md-2">
           <h1>
-            2 - Selecione a data e horário desejado, realize o pagamento de sua
-            preferência e pronto. <br />Horário confirmado!
+            2 - Selecione a data e horário desejado, de acordo com sua
+            disponibilidade.
           </h1>
           <p class="text-justify"></p>
           <img
@@ -79,10 +81,14 @@
       <div class="box-passo align-items-center">
         <div class="passo">
           <h1>
-            3 - Agora é hora de aproveitar o seu horário agendado, fazer sua
-            terapia online e cuidar de você!
+            3 - Efetue o pagamento da forma que preferir e pronto. Consulta
+            confirmada!
           </h1>
-          <strong class="text-justify"></strong>
+          <p class="text-justify">
+            Sigilo, segurança, profissionais autorizados pelo conselho e
+            conforto. Venha conhecer o atendimento online, Você pode e merece
+            cuidar de você.
+          </p>
         </div>
         <div>
           <img
@@ -94,15 +100,15 @@
     </section>
     <section class="home-start-comece-agora pb-5">
       <div class="box-comece-agora">
-        <h1 class="mb-1">Comece agora mesmo a cuidar de você!</h1>
+        <h1 class="mb-1">O mais importante para nós é cuidar de você.</h1>
         <p id="comece-text">
           <b
-            >Agende uma consulta online de qualquer dispositivo no conforto da
-            sua casa ou onde estiver.</b
+            >Facilita o acesso, tanto pelos horários, como pela comodidade de
+            poder fazer de onde estiver. Sigilo garantido!</b
           >
         </p>
         <b-button :to="{ name: 'merchants-view' }" variant="primary" size="lg">
-          Buscar Profissionais
+          Buscar Psicólogos
         </b-button>
       </div>
     </section>
@@ -147,7 +153,7 @@ export default {
   font-weight: 600;
   margin-top: 20%;
   min-width: 850px;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 #home-start-section strong {
@@ -218,7 +224,7 @@ export default {
 }
 
 #comece-text {
-  max-width: 55%;
+  max-width: 100%;
   text-align: justify;
 }
 
