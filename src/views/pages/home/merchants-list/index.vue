@@ -22,10 +22,13 @@
                 <b-input-group>
                   <b-form-input
                     placeholder="especialidade, motivo ou nome..."
+                    v-model="filter.search"
                     autocomplete="off"
                   />
                   <b-input-group-append class="d-none d-lg-block rounded">
-                    <b-button variant="primary"> Pesquisar </b-button>
+                    <b-button variant="primary" @click="search">
+                      Pesquisar
+                    </b-button>
                   </b-input-group-append>
                   <b-input-group-append class="d-block d-lg-none">
                     <b-button variant="primary">
@@ -99,6 +102,14 @@
           </div>
         </div>
       </div>
+
+      <div class="row my-2" v-if="isVisibleLoadMore">
+        <div class="col-12 d-flex justify-content-center">
+          <b-button @click="loadmore" variant="primary" pill size="lg">
+            Mostrar mais
+          </b-button>
+        </div>
+      </div>
     </section>
 
     <footer--v v-if="providers.length > 0" class="shadow" />
@@ -117,12 +128,16 @@ export default {
   data() {
     return {
       loading: false,
+      isVisibleLoadMore: false,
       page: 0,
       experienceSelected: null,
       experiences: [],
       languageSelected: null,
       languages: [],
       providers: [],
+      filter: {
+        search: "",
+      },
     };
   },
   destroyed() {
@@ -153,12 +168,20 @@ export default {
     },
     getProviders() {
       this.loading = true;
-      const payload = { data: null };
+      const payload = {
+        data: {
+          name: this.filter.search,
+        },
+        pagination: {
+          page: this.page,
+        },
+      };
 
       _ecommerce
         .showProviders(payload)
         .then((_res) => {
-          this.providers = _res.content;
+          this.isVisibleLoadMore = _res.content.length >= 10;
+          this.providers.push(..._res.content);
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
@@ -169,8 +192,13 @@ export default {
         params: { link: _dto.link },
       });
     },
-    filter() {
+    search() {
       this.page = 0;
+      this.providers = [];
+      this.getProviders();
+    },
+    loadmore() {
+      this.page += 1;
       this.getProviders();
     },
   },
