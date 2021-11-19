@@ -8,7 +8,10 @@
             variant="transparent"
             :to="{ name: 'home-view' }"
           >
-            <img :src="require('@/assets/images/logo/logo4.png')" />
+            <img :src="require('@/assets/images/logo/logo.png')" />
+            <strong class="mx-1" style="color: #000; font-size: 18px"
+              >Clique Terapia</strong
+            >
           </b-button>
           <div id="home-header-links">
             <b-link
@@ -46,7 +49,15 @@
             variant="transparent"
             :to="{ name: 'home-view' }"
           >
-            <img :src="require('@/assets/images/logo/logo4.png')" />
+            <div>
+              <img
+                style="width: 60px"
+                :src="require('@/assets/images/logo/logo.png')"
+              />
+              <strong class="mx-1" style="color: #000; font-size: 18px"
+                >Clique Terapia</strong
+              >
+            </div>
           </b-button>
           <div class="home-header-customer">
             <div class="menu-section">
@@ -56,10 +67,15 @@
                 <div class="three"></div>
               </div>
               <nav v-if="!show">
-                <img
-                  id="home-header-nav-img"
-                  :src="require('@/assets/images/logo/logo10.png')"
-                />
+                <div id="home-header-nav-img">
+                  <img
+                    style="width: 60px"
+                    :src="require('@/assets/images/logo/logo12.png')"
+                  />
+                  <strong class="ml-1 text-white" style="font-size: 20px"
+                    >Clique Terapia</strong
+                  >
+                </div>
                 <b-link
                   :to="{ name: 'merchants-view' }"
                   class="b-link-destaque mb-2 text-center"
@@ -114,7 +130,7 @@ export default {
       this.show = !this.show;
     },
     onclickMenu() {
-      document.body.style.overflow = "initial";
+      document.body.style.overflow = "inherit";
       this.show = !this.show;
     },
   },
@@ -133,7 +149,7 @@ export default {
 }
 
 #header-logo img {
-  width: 250px;
+  width: 60px;
 }
 
 #home-header-nav-img {
@@ -143,6 +159,7 @@ export default {
   right: 0;
   margin-top: 25px;
   margin-left: 25px;
+  z-index: -999;
 }
 
 .b-link-destaque {

@@ -6,8 +6,9 @@
           Atendimento psicológico a qualquer hora, em qualquer lugar.
         </h1>
         <strong class="mb-1"
-          >Agende uma consulta on-line por meio de qualquer dispositivo no
-          conforto da sua casa ou de onde estiver.</strong
+          >Agende uma consulta online por meio de qualquer dispositivo no
+          conforto da sua casa, ou de onde estiver com total sigilo e
+          segurança.</strong
         >
         <b-button
           variant="primary"
@@ -33,15 +34,15 @@
       <img width="150" :src="require('@/assets/images/logo/logo.gif')" />
     </section>
     <section class="home-start-como-funciona mb-5">
-      <h1 class="text-center mb-5">Agende sua consulta em apenas 3 passos.</h1>
+      <h1 class="text-center mb-5">Agende sua consulta em apenas 3 passos:</h1>
 
       <!-- PASSO 1 -->
       <div class="box-passo mb-5">
         <div class="passo">
           <h1>1 - Nós te ajudamos a encontrar um psicólogo online.</h1>
           <p class="text-justify">
-            Escolha entre os profissionais cadastrados e certificados, o que
-            mais se identifica com seu perfil.
+            Escolha o psicólogo que mais se identifica com o seu perfil. Nossos
+            profissionais são devidamente cadastrados e certificados.
           </p>
           <img
             id="seta-1"
@@ -66,7 +67,7 @@
         </div>
         <div class="passo order-1 order-md-2">
           <h1>
-            2 - Selecione a data e horário desejado, de acordo com sua
+            2 - Selecione a data e o horário desejado, de acordo com sua
             disponibilidade.
           </h1>
           <p class="text-justify"></p>
@@ -81,7 +82,7 @@
       <div class="box-passo align-items-center">
         <div class="passo">
           <h1>
-            3 - Efetue o pagamento da forma que preferir e pronto. Consulta
+            3 - Efetue o pagamento da forma que preferir…. e pronto! Consulta
             confirmada!
           </h1>
           <p class="text-justify">
@@ -103,8 +104,8 @@
         <h1 class="mb-1">O mais importante para nós é cuidar de você.</h1>
         <p id="comece-text">
           <b
-            >Facilita o acesso, tanto pelos horários, como pela comodidade de
-            poder fazer de onde estiver. Sigilo garantido!</b
+            >Cuidar da sua saúde mental pode transformar todo o seu caminho e
+            mudar sua vida.</b
           >
         </p>
         <b-button :to="{ name: 'merchants-view' }" variant="primary" size="lg">
@@ -157,7 +158,7 @@ export default {
 }
 
 #home-start-section strong {
-  width: 380px;
+  width: 465px;
   color: var(--purple);
   font-weight: 400;
 }
