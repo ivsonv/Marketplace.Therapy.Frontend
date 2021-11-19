@@ -4,131 +4,59 @@
       <h4 class="alert-heading">Erro ao Consultar Recibo</h4>
       <div class="alert-body">Não foi encontrado o recibo.</div>
     </b-alert>
-
     <b-row v-if="appointment" class="invoice-preview">
       <b-col cols="12" xl="9" md="8">
-        <b-card no-body class="invoice-preview-card">
-          <div
-            class="
-              d-flex
-              justify-content-between
-              flex-md-row flex-column
-              invoice-spacing
-              m-2
-            "
-          >
-            <div>
-              <div class="logo-wrapper m-0">
-                <h3 class="text-secondary invoice-logo mx-0 text-secondary">
-                  {{ appointment.customer.name }}
-                </h3>
-              </div>
-              <p class="card-text p-0 m-0 text-secondary">
-                <span class="font-weight-bold d-block"
-                  >Serviços de atendimento em psicoterapia</span
-                >
-                <strong>
-                  {{
-                    appointment.customer.cpf.replace(
-                      /^(\d{3})(\d{3})(\d{3})(\d{2})/,
-                      "$1.$2.$3-$4"
-                    )
-                  }}
-                  {{ appointment.customer.cnpj }}</strong
-                >
-                <small class="text-muted">| PACIENTE</small>
-              </p>
-              <p class="card-text mb-25 text-secondary">
-                <span class="font-weight-bold">Data da Consulta:</span>
-                <br />
-                <span class=""
-                  >{{ appointment.start }} ás
-                  {{ appointment.hour.substring(0, 5) }}h</span
-                >
-              </p>
-            </div>
-            <div class="mt-md-0 mt-2">
-              <h4 class="invoice-title m-0 mb-75">Detalhes Pagamento</h4>
-              <table width="100%">
-                <tbody>
-                  <tr>
-                    <td class="pr-1">Total:</td>
-                    <td class="text-right">
-                      <span class="font-weight-bold"
-                        >R$ {{ appointment.price.toFixed(2) }}</span
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <b-card no-body class="invoice-preview-card py-5">
+          <h1 class="text-center mb-3">Recibo</h1>
+          <b-col cols="12">
+            Recebi de {{ appointment.customer.name }}, CPF:
+            {{
+              appointment.customer.cpf.replace(
+                /^(\d{3})(\d{3})(\d{3})(\d{2})/,
+                "$1.$2.$3-$4"
+              )
+            }}, O VALOR DE R$ {{ appointment.price.toFixed(2) }}, correspondente
+            ao pagamento de <br />atendimento psicologico, realizado nesta data.
+          </b-col>
 
-          <!-- Provider -->
-          <hr class="invoice-spacing m-0 p-0" />
-          <b-row class="invoice-spacing m-2">
-            <b-col cols="12" xl="6" class="p-0">
-              <h3 class="mb-25">
-                {{ appointment.provider.receipts[0].fantasy_name }}
-              </h3>
-              <p class="card-text mb-25 text-secondary">
-                <strong
-                  class="d-block"
-                  v-if="appointment.provider.receipts[0].cnpj"
-                  >CNPJ
-                  {{
-                    appointment.provider.receipts[0].cnpj.replace(
-                      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                      "$1.$2.$3/$4-$5"
-                    )
-                  }}
-                </strong>
-                <strong
-                  class="d-block"
-                  v-if="appointment.provider.receipts[0].cpf"
-                  >CPF
-                  {{
-                    appointment.provider.receipts[0].cpf.replace(
-                      /^(\d{3})(\d{3})(\d{3})(\d{2})/,
-                      "$1.$2.$3-$4"
-                    )
-                  }}
-                </strong>
-              </p>
-              <p class="card-text mb-25 text-secondary">
-                <strong v-if="appointment.provider.crp"
-                  >CRP {{ appointment.provider.crp }}
-                </strong>
-                <small v-else class="text-muted"> | ... </small>
-              </p>
-            </b-col>
-            <b-col
-              xl="6"
-              cols="12"
-              class="p-0 mt-xl-0 mt-2 d-flex justify-content-xl-end"
-            >
-              <div>
-                <h4 class="invoice-title">
-                  Recibo
-                  <span class="invoice-number">#{{ appointment.id }}</span>
-                </h4>
-              </div>
-            </b-col>
-          </b-row>
+          <b-col cols="12 mt-5">
+            Data {{ appointment.start }} ás
+            {{ appointment.hour.substring(0, 5) }}h
+          </b-col>
+          <b-col cols="12 my-0">
+            <img
+              style="width: 300px; height: 200px"
+              :src="appointment.provider.receipts[0].signature"
+            />
+          </b-col>
+          <b-col cols="12"> Assinatura </b-col>
+          <b-col cols="12">
+            <strong class="d-block">{{
+              appointment.provider.receipts[0].fantasy_name
+            }}</strong>
+            <strong class="d-block"
+              >CPF ou CNPJ:
+              <span v-if="appointment.provider.receipts[0].cnpj">{{
+                appointment.provider.receipts[0].cnpj.replace(
+                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+                  "$1.$2.$3/$4-$5"
+                )
+              }}</span>
 
-          <!-- Spacer -->
-          <b-card class="invoice-padding pt-0">
-            <div class="text-center">
-              <img
-                style="width: 300px; height: 200px"
-                :src="appointment.provider.receipts[0].signature"
-              />
-            </div>
-            <hr class="my-50" />
-            <div class="text-center">
-              <strong>{{ appointment.provider.receipts[0].address }}</strong>
-            </div>
-          </b-card>
+              <span v-if="appointment.provider.receipts[0].cpf">
+                {{
+                  appointment.provider.receipts[0].cpf.replace(
+                    /^(\d{3})(\d{3})(\d{3})(\d{2})/,
+                    "$1.$2.$3-$4"
+                  )
+                }}
+              </span>
+            </strong>
+            <strong class="d-block">CRP: {{ appointment.provider.crp }}</strong>
+            <strong class="d-block">{{
+              appointment.provider.receipts[0].address
+            }}</strong>
+          </b-col>
         </b-card>
       </b-col>
 

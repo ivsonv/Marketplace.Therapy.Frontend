@@ -123,18 +123,23 @@
                   <div class="col-2 cursor-pointer">
                     <feather-icon
                       icon="ArrowLeftCircleIcon"
-                      size="30"
+                      class="ml-2"
+                      size="40"
                       @click="previushoursMobile"
                     />
                   </div>
-                  <div class="col-8">
-                    <small class="d-block">{{ dates[0].ds_week }}</small>
-                    <strong>{{ dates[0].ds_date }}</strong>
+                  <div class="col-7">
+                    <small style="font-size: 20px" class="d-block">{{
+                      dates[0].ds_week
+                    }}</small>
+                    <strong style="font-size: 16px">{{
+                      dates[0].ds_date
+                    }}</strong>
                   </div>
-                  <div class="col-2 cursor-pointer">
+                  <div class="col-2 cursor-pointer mr-1">
                     <feather-icon
                       icon="ArrowRightCircleIcon"
-                      size="30"
+                      size="40"
                       @click="nexthoursMobile"
                     />
                   </div>
@@ -143,12 +148,15 @@
                 <!--HORARIOS -->
                 <div class="display-hours-details">
                   <div
-                    class="row"
-                    v-for="(item, i) in qtdDisplayDates"
-                    :key="i"
+                    class="row mt-1"
+                    style="margin-left: 0px; margin-right: 0px"
                   >
-                    <div class="col-4" @click="selectHour(0, i)">
-                      <div class="box-hour-avail">
+                    <div
+                      class="col-6"
+                      v-for="(item, i) in qtdDisplayDates"
+                      :key="i"
+                    >
+                      <div class="box-hour-avail" @click="selectHour(0, i)">
                         <strong>{{ gethours(0, i) }}</strong>
                       </div>
                     </div>
@@ -171,22 +179,6 @@
         v-if="provider"
       >
         <div class="col-12 col-lg-7">
-          <div class="row my-25" v-if="provider.experiences">
-            <div class="col-12 mb-1">
-              <h1 class="title-details">Temas que trabalho</h1>
-            </div>
-            <div class="col">
-              <b-badge
-                v-for="(exper, iexper) in provider.experiences"
-                variant="danger"
-                :key="iexper"
-                class="bagde-expertises"
-                pill
-              >
-                {{ exper.name }}
-              </b-badge>
-            </div>
-          </div>
           <div class="row my-2" v-if="provider.introduction">
             <div class="col-12 d-block d-lg-none">
               <h1 class="title-details">Descrição</h1>
@@ -197,20 +189,34 @@
               </span>
             </div>
           </div>
+          <div class="row my-25" v-if="provider.experiences">
+            <div class="col-12 mb-1">
+              <h1 class="title-details">Experiência</h1>
+            </div>
+            <div class="col">
+              <ul class="m-0">
+                <li
+                  v-for="(exper, iexper) in provider.experiences"
+                  :key="'exp-' + iexper"
+                >
+                  {{ exper.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
           <div class="row my-2" v-if="provider.expertises">
             <div class="col-12">
               <h1 class="title-details">Especialidades</h1>
             </div>
             <div class="col">
-              <b-badge
-                v-for="(_exp, _iexp) in provider.expertises"
-                class="bagde-expertises"
-                variant="danger"
-                :key="_iexp"
-                pill
-              >
-                {{ _exp.name }}
-              </b-badge>
+              <ul class="m-0">
+                <li
+                  v-for="(_exp, _iexp) in provider.expertises"
+                  :key="'esp-' + _iexp"
+                >
+                  {{ _exp.name }}
+                </li>
+              </ul>
             </div>
           </div>
           <div class="row my-2" v-if="provider.biography">

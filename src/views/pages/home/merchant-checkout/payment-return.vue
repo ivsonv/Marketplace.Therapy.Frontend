@@ -30,12 +30,28 @@ export default {
       _paymentService
         .consult(payload)
         .then((res) => {
-          this.$router.push({
-            name: `sou-paciente-appointments`,
-          });
+          this.$swal({
+            title: "Pagamento Confirmado!",
+            text: "Você sera redirecionado para a sua conta.",
+            icon: "success",
+            confirmButtonText: "OK",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+            buttonsStyling: false,
+          })
+            .then(() => {
+              this.paymentRedirect();
+            })
+            .finally(() => this.paymentRedirect());
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
+    },
+    paymentRedirect() {
+      this.$router.push({
+        name: `sou-paciente-appointments`,
+      });
     },
   },
 };

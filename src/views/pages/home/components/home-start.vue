@@ -7,7 +7,7 @@
         </h1>
         <strong class="mb-1"
           >Agende uma consulta online por meio de qualquer dispositivo no
-          conforto da sua casa, ou de onde estiver com total sigilo e
+          conforto da sua casa ou de onde estiver, com total sigilo e
           segurança.</strong
         >
         <b-button
@@ -39,11 +39,11 @@
       <!-- PASSO 1 -->
       <div class="box-passo mb-5">
         <div class="passo">
-          <h1>1 - Nós te ajudamos a encontrar um psicólogo online.</h1>
-          <p class="text-justify">
-            Escolha o psicólogo que mais se identifica com o seu perfil. Nossos
-            profissionais são devidamente cadastrados e certificados.
-          </p>
+          <h1>
+            1 - Escolha o psicólogo que mais se identifica com o seu perfil.
+            Nossos profissionais são devidamente cadastrados e certificados.
+          </h1>
+          <p class="text-justify"></p>
           <img
             id="seta-1"
             :src="require('@/assets/images/home/passo-seta-1.png')"
@@ -85,10 +85,7 @@
             3 - Efetue o pagamento da forma que preferir…. e pronto! Consulta
             confirmada!
           </h1>
-          <p class="text-justify">
-            Venha conhecer o atendimento online, Você pode e merece cuidar de
-            você.
-          </p>
+          <p class="text-justify"></p>
         </div>
         <div>
           <img
@@ -100,16 +97,22 @@
     </section>
     <section class="home-start-comece-agora pb-5">
       <div class="box-comece-agora">
-        <h1 class="mb-1">O mais importante para nós é cuidar de você.</h1>
-        <p id="comece-text">
-          <b
-            >Cuidar da sua saúde mental pode transformar todo o seu caminho e
-            mudar sua vida.</b
-          >
-        </p>
-        <b-button :to="{ name: 'merchants-view' }" variant="primary" size="lg">
+        <h1 class="mb-2">O mais importante para nós é cuidar de você.</h1>
+        <b-button
+          class="mb-2"
+          :to="{ name: 'merchants-view' }"
+          variant="primary"
+          size="lg"
+        >
           Buscar Psicólogos
         </b-button>
+        <p id="comece-text" class="mb-2">
+          <b
+            >Cuidar da saúde mental, sempre foi importante, mas agora, devido a
+            pandemia, crucial. Relações sofreram mudanças, rotinas foram
+            alteradas, sentimentos e emoções impactadas. Busque ajuda!</b
+          >
+        </p>
       </div>
     </section>
   </div>
@@ -224,7 +227,7 @@ export default {
 }
 
 #comece-text {
-  max-width: 100%;
+  max-width: 60%;
   text-align: justify;
 }
 
@@ -335,6 +338,10 @@ export default {
   .home-start-section-indicate {
     content-visibility: hidden;
     display: none;
+  }
+
+  #comece-text {
+    max-width: 100%;
   }
 }
 </style>
