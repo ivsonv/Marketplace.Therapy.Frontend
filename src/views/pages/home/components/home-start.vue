@@ -97,7 +97,15 @@
     </section>
     <section class="home-start-comece-agora pb-5">
       <div class="box-comece-agora">
-        <h1 class="mb-2">O mais importante para nós é cuidar de você.</h1>
+        <h1 class="mb-2" id="h1-mobile">
+          O mais importante para nós é cuidar de você.
+        </h1>
+        <p id="comece-text" class="text-uppercase">
+          <b
+            >Cuidar da sua saúde mental pode transformar todo o seu caminho e
+            mudar sua vida.</b
+          >
+        </p>
         <b-button
           class="mb-2"
           :to="{ name: 'merchants-view' }"
@@ -106,7 +114,7 @@
         >
           Buscar Psicólogos
         </b-button>
-        <p id="comece-text" class="mb-2">
+        <p id="comece-text-sub" class="mb-2 text-uppercase">
           <b
             >Cuidar da saúde mental, sempre foi importante, mas agora, devido a
             pandemia, crucial. Relações sofreram mudanças, rotinas foram
@@ -227,6 +235,11 @@ export default {
 }
 
 #comece-text {
+  max-width: 100%;
+  text-align: justify;
+}
+
+#comece-text-sub {
   max-width: 60%;
   text-align: justify;
 }
@@ -268,7 +281,7 @@ export default {
     margin-top: 5vh;
   }
   #comece-text {
-    max-width: 95%;
+    max-width: 100%;
   }
   .box-comece-agora h1 {
     font-size: 2.1rem;
@@ -340,8 +353,13 @@ export default {
     display: none;
   }
 
-  #comece-text {
+  #comece-text-sub {
     max-width: 100%;
+  }
+
+  #h1-mobile {
+    margin-left: -8%;
+    margin-right: -4%;
   }
 }
 </style>
