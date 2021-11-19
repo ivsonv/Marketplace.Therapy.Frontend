@@ -86,9 +86,8 @@
             confirmada!
           </h1>
           <p class="text-justify">
-            Sigilo, segurança, profissionais autorizados pelo conselho e
-            conforto. Venha conhecer o atendimento online, Você pode e merece
-            cuidar de você.
+            Venha conhecer o atendimento online, Você pode e merece cuidar de
+            você.
           </p>
         </div>
         <div>
