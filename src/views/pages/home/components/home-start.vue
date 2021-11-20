@@ -34,7 +34,10 @@
       <img width="150" :src="require('@/assets/images/logo/logo.gif')" />
     </section>
     <section class="home-start-como-funciona mb-5">
-      <h1 class="text-center mb-5">Agende sua consulta em apenas 3 passos:</h1>
+      <h1 class="text-center mb-5">
+        Agende sua consulta em apenas
+        <span class="d-block d-lg-inline"> 3 passos:</span>
+      </h1>
 
       <!-- PASSO 1 -->
       <div class="box-passo mb-5">
@@ -98,27 +101,28 @@
     <section class="home-start-comece-agora pb-5">
       <div class="box-comece-agora">
         <h1 class="mb-2" id="h1-mobile">
-          O mais importante para nós é cuidar de você.
+          O mais importante para nós é cuidar de você!
         </h1>
-        <p id="comece-text" class="text-uppercase">
+        <!-- <p id="comece-text" class="text-uppercase">
           <b
             >Cuidar da sua saúde mental pode transformar todo o seu caminho e
             mudar sua vida.</b
           >
-        </p>
+        </p> -->
         <b-button
-          class="mb-2"
+          class="my-3"
           :to="{ name: 'merchants-view' }"
           variant="primary"
           size="lg"
         >
-          Buscar Psicólogos
+          Buscar psicólogos agora!
         </b-button>
         <p id="comece-text-sub" class="mb-2 text-uppercase">
           <b
-            >Cuidar da saúde mental, sempre foi importante, mas agora, devido a
-            pandemia, crucial. Relações sofreram mudanças, rotinas foram
-            alteradas, sentimentos e emoções impactadas. Busque ajuda!</b
+            >Cuidar da saúde mental sempre foi importante, mas agora, devido à
+            pandemia, esse cuidado é fundamental. Relações sofreram mudanças,
+            rotinas foram alteradas, sentimentos e emoções impactados. Você pode
+            transformar todo o seu caminho e mudar sua vida.</b
           >
         </p>
       </div>
