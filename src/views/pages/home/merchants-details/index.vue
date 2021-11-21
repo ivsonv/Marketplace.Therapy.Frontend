@@ -93,22 +93,42 @@
                     <div class="col-2" />
                     <div class="col-lg-2" @click="selectHour(0, i)">
                       <div class="box-hour-avail">
-                        <strong>{{ gethours(0, i) }}</strong>
+                        <img
+                          v-if="gethours(0, i) === '-'"
+                          :src="require('@/assets/images/svg/Lock.svg')"
+                          title="Horário Indisponível"
+                        />
+                        <strong v-else>{{ gethours(0, i) }}</strong>
                       </div>
                     </div>
                     <div class="col-lg-2" @click="selectHour(1, i)">
                       <div class="box-hour-avail">
-                        <strong>{{ gethours(1, i) }}</strong>
+                        <img
+                          v-if="gethours(1, i) === '-'"
+                          :src="require('@/assets/images/svg/Lock.svg')"
+                          title="Horário Indisponível"
+                        />
+                        <strong v-else>{{ gethours(1, i) }}</strong>
                       </div>
                     </div>
                     <div class="col-lg-2" @click="selectHour(2, i)">
                       <div class="box-hour-avail">
-                        <strong>{{ gethours(2, i) }}</strong>
+                        <img
+                          v-if="gethours(2, i) === '-'"
+                          :src="require('@/assets/images/svg/Lock.svg')"
+                          title="Horário Indisponível"
+                        />
+                        <strong v-else>{{ gethours(2, i) }}</strong>
                       </div>
                     </div>
                     <div class="col-lg-2" @click="selectHour(3, i)">
                       <div class="box-hour-avail">
-                        <strong>{{ gethours(3, i) }}</strong>
+                        <img
+                          v-if="gethours(3, i) === '-'"
+                          :src="require('@/assets/images/svg/Lock.svg')"
+                          title="Horário Indisponível"
+                        />
+                        <strong v-else>{{ gethours(3, i) }}</strong>
                       </div>
                     </div>
                     <div class="col-2" />
@@ -157,7 +177,12 @@
                       :key="i"
                     >
                       <div class="box-hour-avail" @click="selectHour(0, i)">
-                        <strong>{{ gethours(0, i) }}</strong>
+                        <img
+                          v-if="gethours(0, i) === '-'"
+                          :src="require('@/assets/images/svg/Lock.svg')"
+                          title="Horário Indisponível"
+                        />
+                        <strong v-else>{{ gethours(0, i) }}</strong>
                       </div>
                     </div>
                   </div>
@@ -240,6 +265,8 @@
         </div>
       </section>
     </div>
+
+    <footer--v />
   </div>
 </template>
 

@@ -121,6 +121,8 @@
         </b-col>
       </b-col>
     </b-row>
+
+    <footer--v />
   </div>
 </template>
 

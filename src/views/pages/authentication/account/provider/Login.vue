@@ -120,6 +120,7 @@
         </b-col>
       </b-col>
     </b-row>
+    <footer--v />
   </div>
 </template>
 
@@ -127,7 +128,6 @@
 /* eslint-disable global-require */
 import { ValidationProvider, ValidationObserver, localize } from "vee-validate";
 import pt_br from "vee-validate/dist/locale/pt_BR.json";
-import HomeHeader from "../../../home/components/home-header.vue";
 import {
   BLink,
   BFormGroup,
@@ -149,12 +149,17 @@ import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import store from "@/store/index";
 import _authService from "@/services/auth-service";
 import rotas from "@/navigation/vertical/providers";
+
+import HomeHeader from "../../../home/components/home-header.vue";
+import HomeFooter from "../../../home/components/home-footer.vue";
+
 export default {
   directives: {
     "b-tooltip": VBTooltip,
   },
   components: {
     "header--v": HomeHeader,
+    "footer--v": HomeFooter,
     BLink,
     BFormGroup,
     BFormInput,
