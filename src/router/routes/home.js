@@ -47,4 +47,14 @@ export default [{
         redirectIfLoggedIn: false,
         notauthentication: true,
     },
+},
+{
+    path: '/precisa-de-ajuda',
+    name: 'need-for-help',
+    component: () => import('@/views/pages/faq/Faq.vue'),
+    meta: {
+        layout: 'full',
+        redirectIfLoggedIn: false,
+        notauthentication: true,
+    },
 }]
