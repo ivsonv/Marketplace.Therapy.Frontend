@@ -142,7 +142,10 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.isloading = false));
     },
-    buy() {},
+    buy() {
+      const _url = `https://checkout-nix.nexxera.io/checkout/payment?orderId=${this.appointment.transaction_code}`;
+      window.location.href = _url;
+    },
   },
 };
 </script>
