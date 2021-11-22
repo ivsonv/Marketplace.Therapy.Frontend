@@ -53,7 +53,7 @@
               <a href="https://www.instagram.com/cliqueterapia" target="_blank">
                 <feather-icon icon="InstagramIcon" size="35" />
               </a>
-              <a href="https://www.instagram.com/cliqueterapia" target="_blank">
+              <a href="https://www.facebook.com/cliqueterapia" target="_blank">
                 <feather-icon icon="FacebookIcon" size="35" />
               </a>
             </div>

@@ -60,7 +60,7 @@
             </b-form-group>
           </b-col>
           <b-col cols="6" md="4">
-            <b-form-group label="Telefone (Whatssap)">
+            <b-form-group label="Telefone (whatsapp)">
               <b-form-input
                 :state="!!record.phone"
                 v-mask="$utils.masked.phone"
