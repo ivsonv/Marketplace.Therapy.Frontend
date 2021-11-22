@@ -16,11 +16,11 @@
                 "$1.$2.$3-$4"
               )
             }}, O VALOR DE R$ {{ appointment.price.toFixed(2) }}, correspondente
-            ao pagamento de <br />atendimento psicologico, realizado nesta data.
+            ao pagamento de <br />atendimento psicológico, realizado nesta data.
           </b-col>
 
           <b-col cols="12 mt-5">
-            Data {{ appointment.start }} ás
+            Data {{ appointment.start }} às
             {{ appointment.hour.substring(0, 5) }}h
           </b-col>
           <b-col cols="12 my-0">

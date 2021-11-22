@@ -120,51 +120,6 @@ export default {
         .overview()
         .then((_res) => {
           this.lst = _res.content;
-
-          // _res.content.forEach((fe) => {
-          //   let item = {
-          //     mes: fe.mes,
-          //     data: [],
-          //   };
-
-          //   // faturamento total
-          //   item.data.push({
-          //     icon: "TrendingUpIcon",
-          //     color: "light-info",
-          //     title: fe.price_sales,
-          //     subtitle: "Vendas",
-          //     customClass: "mb-2 mb-xl-0",
-          //   });
-
-          //   // Comissão
-          //   item.data.push({
-          //     icon: "DollarSignIcon",
-          //     color: "light-success",
-          //     title: fe.price_sales_revenue,
-          //     subtitle: "Comissão",
-          //     customClass: "",
-          //   });
-
-          //   // Atendimentos
-          //   item.data.push({
-          //     icon: "ShoppingBagIcon",
-          //     color: "light-primary",
-          //     title: fe.total_appointment,
-          //     subtitle: "Atendimentos",
-          //     customClass: "mb-2 mb-xl-0",
-          //   });
-
-          //   // Atendimentos cancelados
-          //   item.data.push({
-          //     icon: "ShoppingBagIcon",
-          //     color: "light-danger",
-          //     title: fe.total_appointment_canceled,
-          //     subtitle: "Cancelados",
-          //     customClass: "mb-2 mb-xl-0",
-          //   });
-
-          //   this.lst.push(item);
-          // });
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));

@@ -16,7 +16,7 @@
         <div class="col-6">
           <strong>Data/Hora</strong>
           <p class="text-secondary">
-            {{ appointment.start }} ás {{ appointment.hour.substring(0, 5) }}h
+            {{ appointment.start }} às {{ appointment.hour.substring(0, 5) }}h
           </p>
         </div>
         <div class="col-6">

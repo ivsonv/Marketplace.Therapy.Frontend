@@ -7,7 +7,6 @@
           placeholder="pesquise por cliente/evento..."
           autocomplete="off"
           v-model="filter.search"
-          size="lg"
         />
       </b-col>
       <b-col cols="12" md="2" class="mb-1">
@@ -15,7 +14,6 @@
           :date-format-options="{ day: '2-digit' }"
           v-model="filter.start"
           placeholder="Data Início"
-          size="lg"
         />
       </b-col>
       <b-col cols="12" md="2" class="mb-1">
@@ -23,16 +21,15 @@
           :date-format-options="{ day: '2-digit' }"
           placeholder="Data Final"
           v-model="filter.end"
-          size="lg"
         />
       </b-col>
       <b-col cols="12" md="4">
-        <b-button size="lg" variant="info" @click="searching" class="mr-1">
+        <b-button variant="info" @click="searching" class="mr-1">
           PESQUISAR
         </b-button>
-        <b-button size="lg" variant="info" @click="searching">
+        <!-- <b-button variant="info" @click="searching">
           EXPORTAR RELATÓRIO
-        </b-button>
+        </b-button> -->
       </b-col>
     </b-row>
     <b-table
@@ -44,8 +41,9 @@
       striped
       hover
     >
+      <template #cell(id)="data"> #{{ data.item.id }} </template>
       <template #cell(start)="data">
-        {{ data.item.start }} ás {{ data.item.hour }}h
+        {{ data.item.start }} às {{ data.item.hour }}h
       </template>
       <template #cell(revenue)="data">
         R$ {{ data.item.revenue.toFixed(2) }}
@@ -91,8 +89,10 @@ export default {
       more: false,
       size: 20,
       fields: [
+        { key: "id", label: "Cód." },
         { key: "customer", label: "Cliente" },
         { key: "start", label: "Data/Hora Sessão" },
+        { key: "status", label: "Status" },
         { key: "revenue", label: "Receita" },
         { key: "actions", label: "Invoice" },
       ],

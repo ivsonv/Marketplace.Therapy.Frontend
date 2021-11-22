@@ -51,13 +51,13 @@
             <h4 class="alert-heading">
               <p>Observações:</p>
               <ul>
-                <li>Informe as Faixas de horários que você está disponivel.</li>
+                <li>Informe as faixas de horários que você está disponivel.</li>
                 <li>
-                  A partir do hórario inicial vamos gerar horários de
+                  A partir do horário inicial vamos gerar horários de
                   atendimento com intervalos de 30 minutos
                 </li>
                 <li>
-                  Exemplo >> Faixa 08:00h até 09:30h, horários gerados no site
+                  Exemplo >> faixa 08:00h até 09:30h, horários gerados no site
                   serão: 08:00h, 08:30h, 09:00 e 09:30h.
                 </li>
                 <li>
@@ -117,13 +117,13 @@
       <h4 class="alert-heading">
         <p>Observações:</p>
         <ul>
-          <li>Informe as Faixas de horários que você está disponivel.</li>
+          <li>Informe as faixas de horários que você está disponivel.</li>
           <li>
-            A partir do hórario inicial vamos gerar horários de atendimento com
+            A partir do horário inicial vamos gerar horários de atendimento com
             intervalos de 30 minutos
           </li>
           <li>
-            Exemplo >> Faixa 08:00h até 09:30h, horários gerados no site serão:
+            Exemplo >> faixa 08:00h até 09:30h, horários gerados no site serão:
             08:00h, 08:30h, 09:00, 09:30h.
           </li>
           <li>

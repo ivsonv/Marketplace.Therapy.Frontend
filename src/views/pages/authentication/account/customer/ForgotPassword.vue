@@ -269,7 +269,10 @@ export default {
             .resetLoginCustomer(payload)
             .then((res) => {
               this.loading = false;
-              this.$utils.toast("Notificação", "Verifique seu e-mail.");
+              this.$utils.toast(
+                "Notificação",
+                "Caso tenha informado um e-mail válido, enviaremos as instruções para criar uma nova senha."
+              );
             })
             .catch((error) => {
               this.loading = false;

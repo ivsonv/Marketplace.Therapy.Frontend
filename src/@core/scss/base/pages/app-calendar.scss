@@ -13,6 +13,11 @@ $fc-toolbar-btn-padding: 0.438rem 0.5rem;
 $fc-day-toggle-btn-padding: 0.55rem 1.5rem;
 
 // Full calendar styles
+
+.fc-event-time {
+  display: none;
+}
+
 .fc {
   // Toolbar
   .fc-toolbar {

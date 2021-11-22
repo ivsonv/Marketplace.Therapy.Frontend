@@ -205,14 +205,14 @@ export default {
           prev: {
             click: (_prv) => {
               this.currentmonth -= 1;
-              this.showAppointments();
+              //this.showAppointments();
               this.$refs.fullCalendar.getApi().prev();
             },
           },
           next: {
             click: (_nxt) => {
               this.currentmonth += 1;
-              this.showAppointments();
+              //this.showAppointments();
               this.$refs.fullCalendar.getApi().next();
             },
           },
@@ -250,43 +250,20 @@ export default {
       this.appointmentid = id;
       this.isActiveDetails = true;
     },
-    changefilter() {
-      //var _events = this.getFilterEvents();
-    },
+    changefilter() {},
     getfilter() {
-      //const operatorid = this.$utils.getValueSelected(this.operatorsSelected);
-      //var _events = this.getFilterEvents( );
-      //this.populateEvents(_events);
       this.isActiveFilter = false;
     },
-    getFilterEvents() {
-      // return this.appointments.filter(
-      //   (f) =>
-      //     (youtube === f.is_youtube_link || youtube === "-1") &&
-      //     (canceled === f.canceled_out_of_time || canceled === "-1") &&
-      //     (homeoffice === f.is_home_office || homeoffice === "-1") &&
-      //     this.isOperator(f, operatorid) &&
-      //     (projectid.some((s) => s.toString() === "-1") ||
-      //       projectid.some((s) => s.toString() === f.project_id.toString())) &&
-      //     (companyid.some((s) => s.toString() === "-1") ||
-      //       companyid.some((s) => s.toString() === f.company_id.toString())) &&
-      //     (transmissionid.some((s) => s.toString() === "-1") ||
-      //       transmissionid.some(
-      //         (s) => s.toString() === f.transmissiontype.toString()
-      //       )) &&
-      //     (groupstudioid.some((s) => s.toString() === "-1") ||
-      //       groupstudioid.some((s) =>
-      //         f.groupstudios_ids.some((ss) => ss.toString() === s.toString())
-      //       ))
-      // );
-    },
+    getFilterEvents() {},
     isOperator(_appointment, _operatorid) {},
     populateEvents(_events) {
+      console.log(_events);
       this.calendarOptions.events = _events.map((m) => {
         return {
+          allDay: false,
           title: `${m.hour.substring(0, 5)} ${m.customer.name}`,
           color: this.getColor(m.type),
-          start: `${m.startds}`,
+          start: `${m.startds} ${m.hour.substring(0, 5)}`,
           id: m.id,
         };
       });

@@ -13,7 +13,6 @@
               >
                 <ul class="list-unstyled">
                   <li>Psicólogos</li>
-                  <li>Pesquisar</li>
                 </ul>
               </b-link>
             </div>
