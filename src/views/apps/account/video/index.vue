@@ -60,8 +60,27 @@ export default {
           this.videosdkclient = true;
         })
         .catch((error) => {
-          this.$utils.toastError("Notificação", error);
-          this.msg = error;
+          // this.msg = error;
+          let title = error;
+
+          if (error[0].includes("sessão fora do período")) {
+            title = "Sua sessão esta fora do período de utilização.";
+          }
+
+          this.$swal({
+            title: title,
+            text: "Você sera redirecionado para a sua conta.",
+            icon: "error",
+            confirmButtonText: "OK",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+            buttonsStyling: false,
+          })
+            .then(() => {
+              this.$router.go(-1);
+            })
+            .finally(() => this.$router.go(-1));
         })
         .finally(() => (this.loading = false));
     },
