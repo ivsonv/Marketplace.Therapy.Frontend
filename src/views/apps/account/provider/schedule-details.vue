@@ -40,11 +40,11 @@
             </p>
           </b-button>
           <b-button
-            v-if="appointment.dsStatus === 'confirmed'"
-            variant="danger"
-            size="sm"
-            class="ml-1"
+            v-if="appointment.dsStatus === 'Confirmado'"
             @click="goCancel"
+            variant="danger"
+            class="ml-1"
+            size="sm"
           >
             <!-- VideoOffIcon -->
             <feather-icon icon="XIcon" size="30" />

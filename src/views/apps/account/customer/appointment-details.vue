@@ -34,7 +34,7 @@
       <!-- ações -->
       <hr />
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" v-if="appointment.dsStatus === 'Confirmado'">
           <b-button variant="info" size="sm" @click="goInitConference">
             <!-- VideoOffIcon -->
             <feather-icon icon="VideoIcon" size="30" />
@@ -42,15 +42,17 @@
               Iniciar video
             </p>
           </b-button>
-          <!-- <b-button variant="danger" size="sm" class="ml-1" @click="goCancel">
-            <feather-icon icon="XIcon" size="30" />
-            <p class="m-0 p-0 text-white" style="font-size: 16px">Cancelar</p>
-          </b-button> -->
           <b-button variant="warning" size="sm" class="ml-1" @click="goInvoice">
             <feather-icon icon="FileTextIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">
               Gerar Recibo
             </p>
+          </b-button>
+        </div>
+        <div class="col-12" v-if="appointment.dsStatus === 'Pendente'">
+          <b-button variant="primary" class="ml-1" size="sm" @click="buy">
+            <feather-icon icon="CreditCardIcon" size="30" />
+            <p class="m-0 p-0 text-white" style="font-size: 16px">Pagar</p>
           </b-button>
         </div>
       </div>
@@ -140,6 +142,7 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.isloading = false));
     },
+    buy() {},
   },
 };
 </script>

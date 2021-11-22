@@ -2,7 +2,6 @@
   <viewcard--c title="MINHAS SESSÕES" subtitle="* Fuso horário de São Paulo">
     <view--c permission="account.customer" :busy="isloading">
       <b-table
-        @row-clicked="onClickSelected"
         :busy="isloading"
         :fields="fields"
         :items="list"
@@ -11,21 +10,17 @@
         hover
       >
         <template #cell(actions)="data">
-          <feather-icon
-            icon="EyeIcon"
-            size="22"
-            class="mr-1"
-            @click="onClickSelected(data.item)"
-          />
-          <feather-icon
-            icon="FileTextIcon"
-            size="21"
-            @click="onClickSelected(data.item)"
-          />
+          <div class="cursor-pointer" @click="onClickSelected(data.item)">
+            <feather-icon icon="EyeIcon" size="22" class="mr-1" />
+            <feather-icon icon="FileTextIcon" size="21" />
+          </div>
           <!-- Ver Detalhes -->
         </template>
         <template #cell(data)="data">
           {{ data.item.data }} às {{ data.item.hora }}h
+        </template>
+        <template #cell(dsStatus)="data">
+          {{ data.item.dsStatus }}
         </template>
         <template #cell(fuso)>
           <strong style="color: var(--danger)"> * São Paulo </strong></template
