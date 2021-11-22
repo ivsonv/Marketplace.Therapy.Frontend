@@ -25,8 +25,7 @@
           <!-- Ver Detalhes -->
         </template>
         <template #cell(data)="data">
-          {{ data.item.data }} <br />
-          {{ data.item.hora }}h
+          {{ data.item.data }} às {{ data.item.hora }}h
         </template>
         <template #cell(fuso)>
           <strong style="color: var(--danger)"> * São Paulo </strong></template

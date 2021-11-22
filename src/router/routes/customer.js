@@ -22,6 +22,11 @@ export default [
     },
   },
   {
+    path: '/sou-paciente/minha-conta',
+    name: 'account-customer-details',
+    component: () => import('@/views/apps/account/customer/details.vue'),
+  },
+  {
     path: '/sou-paciente/agendamentos',
     name: 'sou-paciente-appointments',
     component: () => import('@/views/apps/account/customer/index.vue'),

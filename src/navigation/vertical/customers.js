@@ -9,11 +9,11 @@ export default [
     active: true,
     roles: ['account.customer']
   },
-  // {
-  //   title: 'Minha Conta',
-  //   route: 'account-customer-details',
-  //   icon: 'UserIcon',
-  //   active: true,
-  //   roles: ['account.customer']
-  // }
+  {
+    title: 'Minha Conta',
+    route: 'account-customer-details',
+    icon: 'UserIcon',
+    active: true,
+    roles: ['account.customer']
+  }
 ]
