@@ -56,7 +56,25 @@ export default {
               .create(payload)
               .then((res) => {
                 this.payment_url = res.content.url;
-                window.location.href = res.content.url;
+                this.$swal({
+                  title: "Você será transferido para a área de pagamento.",
+                  text: "NIX",
+                  icon: "info",
+                  cancelButtonText: "Voltar",
+                  showCancelButton: true,
+                  confirmButtonText: "OK",
+                  customClass: {
+                    confirmButton: "btn btn-primary",
+                    cancelButton: "btn btn-outline-info ml-1",
+                  },
+                  buttonsStyling: false,
+                }).then((result) => {
+                  if (result.value) {
+                    window.location.href = res.content.url;
+                  } else {
+                    this.$router.push({ name: "merchants-view" });
+                  }
+                });
               })
               .catch((error) => this.$utils.toastError("Notificação", error))
               .finally(() => (this.loading = false));

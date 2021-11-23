@@ -66,7 +66,7 @@
             de crise, ligue para 188 (CVV) ou acesse o site www.cvv.org.br.
             <br />Em caso de emergência, procure atendimento em um hospital mais
             próximo.<br /><br />
-            Clique Terapia - CNPJ: 87.227.227-84
+            Clique Terapia - CNPJ: 44.122.210/0001-28
           </div>
           <img
             id="img-logo-mk"
