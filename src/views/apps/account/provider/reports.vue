@@ -94,7 +94,7 @@ export default {
         { key: "start", label: "Data/Hora Sessão" },
         { key: "status", label: "Status" },
         { key: "revenue", label: "Receita" },
-        { key: "actions", label: "Invoice" },
+        { key: "actions", label: "Recibo" },
       ],
       list: [],
     };
