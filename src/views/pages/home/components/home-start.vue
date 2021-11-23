@@ -117,7 +117,7 @@
         >
           Buscar psicólogos agora!
         </b-button>
-        <p id="comece-text-sub" class="mb-2 text-uppercase">
+        <p id="comece-text-sub" class="mb-2">
           <b
             >Cuidar da saúde mental sempre foi importante, mas agora, devido à
             pandemia, esse cuidado é fundamental. Relações sofreram mudanças,

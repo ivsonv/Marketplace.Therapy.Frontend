@@ -73,10 +73,10 @@
     <section class="faq-contact">
       <b-row class="mt-5 pt-75 text-center">
         <b-col cols="12">
-          <h2>You still have a question?</h2>
+          <h2>Você ainda tem uma pergunta?</h2>
           <b-card-text class="mb-3">
-            If you cannot find a question in our FAQ, you can always contact us.
-            We will answer to you shortly!
+            Se você não conseguir encontrar uma pergunta em nosso FAQ, você pode
+            nos contatar. Responderemos em breve!
           </b-card-text>
         </b-col>
         <b-col sm="6">
@@ -93,7 +93,11 @@
             <b-avatar size="42" rounded variant="light-primary" class="mb-2">
               <feather-icon icon="MailIcon" size="18" />
             </b-avatar>
-            <h4>atendimento@cliqueterapia.com.br</h4>
+            <h4>
+              <a href="mailto:atendimento@cliqueterapia.com.br"
+                >atendimento@cliqueterapia.com.br</a
+              >
+            </h4>
             <span class="text-body"
               >Melhor maneira de obter uma resposta mais rápida!</span
             >
@@ -168,120 +172,58 @@ export default {
           // payment
           payment: {
             icon: "CreditCardIcon",
-            title: "Payment",
-            subtitle: "Which license do I need?",
+            title: "Pagamento",
+            subtitle: "Formas de Pagamento",
             qandA: [
               {
-                question: "Does my subscription automatically renew?",
-                ans: "Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.",
+                question: "Qual o valor de uma sessão?",
+                ans: "Cada Psicólogo estabelece o seu valor de sessão e você pode encontrar consultas de 50 minutos a partir de R$60. Lembrando que é possível usar os recibos das sessões para solicitar reembolso diretamente com seu convênio. Para ter acesso ao documento, basta acessar a aba 'minhas sessões' e clicar em 'gerar recibo' na respectiva consulta.",
+              },
+              {
+                question: "Quais são as formas de pagamento?",
+                ans: "Cartão de crédito (todas as bandeiras Visa e Mastercard);",
               },
               {
                 question:
-                  "Can I store the item on an intranet so everyone has access?",
-                ans: "Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.",
-              },
-              {
-                question: "What does non-exclusive mean?",
-                ans: "Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.",
+                  "O que eu faço se o meu cartão de crédito for rejeitado?",
+                ans: "Se o seu cartão de crédito for rejeitado, primeiramente verifique se está tudo certo com o cartão e se os dados foram inseridos corretamente. Caso você tenha outro cartão de crédito, sugerimos que você tente utilizá-lo. ",
               },
               {
                 question:
-                  "Is the Regular License the same thing as an editorial license?",
-                ans: "Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.",
-              },
-              {
-                question:
-                  "Which license do I need for an end product that is only accessible to paying users?",
-                ans: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-              },
-              {
-                question:
-                  "Which license do I need to use an item in a commercial?",
-                ans: "At tempor commodo ullamcorper a lacus vestibulum. Ultrices neque ornare aenean euismod. Dui vivamus arcu felis bibendum. Turpis in eu mi bibendum neque egestas congue. Nullam ac tortor vitae purus faucibus ornare suspendisse sed.",
-              },
-              {
-                question:
-                  "Can I re-distribute an item? What about under an Extended License?",
-                ans: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod lacinia at quis risus sed vulputate odio ut enim. Dictum at tempor commodo ullamcorper a lacus vestibulum.",
+                  "As informações do meu cartão de crédito estão seguras na plataforma?",
+                ans: "Sim, todas informações deixadas na plataforma são criptografadas de ponta a ponta. Não existe acesso por parte da plataforma aos dados de pagamentos ",
               },
             ],
           },
           // delivery
           delivery: {
             icon: "ShoppingBagIcon",
-            title: "Delivery",
-            subtitle: "Which license do I need?",
+            title: "A Clique Terapia é seguro?",
+            subtitle: "",
             qandA: [
               {
-                question: "Where has my order reached?",
-                ans: "Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.",
-              },
-              {
                 question:
-                  "The shipment status shows that it has been returned/cancelled. What does it mean and who do I contact?",
-                ans: "Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.",
-              },
-              {
-                question: "What if my shipment is marked as lost?",
-                ans: "Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.",
-              },
-              {
-                question:
-                  "My shipment status shows that it’s out for delivery. By when will I receive it?",
-                ans: "Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.",
-              },
-              {
-                question:
-                  "What do I need to do to get the shipment delivered within a specific timeframe?",
-                ans: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                  "O Clique Terapia é seguro? Vocês garantem minha privacidade?",
+                ans: "As sessões da Clique Terapia não são gravadas e são sigilosas. As informações do site são protegidas por criptografia ponta a ponta - ou seja, seus dados e o que for conversado em sessão ficarão entre você e seu Psicólogo, não se preocupe. ",
               },
             ],
           },
           // cancellation and return
           cancellationReturn: {
             icon: "RefreshCwIcon",
-            title: "Cancellation & Return",
-            subtitle: "Which license do I need?",
+            title: "Cancelamento e estorno",
+            subtitle: "",
             qandA: [
               {
-                question:
-                  "Can my security guard or neighbour receive my shipment if I am not available?",
-                ans: "Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.",
-              },
-              {
-                question:
-                  "How can I get the contact number of my delivery agent?",
-                ans: "Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.",
-              },
-              {
-                question: "How can I cancel my shipment?",
-                ans: "Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.",
-              },
-              {
-                question:
-                  "I have received a defective/damaged product. What do I do?",
-                ans: "Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.",
-              },
-              {
-                question: "How do I change my delivery address?",
-                ans: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-              },
-              {
-                question:
-                  "What documents do I need to carry for self-collection of my shipment?",
-                ans: "At tempor commodo ullamcorper a lacus vestibulum. Ultrices neque ornare aenean euismod. Dui vivamus arcu felis bibendum. Turpis in eu mi bibendum neque egestas congue. Nullam ac tortor vitae purus faucibus ornare suspendisse sed. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Tortor consequat id porta nibh. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Faucibus nisl tincidunt eget nullam non nisi. Enim nunc faucibus a pellentesque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus. Nec nam aliquam sem et tortor consequat id. Fringilla est ullamcorper eget nulla facilisi. Morbi tristique senectus et netus et.",
-              },
-              {
-                question:
-                  "What are the timings for self-collecting shipments from the Delhivery Branch?",
-                ans: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod lacinia at quis risus sed vulputate odio ut enim. Dictum at tempor commodo ullamcorper a lacus vestibulum.",
+                question: "Quero solicitar um estorno. Como funciona?",
+                ans: "Pedidos de estorno devem ser encaminhados para nosso time de suporte pelo e-mail atendimento@cliqueterapia.com.br ou pelo nosso chat.",
               },
             ],
           },
           // my orders
           myOrders: {
             icon: "PackageIcon",
-            title: "My Orders",
+            title: "Minha sessões",
             subtitle: "Which license do I need?",
             qandA: [
               {
@@ -313,7 +255,7 @@ export default {
           // product and services
           productServices: {
             icon: "SettingsIcon",
-            title: "Product & Services",
+            title: "Como escolher um psicólogo?",
             subtitle: "Which license do I need?",
             qandA: [
               {

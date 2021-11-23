@@ -57,7 +57,8 @@ export default {
               .then((res) => {
                 this.payment_url = res.content.url;
                 this.$swal({
-                  title: "Você será transferido para a área de pagamento.",
+                  title:
+                    "Fique tranquilo, clique em Ok e voce será transferido agora para a área segura de pagamento.",
                   text: "NIX",
                   icon: "info",
                   cancelButtonText: "Voltar",
