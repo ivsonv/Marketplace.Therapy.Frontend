@@ -51,7 +51,7 @@
           <b-col md="6">
             <b-form-group label="Email *">
               <b-form-input
-                :state="!!record.email"
+                :state="$utils.isEmail(record.email)"
                 v-model="record.email"
                 placeholder="E-mail"
                 autocomplete="off"
@@ -84,7 +84,7 @@
           <b-col cols="6" md="3">
             <b-form-group label="CPF *">
               <b-form-input
-                :state="!!record.cpf"
+                :state="$utils.isCpf(record.cpf)"
                 v-mask="$utils.masked.cpf"
                 v-model="record.cpf"
                 placeholder="cpf..."
@@ -204,7 +204,7 @@
             </b-form-group>
           </b-col>
           <b-col md="4">
-            <b-form-group label="Complemento *">
+            <b-form-group label="Complemento">
               <b-form-input
                 placeholder="ex: Casa, apto, sala..."
                 v-model="address.complement"
@@ -497,11 +497,10 @@
           </b-col>
           <b-col md="12">
             <b-form-group label="ASSINATURA">
-              <b-alert class="mb-1" variant="warning" show>
-                <h4 class="alert-heading">
-                  Formatos aceitos: .jpg, .PNG, Tamanho máximo aceito: 1MB
-                </h4>
-              </b-alert>
+              <h5>
+                Adicione uma imagem de sua assinatura para poder emitir recibos.
+                Tire uma foto da sua assinatura em um papel branco.
+              </h5>
               <img
                 @click="$refs.fileInputSig[0].click()"
                 :src="urlsignatureImage"
@@ -529,10 +528,11 @@
                   ASSINATURA</strong
                 >
               </b-button>
-              <h5>
-                Adicione uma imagem de sua assinatura para poder emitir recibos.
-                Tire uma foto da sua assinatura em um papel branco.
-              </h5>
+              <b-alert class="mb-1" variant="warning" show>
+                <h4 class="alert-heading">
+                  Formatos aceitos: .jpg, .PNG, Tamanho máximo aceito: 1MB
+                </h4>
+              </b-alert>
             </b-form-group>
           </b-col>
           <b-col md="6">

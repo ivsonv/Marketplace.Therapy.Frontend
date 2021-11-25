@@ -245,7 +245,7 @@
             </b-form-group>
           </b-col>
           <b-col md="4">
-            <b-form-group label="Complemento *">
+            <b-form-group label="Complemento">
               <b-form-input
                 v-model="address.complement"
                 placeholder="Complemento..."
