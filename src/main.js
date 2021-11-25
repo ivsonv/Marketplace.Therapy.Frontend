@@ -97,6 +97,12 @@ Vue.component('button--c', button);
 import spinner from "@/components/spinner.vue";
 Vue.component('spinner--c', spinner);
 
+import icon from "@/components/icon.vue";
+Vue.component('icon--c', icon);
+
+import info from "@/components/info.vue";
+Vue.component('info--c', info);
+
 import select from "@/components/select.vue";
 Vue.component('select--c', select);
 

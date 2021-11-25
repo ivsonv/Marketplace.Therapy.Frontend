@@ -103,7 +103,17 @@
             </b-form-group>
           </b-col>
           <b-col cols="12" md="6">
-            <b-form-group label="Estou Disponivel para consultas ?">
+            <div class="d-flex">
+              <label class="font-medium-1"
+                >Estou Disponivel para consultas ?</label
+              >
+              <info--c
+                icon="HelpCircleIcon"
+                title="Indica que podemos exibir seu perfil em nossa plataforma para atendimentos online."
+                class="ml-1"
+              />
+            </div>
+            <div>
               <b-form-checkbox
                 class="custom-control-success"
                 v-model="record.active"
@@ -117,7 +127,7 @@
                   <feather-icon icon="XIcon" />
                 </span>
               </b-form-checkbox>
-            </b-form-group>
+            </div>
           </b-col>
         </b-row>
 
