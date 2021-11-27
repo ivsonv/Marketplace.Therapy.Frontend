@@ -3,7 +3,7 @@
     <!-- details -->
     <section v-if="appointment">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <strong>PSICÓLOGO</strong>
           <p class="text-secondary">
             {{
@@ -22,7 +22,7 @@
             {{ appointment.start }} às {{ appointment.hour.substring(0, 5) }}h
           </p>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-lg-6">
           <strong>Fuso</strong>
           <p class="text-secondary">
             Fuso Horário de
@@ -34,7 +34,10 @@
       <!-- ações -->
       <hr />
       <div class="row">
-        <div class="col-12" v-if="appointment.dsStatus === 'Confirmado'">
+        <div
+          class="col-lg-12 d-flex"
+          v-if="appointment.dsStatus === 'Confirmado'"
+        >
           <b-button variant="info" size="sm" @click="goInitConference">
             <!-- VideoOffIcon -->
             <feather-icon icon="VideoIcon" size="30" />
@@ -49,7 +52,7 @@
             </p>
           </b-button>
         </div>
-        <div class="col-12" v-if="appointment.dsStatus === 'Pendente'">
+        <div class="col-6 col-lg-12" v-if="appointment.dsStatus === 'Pendente'">
           <b-button variant="primary" class="ml-1" size="sm" @click="buy">
             <feather-icon icon="CreditCardIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">Pagar</p>

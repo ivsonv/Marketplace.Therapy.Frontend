@@ -1,41 +1,79 @@
 <template>
   <viewcard--c title="MINHAS SESSÕES" subtitle="* Fuso horário de São Paulo">
     <view--c permission="account.customer" :busy="isloading">
-      <b-table
-        :busy="isloading"
-        :fields="fields"
-        :items="list"
-        responsive
-        striped
-        hover
-      >
-        <template #cell(actions)="data">
-          <div class="cursor-pointer" @click="onClickSelected(data.item)">
-            <feather-icon icon="EyeIcon" size="22" class="mr-1" />
-            <feather-icon icon="FileTextIcon" size="21" />
-          </div>
-          <!-- Ver Detalhes -->
-        </template>
-        <template #cell(data)="data">
-          {{ data.item.data }} às {{ data.item.hora }}h
-        </template>
-        <template #cell(dsStatus)="data">
-          {{ data.item.dsStatus }}
-        </template>
-        <template #cell(fuso)>
-          <strong style="color: var(--danger)"> * São Paulo </strong></template
+      <div class="d-none d-lg-block">
+        <b-table
+          :busy="isloading"
+          :fields="fields"
+          :items="list"
+          responsive
+          striped
+          hover
         >
-      </b-table>
-      <div v-if="list.length <= 0">Nenhum Registro Encontrado.</div>
-      <div class="d-flex justify-content-center">
-        <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
-          Carregar mais
-        </b-button>
+          <template #cell(actions)="data">
+            <div class="cursor-pointer" @click="onClickSelected(data.item)">
+              <feather-icon icon="EyeIcon" size="22" class="mr-1" />
+              <feather-icon icon="FileTextIcon" size="21" />
+            </div>
+            <!-- Ver Detalhes -->
+          </template>
+          <template #cell(data)="data">
+            {{ data.item.data }} às {{ data.item.hora }}h
+          </template>
+          <template #cell(dsStatus)="data">
+            {{ data.item.dsStatus }}
+          </template>
+          <template #cell(fuso)>
+            <strong style="color: var(--danger)">
+              * São Paulo
+            </strong></template
+          >
+        </b-table>
+        <div v-if="list.length <= 0">Nenhum Registro Encontrado.</div>
+        <div class="d-flex justify-content-center">
+          <b-button @click="getLoadMore" variant="primary" v-if="more" pill>
+            Carregar mais
+          </b-button>
+        </div>
+      </div>
+      <div class="d-block d-lg-none">
+        <div class="row my-1" v-for="(_item, i) in list" :key="i">
+          <div class="col-12 pl-25 pt-25">
+            <strong>PSICÓLOGO</strong>
+            <p class="text-secondary">
+              {{ `${_item.provider_name}` }}
+            </p>
+          </div>
+          <div class="col-6 pl-25 pt-25">
+            <strong>Status</strong>
+            <p class="text-secondary">{{ _item.dsStatus }}</p>
+          </div>
+          <div class="col-6 pl-25 pt-25">
+            <strong>Data/Hora</strong>
+            <p class="text-secondary">{{ _item.data }} às {{ _item.hora }}h</p>
+          </div>
+          <div class="col-12 col-lg-6 pl-25 pt-25">
+            <strong>Fuso</strong>
+            <p class="text-secondary">
+              Fuso Horário de
+              <strong style="color: var(--danger)"> * São Paulo</strong>
+            </p>
+          </div>
+          <div class="col-12">
+            <div class="d-flex justify-content-center">
+              <b-button @click="onClickSelected(_item)" variant="primary" pill>
+                Saiba mais
+              </b-button>
+            </div>
+            <hr />
+          </div>
+        </div>
       </div>
     </view--c>
 
     <!-- Details appointment -->
     <b-sidebar
+      id="sidebar-details-appointment"
       sidebar-class="sidebar-lg"
       bg-variant="white"
       v-model="isActiveDetails"
@@ -132,3 +170,8 @@ export default {
   },
 };
 </script>
+<style>
+#sidebar-details-appointment {
+  width: 60rem;
+}
+</style>
