@@ -52,12 +52,12 @@
             </p>
           </b-button>
         </div>
-        <div class="col-6 col-lg-12" v-if="appointment.dsStatus === 'Pendente'">
+        <!-- <div class="col-6 col-lg-12" v-if="appointment.dsStatus === 'Pendente'">
           <b-button variant="primary" class="ml-1" size="sm" @click="buy">
             <feather-icon icon="CreditCardIcon" size="30" />
             <p class="m-0 p-0 text-white" style="font-size: 16px">Pagar</p>
           </b-button>
-        </div>
+        </div> -->
       </div>
     </section>
   </view--c>

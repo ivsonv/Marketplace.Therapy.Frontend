@@ -353,8 +353,10 @@ export default {
       if (_hour !== "-") {
         const payload = {
           provider_id: this.provider.id,
+          provider: this.provider,
           hour: `${_hour}:00`,
           date: _date,
+          ds_date: this.dates[_position].ds_date,
           auth: false,
         };
         const _dateformat = this.getformathour(_date);
