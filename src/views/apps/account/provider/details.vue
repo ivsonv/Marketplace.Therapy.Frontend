@@ -36,7 +36,7 @@
             </b-form-group>
           </b-col>
           <b-col md="6">
-            <b-form-group label="Nome Social">
+            <b-form-group label="Nome Público">
               <b-form-input
                 v-model="record.nickname"
                 placeholder="Como gostaria de ser chamado ?"

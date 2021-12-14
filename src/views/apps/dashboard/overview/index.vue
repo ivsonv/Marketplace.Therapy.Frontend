@@ -84,22 +84,7 @@ export default {
   data() {
     return {
       loading: false,
-      lstcc: [
-        {
-          icon: "UserIcon",
-          customClass: "mb-2 mb-xl-0",
-          color: "light-primary",
-          title: "150",
-          subtitle: "Clientes",
-        },
-        {
-          icon: "UserIcon",
-          customClass: "mb-2 mb-xl-0",
-          color: "light-info",
-          title: "150",
-          subtitle: "Psicólogos",
-        },
-      ],
+      lstcc: [],
       lst: [],
       fields: [
         { key: "mes", label: "Mês" },
@@ -112,6 +97,7 @@ export default {
   },
   created() {
     this.getoverview();
+    this.getoverviewPsiAndCustomer();
   },
   methods: {
     getoverview() {
@@ -120,6 +106,32 @@ export default {
         .overview()
         .then((_res) => {
           this.lst = _res.content;
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loading = false));
+    },
+    getoverviewPsiAndCustomer() {
+      this.loading = true;
+      _dashboardService
+        .overviewPsiAndCustomer()
+        .then((_res) => {
+          //this.lst = _res.content;
+          this.lstcc = [];
+          this.lstcc.push({
+            icon: "UserIcon",
+            customClass: "mb-2 mb-xl-0",
+            color: "light-primary",
+            title: _res.content.customer.qtd,
+            subtitle: "Clientes",
+          });
+
+          this.lstcc.push({
+            icon: "UserIcon",
+            customClass: "mb-2 mb-xl-0",
+            color: "light-info",
+            title: _res.content.provider.qtd,
+            subtitle: "Psicólogos",
+          });
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));

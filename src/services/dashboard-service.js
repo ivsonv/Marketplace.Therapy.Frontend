@@ -18,5 +18,8 @@ export default {
   },
   overview: () => {
     return _http.get(`/api/dashboard/overview`)
+  },
+  overviewPsiAndCustomer: () => {
+    return _http.get(`/api/dashboard/overview-psi-customer`)
   }
 }

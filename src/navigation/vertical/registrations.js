@@ -3,6 +3,12 @@ export default [{
   icon: 'ClipboardIcon',
   children: [
     {
+      title: 'FAQ',
+      route: 'registrations-faq-list',
+      icon: 'HelpCircleIcon',
+      roles: ['faq.permission.view']
+    },
+    {
       title: 'Grupo de acessos',
       route: 'registrations-group-list',
       icon: 'ShieldIcon',

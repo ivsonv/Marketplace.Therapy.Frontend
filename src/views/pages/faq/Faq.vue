@@ -6,7 +6,7 @@
     <section id="faq-search-filter">
       <b-card no-body class="faq-search">
         <b-card-body class="text-center">
-          <h2 class="text-primary">Vamos responder algumas perguntass</h2>
+          <h2 class="text-primary">Vamos responder algumas perguntas</h2>
           <b-card-text class="mb-2">
             ou escolha uma categoria para encontrar rapidamente a ajuda de que
             você precisa
@@ -281,37 +281,6 @@ export default {
         },
       };
       this.faqData = data.faqData;
-
-      // mock.onGet("/faq/data").reply((config) => {
-      //   const { q = "" } = config.params;
-      //   const queryLowered = q.toLowerCase();
-
-      //   const filteredData = {};
-
-      //   Object.entries(data.faqData).forEach((entry) => {
-      //     const [categoryName, categoryObj] = entry;
-      //     // eslint-disable-next-line arrow-body-style
-      //     const filteredQAndAOfCategory = categoryObj.qandA.filter(
-      //       (qAndAObj) => {
-      //         return qAndAObj.question.toLowerCase().includes(queryLowered);
-      //       }
-      //     );
-      //     if (filteredQAndAOfCategory.length) {
-      //       filteredData[categoryName] = {
-      //         ...categoryObj,
-      //         qandA: filteredQAndAOfCategory,
-      //       };
-      //     }
-      //   });
-
-      //   return [200, filteredData];
-      // });
-
-      // this.$http
-      //   .get("/faq/data", { params: { q: this.faqSearchQuery } })
-      //   .then((res) => {
-      //     this.faqData = res.data;
-      //   });
     },
   },
 };
