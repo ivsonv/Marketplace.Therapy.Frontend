@@ -26,16 +26,35 @@
           </div>
         </div>
         <div class="home-header-customer">
+          <b-link
+            :to="{ name: 'sou-paciente-appointments' }"
+            class="mx-1"
+            variant="outline-primary"
+            v-if="customer"
+          >
+            <feather-icon icon="UserIcon" size="20" /> Minha Conta
+          </b-link>
+          <b-link
+            :to="{ name: 'account-appointments' }"
+            class="mx-1"
+            variant="outline-primary"
+            v-else-if="provider"
+          >
+            <feather-icon icon="UserIcon" size="20" /> Minha Conta
+          </b-link>
           <b-button
             :to="{ name: 'auth-login-paciente' }"
             class="mx-1"
             variant="outline-primary"
+            v-else
           >
             Entrar
           </b-button>
+
           <b-button
             :to="{ name: 'auth-quero-cadastrar-paciente' }"
             variant="primary"
+            v-if="!(customer || provider)"
           >
             Cadastra-se grátis
           </b-button>
@@ -120,7 +139,16 @@ export default {
   data() {
     return {
       show: true,
+      customer: false,
+      provider: false,
     };
+  },
+  created() {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData && userData.roles) {
+      this.customer = userData.roles.some((s) => s === "account.customer");
+      this.provider = userData.roles.some((s) => s === "account.provider");
+    }
   },
   methods: {
     onClickToggle() {

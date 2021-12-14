@@ -1,7 +1,7 @@
 <template>
   <viewcard--c title="MINHAS SESSÕES" subtitle="* Fuso horário de São Paulo">
     <view--c permission="account.customer" :busy="isloading">
-      <div class="d-none d-lg-block">
+      <div class="d-none d-lg-block" v-if="list && list.length > 0">
         <b-table
           :busy="isloading"
           :fields="fields"
@@ -36,7 +36,9 @@
           </b-button>
         </div>
       </div>
-      <div class="d-block d-lg-none">
+      <h1 class="p-3" v-else>Você não tem nenhuma sessão agendada.</h1>
+
+      <div class="d-block d-lg-none" v-if="list && list.length > 0">
         <div class="row my-1" v-for="(_item, i) in list" :key="i">
           <div class="col-12 pl-25 pt-25">
             <strong>PSICÓLOGO</strong>
@@ -69,6 +71,7 @@
           </div>
         </div>
       </div>
+      <h1 class="p-3" v-else>Você não tem nenhuma sessão agendada.</h1>
     </view--c>
 
     <!-- Details appointment -->

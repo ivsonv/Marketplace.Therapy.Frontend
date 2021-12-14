@@ -3,7 +3,14 @@
     <div class="app-calendar overflow-hidden border">
       <div class="row no-gutters">
         <!-- Calendar -->
-        <div class="col position-relative">
+        <div
+          class="col position-relative"
+          v-if="
+            calendarOptions &&
+            calendarOptions.events &&
+            calendarOptions.events.length > 0
+          "
+        >
           <div class="card shadow-none border-0 mb-0 rounded-0">
             <div class="card-body pb-0">
               <full-calendar
@@ -15,6 +22,7 @@
             </div>
           </div>
         </div>
+        <h1 class="p-3" v-else>Você não tem nenhum agendamento no momento.</h1>
 
         <!-- Details appointment -->
         <b-sidebar
@@ -186,8 +194,7 @@ export default {
           },
         },
         headerToolbar: {
-          //start: "prev,next, title",
-          start: "title",
+          start: "prev,next, title",
           end: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
         },
         buttonText: {
