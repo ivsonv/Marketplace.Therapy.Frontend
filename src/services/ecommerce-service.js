@@ -18,4 +18,7 @@ export default {
     else
       return _http.get(`/api/marketplace/provider/${link}/hours`)
   },
+  showFaq: () => {
+    return _http.get('/api/marketplace/faq')
+  },
 }
