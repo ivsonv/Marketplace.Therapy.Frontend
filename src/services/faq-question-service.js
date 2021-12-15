@@ -9,6 +9,6 @@ export default {
     return _http.put('/api/faq/question', payload)
   },
   delete: (id) => {
-    return _http.delete(`/api/faq/${id}/question`)
+    return _http.delete(`/api/faq/question/${id}`)
   }
 }

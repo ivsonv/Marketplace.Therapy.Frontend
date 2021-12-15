@@ -13,6 +13,7 @@
       hide-footer
       :title="`${question && question.id > 0 ? 'ALTERAR' : 'NOVO'} ARTIGO`"
       @hide="onHideTransfer"
+      size="lg"
       centered
     >
       <div class="row" v-if="question">
@@ -27,11 +28,12 @@
         </div>
         <div class="col-12">
           <b-form-group label="Resposta *">
-            <b-form-input
+            <quill-editor
+              class="editor"
+              :options="editorOption"
               v-model="question.ans"
-              placeholder="Digite a resposta"
-              autocomplete="off"
-            />
+            >
+            </quill-editor>
           </b-form-group>
         </div>
       </div>
@@ -69,20 +71,31 @@
       </b-tab>
       <b-tab title="2. ARTIGOS" v-if="$route.params.id > 0">
         <b-row>
-          <b-col cols="12" class="ml-md-2">
+          <b-col cols="12" class="mb-2">
             <b-button type="submit" variant="info" pill @click="newQuestion">
               Cadastrar Artigo
             </b-button>
           </b-col>
           <b-col cols="12" v-if="list && list.length > 0">
             <b-table
-              :busy="isloading"
+              :busy="loading"
               :fields="fields"
               :items="list"
               responsive
               striped
               hover
             >
+              <template #cell(ans)="data">
+                <div class="text-nowrap">
+                  <p v-if="data.item.ans">
+                    {{
+                      data.item.ans.length > 50
+                        ? data.item.ans.substring(0, 50) + "..."
+                        : data.item.ans
+                    }}
+                  </p>
+                </div>
+              </template>
               <template #cell(actions)="data">
                 <div class="text-nowrap">
                   <feather-icon
@@ -112,6 +125,17 @@ export default {
       btedit: { permission: `faq.edit` },
       btcreate: { permission: `faq.create` },
       btdelete: { permission: `faq.delete` },
+      editorOption: {
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ size: ["small", false, "large", "huge"] }],
+            [{ font: [] }],
+            [{ color: [] }],
+          ],
+        },
+      },
       loading: false,
       record: {
         id: 0,
@@ -178,6 +202,7 @@ export default {
         faq_id: this.$route.params.id,
         question: "",
         ans: "",
+        id: 0,
       };
 
       if (id > 0) {
@@ -189,18 +214,24 @@ export default {
       const payload = { data: { ...this.question } };
 
       const _createOrUpdate =
-        this.record.id <= 0
+        this.question.id <= 0
           ? _faqQuestionService.create(payload)
           : _faqQuestionService.update(payload);
 
       this.loading = true;
       _createOrUpdate
         .then(() => {
+          this.getRecord();
           this.$utils.toast("Notificação", "Salvo com sucesso.");
           this.$refs["modal-artigos"].hide();
         })
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.loading = false));
+    },
+    onClickSelected(item) {
+      this.question = item;
+      this.$refs["modal-artigos"].show();
+      console.log(this.question);
     },
     onHideTransfer(evt) {
       if (evt.trigger === "backdrop") {
