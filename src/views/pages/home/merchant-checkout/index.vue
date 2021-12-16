@@ -217,6 +217,7 @@ export default {
             },
             buttonsStyling: false,
           }).then((result) => {
+            this.loading = true;
             this.$router.push({ name: "sou-paciente-appointments" });
           });
         })
