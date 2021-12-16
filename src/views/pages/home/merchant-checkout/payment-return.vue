@@ -49,6 +49,7 @@ export default {
         .finally(() => (this.loading = false));
     },
     paymentRedirect() {
+      this.loading = true;
       this.$router.push({
         name: `sou-paciente-appointments`,
       });
