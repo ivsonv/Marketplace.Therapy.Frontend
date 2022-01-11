@@ -257,6 +257,7 @@ export default {
 }
 .psi-infos {
   margin-left: 20px;
+  min-width: 200px;
   span {
     color: var(--purple);
     font-weight: 700;
