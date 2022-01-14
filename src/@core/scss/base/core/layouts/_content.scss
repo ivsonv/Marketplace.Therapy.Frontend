@@ -2,11 +2,11 @@
 
 html {
   font-size: $base-font-size;
-  height: 100%;
+  height: 100vh;
   letter-spacing: 0.01rem;
   scroll-behavior: smooth;
   body {
-    height: 100%;
+    height: 100vh;
     background-color: $body-bg;
     direction: $body-direction;
     overflow-x: hidden;

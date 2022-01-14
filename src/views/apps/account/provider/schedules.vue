@@ -18,7 +18,7 @@
         @hide="onHideTransfer"
       >
         <b-row v-if="hourNew">
-          <b-col cols="6">
+          <b-col cols="12" lg="6">
             <b-form-group label="SEMANA">
               <v-select
                 v-model="optionsWeekSelected"
@@ -27,7 +27,7 @@
               />
             </b-form-group>
           </b-col>
-          <b-col cols="3">
+          <b-col cols="6" lg="3">
             <b-form-group label="INICIO">
               <b-form-input
                 v-model="hourNew.start"
@@ -36,7 +36,7 @@
               />
             </b-form-group>
           </b-col>
-          <b-col cols="3">
+          <b-col cols="6" lg="3">
             <b-form-group label="FINAL">
               <b-form-input
                 v-model="hourNew.end"
