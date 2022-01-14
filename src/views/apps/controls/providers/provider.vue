@@ -479,15 +479,13 @@
                 v-model="bcc.account_digit"
                 placeholder="Digito da conta..."
                 autocomplete="off"
-                maxlength="2"
+                maxlength="1"
               />
             </b-form-group>
           </b-col>
           <b-col
             md="6"
-            v-if="
-              bcc.optionsBankSelected && bcc.optionsBankSelected.value === '104'
-            "
+            v-if="optionsBankSelected && optionsBankSelected.value === '104'"
           >
             <b-form-group label="Operação">
               <b-form-input
