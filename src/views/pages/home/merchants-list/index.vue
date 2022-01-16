@@ -168,18 +168,20 @@ export default {
     },
     getProviders() {
       this.loading = true;
+      let prvs = this.providers.map((m) => m.link);
       const payload = {
         data: {
           name: this.filter.search,
+          provs: prvs,
         },
         pagination: {
           page: this.page,
         },
       };
-
       _ecommerce
         .showProviders(payload)
         .then((_res) => {
+          debugger;
           this.isVisibleLoadMore = _res.content.length >= 10;
           this.providers.push(..._res.content);
         })
