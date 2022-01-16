@@ -1027,7 +1027,6 @@ export default {
       }
     },
     onClickWarning(_warn) {
-      debugger;
       switch (_warn.code) {
         case "fh":
           this.$router.push({ name: "account-schedules" });

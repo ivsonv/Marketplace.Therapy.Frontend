@@ -147,7 +147,7 @@ export default {
     localStorage.removeItem("checkout");
   },
   mounted() {
-    this.getTopics();
+    //this.getTopics();
     this.getProviders();
   },
   methods: {
@@ -181,7 +181,6 @@ export default {
       _ecommerce
         .showProviders(payload)
         .then((_res) => {
-          debugger;
           this.isVisibleLoadMore = _res.content.length >= 10;
           this.providers.push(..._res.content);
         })

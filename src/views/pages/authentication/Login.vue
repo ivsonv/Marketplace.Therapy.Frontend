@@ -316,7 +316,6 @@ export default {
 
               // menus do usuário
               res.content.data.navMenus = _navMenus;
-              debugger;
 
               // dados usuario
               localStorage.setItem(
