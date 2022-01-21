@@ -457,7 +457,7 @@
                 v-model="bcc.agency_digit"
                 placeholder="digito agencia..."
                 autocomplete="off"
-                maxlength="2"
+                maxlength="1"
               />
             </b-form-group>
           </b-col>
