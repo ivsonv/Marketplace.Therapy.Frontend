@@ -1014,17 +1014,17 @@ export default {
      // }
     },
     onFileChangeSignature(e) {
-      var FileSize = e.target.files[0].size / 1024 / 1024; // in MB
-      if (FileSize > 1) {
-        this.$utils.toastError(
-          "OPS!!",
-          "TAMANHO MÁXIMO PERMITIDO DA IMAGEM E DE 1 MB"
-        );
-      } else {
+      // var FileSize = e.target.files[0].size / 1024 / 1024; // in MB
+      // if (FileSize > 1) {
+      //   this.$utils.toastError(
+      //     "OPS!!",
+      //     "TAMANHO MÁXIMO PERMITIDO DA IMAGEM E DE 1 MB"
+      //   );
+      // } else {
         e.preventDefault();
         this.fileSignatureSelected = e.target.files[0];
         this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
-      }
+      //}
     },
     onClickWarning(_warn) {
       switch (_warn.code) {
