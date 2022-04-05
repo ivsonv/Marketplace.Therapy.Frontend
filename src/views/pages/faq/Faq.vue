@@ -84,7 +84,7 @@
             <b-avatar size="42" rounded variant="light-primary" class="mb-2">
               <feather-icon icon="PhoneCallIcon" size="18" />
             </b-avatar>
-            <h4>+55 61 9 9869-5451</h4>
+            <h4>+55 61 9 8127-0573</h4>
             <span class="text-body">Nós estamos sempre felizes em ajudar!</span>
           </b-card>
         </b-col>
