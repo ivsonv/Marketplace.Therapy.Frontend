@@ -156,6 +156,9 @@ export default {
         { value: "SE", label: "Sergipe - SE" },
         { value: "TO", label: "Tocantins - TO" }];
     },
+    getExtension(_name) {
+        return _name.split('.')[_name.split('.').length - 1];
+    },
     clearExcel(str) {
         str = this.removeAccents(str).toLowerCase().trim();
         str = str.replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "");

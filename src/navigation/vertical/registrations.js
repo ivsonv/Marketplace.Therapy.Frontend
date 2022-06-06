@@ -25,6 +25,12 @@ export default [{
       route: 'registrations-faq-list',
       icon: 'HelpCircleIcon',
       roles: ['faq.view']
+    },
+    {
+      title: 'Banner',
+      route: 'registrations-banner-list',
+      icon: 'HelpCircleIcon',
+      roles: ['banner.view']
     }
   ]
 }]

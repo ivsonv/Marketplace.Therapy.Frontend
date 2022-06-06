@@ -48,4 +48,14 @@ export default [
     path: '/registrations/faq/:id',
     name: 'registrations-faq-save',
     component: () => import('@/views/apps/registrations/Faq/faq.vue'),
+  },
+  {
+    path: '/registrations/banners',
+    name: 'registrations-banner-list',
+    component: () => import('@/views/apps/registrations/Banners/index.vue'),
+  },
+  {
+    path: '/registrations/banner/:id',
+    name: 'registrations-banner-save',
+    component: () => import('@/views/apps/registrations/Banners/banner.vue'),
   }]
