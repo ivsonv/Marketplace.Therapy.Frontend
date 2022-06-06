@@ -98,6 +98,18 @@
         </div>
       </div>
     </section>
+
+    <!-- Avaliações -->
+    <section
+      class="home-start-comece-agora pb-5"
+      v-if="banners && banners.length > 0"
+    >
+      <div class="box-comece-agora">
+        <h1>Veja algumas Avaliações</h1>
+      </div>
+      <carousel--c :list="banners" class="mt-3" />
+    </section>
+
     <section class="home-start-comece-agora pb-5">
       <div class="box-comece-agora">
         <h1 class="mb-2" id="h1-mobile">
@@ -130,15 +142,34 @@
   </div>
 </template>
 <script>
+import Carousel from "@/components/carousel.vue";
 import { BLink } from "bootstrap-vue";
+
+import _ecommerce from "@/services/ecommerce-service";
 export default {
   components: {
+    "carousel--c": Carousel,
     BLink,
   },
   data() {
     return {
       show: true,
+      banners: [],
     };
+  },
+  created() {
+    this.getbanners();
+  },
+  methods: {
+    getbanners() {
+      _ecommerce
+        .showBanners()
+        .then((_res) => {
+          this.banners = _res.filter((f) => f.type === 1);
+          console.log(this.banners);
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error));
+    },
   },
 };
 </script>

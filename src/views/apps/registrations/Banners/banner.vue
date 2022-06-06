@@ -74,7 +74,6 @@ export default {
       }
     },
     save() {
-      debugger;
       if (this.typeSelected) {
         this.record.type = this.typeSelected.value;
       }

@@ -21,4 +21,7 @@ export default {
   showFaq: () => {
     return _http.get('/api/marketplace/faq')
   },
+  showBanners: () => {
+    return _http.get('/api/marketplace/banners')
+  },
 }
