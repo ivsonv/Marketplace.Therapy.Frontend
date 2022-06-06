@@ -51,7 +51,7 @@ export default {
       urlImage: "",
       record: {
         id: 0,
-        image: ""
+        image: "",
       },
     };
   },
@@ -67,12 +67,18 @@ export default {
           .then((res) => {
             this.record = res.content;
             this.urlImage = res.content.imageurl;
+            this.typeSelected = this.typeList.filter(f => f.value === res.content.type.toString())[0]
           })
           .catch((error) => this.$utils.toastError("Notificação", error))
           .finally(() => (this.loading = false));
       }
     },
     save() {
+      debugger;
+      if (this.typeSelected) {
+        this.record.type = this.typeSelected.value;
+      }
+
       const payload = { data: { ...this.record } };
 
       const _createOrUpdate =
@@ -103,7 +109,7 @@ export default {
     getTypes() {
       _bannerService.allTypes().then((res) => {
         this.typeList = res;
-        this.typeSelected = res[0]
+        this.typeSelected = res[0];
         this.getRecord();
       });
     },
