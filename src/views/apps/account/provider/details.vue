@@ -129,6 +129,15 @@
               </b-form-checkbox>
             </div>
           </b-col>
+          <b-col cols="6" md="4">
+            <b-form-group label="video de apresentação">
+              <b-form-input
+                v-model="record.youtube"
+                placeholder="https://youtube.com.br"
+                autocomplete="off"
+              />
+            </b-form-group>
+          </b-col>
         </b-row>
 
         <h1 class="py-1">Endereço</h1>
@@ -374,7 +383,9 @@
           <b-col md="6">
             <b-form-group label="Banco">
               <v-select
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 :class="optionsBankSelected ? 'state-green' : 'state-danger'"
                 v-model="optionsBankSelected"
                 :loading="isLoadingBank"
@@ -402,7 +413,9 @@
                 :class="
                   optionsTypeAccountSelected ? 'state-green' : 'state-danger'
                 "
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 v-model="optionsTypeAccountSelected"
                 :options="optionsAccountTypes"
                 autocomplete="off"
@@ -412,7 +425,9 @@
           <b-col md="4">
             <b-form-group label="Agencia *">
               <b-form-input
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 :state="!!bcc.agency_number"
                 v-model="bcc.agency_number"
                 placeholder="agencia..."
@@ -425,7 +440,9 @@
             <b-form-group label="Dig.Agencia">
               <b-form-input
                 v-model="bcc.agency_digit"
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 placeholder="digito agencia..."
                 autocomplete="off"
                 maxlength="1"
@@ -435,7 +452,9 @@
           <b-col md="4">
             <b-form-group label="N° da Conta">
               <b-form-input
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 :state="!!bcc.account_number"
                 v-model="bcc.account_number"
                 placeholder="número da conta..."
@@ -447,7 +466,9 @@
           <b-col md="2">
             <b-form-group label="Dig. Conta *">
               <b-form-input
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 :state="!!bcc.account_digit"
                 v-model="bcc.account_digit"
                 placeholder="Digito da conta..."
@@ -462,7 +483,9 @@
           >
             <b-form-group label="Operação">
               <b-form-input
-                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
+                :disabled="
+                  record.splitAccounts && record.splitAccounts.length > 0
+                "
                 :state="!!bcc.operation"
                 v-model="bcc.operation"
                 placeholder="Número..."
@@ -654,6 +677,7 @@ export default {
         academic_training: "",
         active: true,
         situation: 0,
+        youtube: ""
       },
       address: {
         address: "",
@@ -1015,10 +1039,10 @@ export default {
       //     "TAMANHO MÁXIMO PERMITIDO DA IMAGEM E DE 1 MB"
       //   );
       // } else {
-        e.preventDefault();
-        this.fileImageSelected = e.target.files[0];
-        this.urlImage = URL.createObjectURL(e.target.files[0]);
-     // }
+      e.preventDefault();
+      this.fileImageSelected = e.target.files[0];
+      this.urlImage = URL.createObjectURL(e.target.files[0]);
+      // }
     },
     onFileChangeSignature(e) {
       // var FileSize = e.target.files[0].size / 1024 / 1024; // in MB
@@ -1028,9 +1052,9 @@ export default {
       //     "TAMANHO MÁXIMO PERMITIDO DA IMAGEM E DE 1 MB"
       //   );
       // } else {
-        e.preventDefault();
-        this.fileSignatureSelected = e.target.files[0];
-        this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
+      e.preventDefault();
+      this.fileSignatureSelected = e.target.files[0];
+      this.urlsignatureImage = URL.createObjectURL(e.target.files[0]);
       //}
     },
     onClickWarning(_warn) {
