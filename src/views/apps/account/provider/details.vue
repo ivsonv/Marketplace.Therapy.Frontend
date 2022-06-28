@@ -374,6 +374,7 @@
           <b-col md="6">
             <b-form-group label="Banco">
               <v-select
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 :class="optionsBankSelected ? 'state-green' : 'state-danger'"
                 v-model="optionsBankSelected"
                 :loading="isLoadingBank"
@@ -401,6 +402,7 @@
                 :class="
                   optionsTypeAccountSelected ? 'state-green' : 'state-danger'
                 "
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 v-model="optionsTypeAccountSelected"
                 :options="optionsAccountTypes"
                 autocomplete="off"
@@ -410,6 +412,7 @@
           <b-col md="4">
             <b-form-group label="Agencia *">
               <b-form-input
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 :state="!!bcc.agency_number"
                 v-model="bcc.agency_number"
                 placeholder="agencia..."
@@ -422,6 +425,7 @@
             <b-form-group label="Dig.Agencia">
               <b-form-input
                 v-model="bcc.agency_digit"
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 placeholder="digito agencia..."
                 autocomplete="off"
                 maxlength="1"
@@ -431,6 +435,7 @@
           <b-col md="4">
             <b-form-group label="N° da Conta">
               <b-form-input
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 :state="!!bcc.account_number"
                 v-model="bcc.account_number"
                 placeholder="número da conta..."
@@ -442,6 +447,7 @@
           <b-col md="2">
             <b-form-group label="Dig. Conta *">
               <b-form-input
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 :state="!!bcc.account_digit"
                 v-model="bcc.account_digit"
                 placeholder="Digito da conta..."
@@ -456,6 +462,7 @@
           >
             <b-form-group label="Operação">
               <b-form-input
+                :disabled="record.splitAccounts && record.splitAccounts.length > 0"
                 :state="!!bcc.operation"
                 v-model="bcc.operation"
                 placeholder="Número..."
