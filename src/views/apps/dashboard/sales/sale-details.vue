@@ -8,6 +8,32 @@
     :busy="loading"
   >
     <hr class="p-0 m-0 mb-1" />
+    <b-modal
+      id="modal-warning"
+      ok-variant="warning"
+      ok-title="Confirmar"
+      @ok="reeschedule"
+      modal-class="modal-warning"
+      centered
+      title="Remarcação de consulta"
+    >
+      <b-row>
+        <b-col>
+          <b-form-group label="Informe uma nova data">
+            <b-form-datepicker
+              :date-format-options="{ day: '2-digit' }"
+              v-model="start"
+              placeholder="Data"
+            />
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label="Novo horário">
+            <b-form-input v-model="time" type="time" />
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </b-modal>
     <div v-if="record">
       <b-tabs pills id="tabs-customer" content-class="mt-2">
         <b-tab title="1. Dados Gerais">
@@ -23,6 +49,13 @@
             <div class="col-6 col-lg-3">
               <b-form-group label="Data Agendamento">
                 {{ record.booking_date }}h
+                <b-button
+                  v-b-modal.modal-warning
+                  variant="outline-warning"
+                  size="sm"
+                >
+                  Remarcar
+                </b-button>
               </b-form-group>
             </div>
             <div class="col-6 col-lg-3">
@@ -134,16 +167,19 @@
 </template>
 <script>
 import _dashboardService from "@/services/dashboard-service";
-import { BLink } from "bootstrap-vue";
+import { BLink, BFormDatepicker } from "bootstrap-vue";
 
 export default {
   components: {
+    BFormDatepicker,
     BLink,
   },
   data() {
     return {
       loading: false,
       record: {},
+      start: null,
+      time: null,
       fields_logs: [
         { key: "description", label: "Descrição" },
         { key: "created_at", label: "Data" },
@@ -164,6 +200,30 @@ export default {
           .findByAppointmentId(this.$route.params.id)
           .then((res) => {
             this.record = res.content;
+            this.start = res.content.start;
+            this.time = res.content.time;
+          })
+          .catch((error) => this.$utils.toastError("Notificação", error))
+          .finally(() => (this.loading = false));
+      }
+    },
+
+    reeschedule() {
+      if (this.$route.params.id > 0) {
+        this.loading = true;
+
+        const payload = {
+          data: {
+            id: this.$route.params.id,
+            start: `${this.start}T${this.time}:00`,
+          },
+        };
+        _dashboardService
+          .updateAppointment(payload)
+          .then((res) => {
+            this.$utils.toast("Reagendamento", "Reagendamento confirmado.");
+
+            this.getRecord();
           })
           .catch((error) => this.$utils.toastError("Notificação", error))
           .finally(() => (this.loading = false));

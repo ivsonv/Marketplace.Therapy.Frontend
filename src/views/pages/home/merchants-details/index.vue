@@ -30,6 +30,9 @@
                     >R$ {{ provider.price.toFixed(0) }} / 50 minutos</strong
                   >
                 </div>
+                <div class="price" v-if="provider.youtube">
+                  {{ provider.youtube }}
+                </div>
               </div>
             </div>
           </div>

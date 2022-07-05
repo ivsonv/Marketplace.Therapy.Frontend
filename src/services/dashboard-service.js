@@ -21,5 +21,8 @@ export default {
   },
   overviewPsiAndCustomer: () => {
     return _http.get(`/api/dashboard/overview-psi-customer`)
+  },
+  updateAppointment: (payload) => {
+    return _http.put(`/api/dashboard/appointment`, payload)
   }
 }
