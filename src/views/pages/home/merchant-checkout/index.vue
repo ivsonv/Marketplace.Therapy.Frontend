@@ -22,7 +22,7 @@
             >
           </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-2" v-if="provider">
           <div class="col-6 pb-1">
             <feather-icon icon="CalendarIcon" size="25" />
             <!-- <strong class="ml-75"

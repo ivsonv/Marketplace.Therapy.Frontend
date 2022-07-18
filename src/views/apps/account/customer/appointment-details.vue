@@ -2,6 +2,36 @@
   <view--c permission="account.customer" :busy="isloading" class="p-1">
     <!-- details -->
     <section v-if="appointment">
+      <b-modal
+        v-if="appointment.provider"
+        ref="modal-primary"
+        ok-only
+        ok-title="Confirmar novo hórario"
+        modal-class="modal-primary"
+        hide-footer
+        centered
+        :title="`REMARCAR HORÁRIO COM ${appointment.provider.fantasy_name} ${appointment.provider.company_name} ?`"
+      >
+        <div class="row">
+          <div id="box-hours" class="col-12 text-center shadow p-0">
+            <!-- horários -->
+            <h2 v-if="loadinghours">Processando horários... <spinner--c /></h2>
+            <hours--v
+              v-if="!loadinghours"
+              :qtdDisplayDates="qtdDisplayDates"
+              :contents="contents"
+              :dates="dates"
+              :provider="appointment.provider"
+              @previushours="previushours"
+              @previushoursMobile="previushoursMobile"
+              @nexthours="nexthours"
+              @nexthoursMobile="nexthoursMobile"
+              @confirmSelected="reschedule"
+            />
+          </div>
+        </div>
+      </b-modal>
+
       <div class="row">
         <div class="col-12">
           <strong>PSICÓLOGO</strong>
@@ -31,7 +61,6 @@
         </div>
       </div>
 
-      <!-- ações -->
       <hr />
       <div class="row">
         <div
@@ -51,6 +80,15 @@
               Gerar Recibo
             </p>
           </b-button>
+          <b-button
+            variant="primary"
+            class="ml-1"
+            size="sm"
+            @click="openModalRes"
+          >
+            <feather-icon icon="CalendarIcon" size="30" />
+            <p class="m-0 p-0 text-white" style="font-size: 16px">Remarcar</p>
+          </b-button>
         </div>
         <!-- <div class="col-6 col-lg-12" v-if="appointment.dsStatus === 'Pendente'">
           <b-button variant="primary" class="ml-1" size="sm" @click="buy">
@@ -66,7 +104,13 @@
 <script>
 import _customerService from "@/services/account-customer-service";
 import _paymentService from "@/services/payment-service";
+import _ecommerce from "@/services/ecommerce-service";
+import BoxHours from "../../../pages/home/components/box-hours.vue";
+
 export default {
+  components: {
+    "hours--v": BoxHours,
+  },
   props: {
     id: {
       type: Number,
@@ -77,6 +121,12 @@ export default {
     return {
       isloading: false,
       appointment: null,
+
+      loadinghours: false,
+      dates: null,
+      horasp: null,
+      qtdDisplayDates: 0,
+      contents: [],
     };
   },
   destroyed() {
@@ -145,9 +195,87 @@ export default {
         .catch((error) => this.$utils.toastError("Notificação", error))
         .finally(() => (this.isloading = false));
     },
-    buy() {
-      const _url = `https://checkout-nix.nexxera.io/checkout/payment?orderId=${this.appointment.transaction_code}`;
-      window.location.href = _url;
+    nexthours() {
+      const _date = this.dates[3].date;
+
+      // já buscou antes
+      const _cm = this.contents.filter((f) => f.dates[0].date === _date)[0];
+      if (_cm) {
+        this.qtdDisplayDates = _cm.displayDates;
+        this.dates = _cm.dates;
+      } else {
+        this.getProviderHours(_date);
+      }
+    },
+    nexthoursMobile() {
+      const _date = this.dates[1].date;
+
+      // já buscou antes
+      const _cm = this.contents.filter((f) => f.dates[0].date === _date)[0];
+      if (_cm) {
+        this.qtdDisplayDates = _cm.displayDates;
+        this.dates = _cm.dates;
+      } else {
+        this.getProviderHours(_date);
+      }
+    },
+    previushours() {
+      const _date = this.dates[0].date;
+      const _cm = this.contents.filter((f) => f.dates[3].date === _date)[0];
+      if (_cm) {
+        this.qtdDisplayDates = _cm.displayDates;
+        this.dates = _cm.dates;
+      }
+    },
+    previushoursMobile() {
+      const _date = this.dates[0].date;
+      const _cm = this.contents.filter((f) => f.dates[1].date === _date)[0];
+      if (_cm) {
+        this.qtdDisplayDates = _cm.displayDates;
+        this.dates = _cm.dates;
+      }
+    },
+
+    getProviderHours(dt_start) {
+      this.loadinghours = true;
+      _ecommerce
+        .showProviderHours(this.appointment.provider.link, dt_start)
+        .then((_res) => {
+          this.contents.push(_res.content);
+          this.qtdDisplayDates = _res.content.displayDates;
+
+          _res.content.dates.forEach((_datee) => {
+            _datee.date = _datee.date.substr(0, 10);
+          });
+          this.dates = _res.content.dates;
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loadinghours = false));
+    },
+
+    reschedule(payload) {
+      const _req = {
+        data: {
+          start: `${payload.date}T${payload.hour}`,
+          id: this.id,
+        },
+      };
+
+      this.loadinghours = true;
+      _customerService
+        .reeschedule(_req)
+        .then((_res) => {
+          this.$refs["modal-primary"].hide();
+
+          this.$utils.toast("Notificação", "Reagendado com sucesso.");
+          this.getAppointment();
+        })
+        .catch((error) => this.$utils.toastError("Notificação", error))
+        .finally(() => (this.loadinghours = false));
+    },
+    openModalRes() {
+      this.getProviderHours(null);
+      this.$refs["modal-primary"].show();
     },
   },
 };

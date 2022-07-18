@@ -28,5 +28,9 @@ export default {
   },
   find: () => {
     return _http.get(`/api/account-customer`)
-  }
+  },
+  reeschedule: (payload) => {
+    return _http.put('/api/account-customer/appointment/reeschedule', payload)
+  },
+  
 }

@@ -65,6 +65,7 @@
 <script>
 import _providerService from "@/services/account-provider-service";
 import _paymentService from "@/services/payment-service";
+
 export default {
   props: {
     id: {
