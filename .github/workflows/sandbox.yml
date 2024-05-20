@@ -1,7 +1,7 @@
 name: Deploy Production S3
 on:
   push:
-    branches: [ master ]
+    branches: [ sandbox ]
   workflow_dispatch:
 
 jobs:
